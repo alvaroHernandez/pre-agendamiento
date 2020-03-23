@@ -17,7 +17,7 @@ steps:
 
 - script: |
     yarn install
-    yarn test
+    yarn test --watchAll=false
     yarn build
   displayName: 'yarn install and build'
 

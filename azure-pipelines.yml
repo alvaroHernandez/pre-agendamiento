@@ -26,4 +26,4 @@ steps:
   inputs:
     azureSubscription: mainConnection
     WebAppName: pre-agendamiento
-    Package: '$(System.DefaultWorkingDirectory)/build'
+    package: '$(System.DefaultWorkingDirectory)/build'

@@ -12,6 +12,6 @@ steps:
     displayName: Build an image
     inputs:
       repository: $(imageName)
-      command: build
+      command: buildAndPush
       Dockerfile: ./Dockerfile
       containerRegistry: $(preagendamiento-cr)

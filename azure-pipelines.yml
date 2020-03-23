@@ -25,6 +25,6 @@ steps:
   displayName: 'Azure App Service Deploy: Pre-Agendamiento'
   inputs:
     azureSubscription: mainConnection
-    appName: pre-agendamiento
+    appName: pre-agendamiento2
     package: '$(System.DefaultWorkingDirectory)/build'
     appType: webAppLinux

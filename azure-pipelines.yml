@@ -21,9 +21,10 @@ steps:
     yarn build
   displayName: 'yarn install and build'
 
-- task: AzureRmWebAppDeployment@3
+- task: AzureWebApp@1
   displayName: 'Azure App Service Deploy: Pre-Agendamiento'
   inputs:
     azureSubscription: mainConnection
-    WebAppName: pre-agendamiento
+    appName: pre-agendamiento
     package: '$(System.DefaultWorkingDirectory)/build'
+    appType: webAppLinux

@@ -14,4 +14,4 @@ steps:
       repository: $(imageName)
       command: buildAndPush
       Dockerfile: ./Dockerfile
-      containerRegistry: $(preagendamiento-cr)
+      containerRegistry: preagendamiento-cr

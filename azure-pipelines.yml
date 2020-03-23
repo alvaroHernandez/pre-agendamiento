@@ -1,43 +1,16 @@
-# Node.js with React
-# Build a Node.js project that uses React.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
-- master
+  - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'Ubuntu-16.04'
+
+variables:
+  imageName: 'pre-agendamiento-front'
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
-- script: |
-    yarn install
-    yarn test --watchAll=false
-    yarn build
-  displayName: 'yarn install and build'
-
-- task: AzureWebApp@1
-  displayName: 'Azure App Service Deploy: Pre-Agendamiento'
-  inputs:
-    azureSubscription: azureConnection
-    appName: pre-agendamiento2
-    package: '$(System.DefaultWorkingDirectory)/build'
-    appType: webAppLinux
-
-
-# Publish build artifacts
-# Publish build artifacts to Azure Pipelines or a Windows file share
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: 'build' 
-    artifactName: 'drop' 
-    #publishLocation: 'Container' # Options: container, filePath
-    #targetPath: # Required when publishLocation == FilePath
-    #parallel: false # Optional
-    #parallelCount: # Optional
-    #fileCopyOptions: #Optional
+  - task: Docker@2
+    displayName: Build an image
+    inputs:
+      repository: $(imageName)
+      command: build
+      Dockerfile: ./Dockerfile

@@ -4,6 +4,7 @@ WORKDIR /app
 COPY . ./
 RUN yarn
 RUN yarn build
+RUN yarn test --watchAll=false
 
 # Stage 2 - the production environment
 FROM nginx:alpine

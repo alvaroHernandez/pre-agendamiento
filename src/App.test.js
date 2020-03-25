@@ -2,14 +2,10 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
 
-test('renders series title', () => {
+test('renders home page', () => {
   const { getByText } = render(<App />);
-  const titleSeries = getByText(/Series/i);
-  expect(titleSeries).toBeInTheDocument();
+  const titleHome = getByText(/Hola Mundo/i);
+  expect(titleHome).toBeInTheDocument();
 });
 
-test('renders movies title', () => {
-  const { getByText } = render(<App />);
-  const titleMovies = getByText(/Peliculas/i);
-  expect(titleMovies).toBeInTheDocument();
-});
+

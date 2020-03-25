@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
-import SamplePage from "./example/SamplePage/SamplePage";
+import {Router} from 'react-router-dom';
+import history from './services/history'
+import Routes from './components/Routes/Routes';
 
 function App() {
   return (
-    <div className="App">
-      <SamplePage/>
-    </div>
+    <Router history={history}>
+      <Routes/>
+    </Router>
   );
 }
 

@@ -10,6 +10,6 @@ test('renders series title', () => {
 
 test('renders movies title', () => {
   const { getByText } = render(<App />);
-  const titleMovies = getByText(/Movies/i);
+  const titleMovies = getByText(/Peliculas/i);
   expect(titleMovies).toBeInTheDocument();
 });

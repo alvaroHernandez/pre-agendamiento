@@ -22,3 +22,11 @@ $itemsWidth: 155px;
 .box{
     width: 100%;
 }
+
+ul, li {
+  list-style-type: none;
+}
+
+ul{
+  display: flex;
+}

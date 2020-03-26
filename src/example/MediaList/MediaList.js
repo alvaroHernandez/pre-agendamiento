@@ -3,6 +3,7 @@ import './styles.scss'
 import MediaItem from "../MediaItem/MediaItem";
 import Loader from "../Loader/Loader";
 
+
 const MediaList  = (props) =>  {
 
     const [mediaItems, setMediaItems] = useState([]);
@@ -31,6 +32,36 @@ const MediaList  = (props) =>  {
         setFavourites([]);
     };
 
+    const renderMediaItem = (item) => {
+        return <li key={item.Name}>
+            <MediaItem
+                isFavorite={favourites[item.Name]}
+                movie={item} addToFavourites={addToFavourites}
+                removeFromFavourites={removeFromFavourites}
+            />
+        </li>;
+    };
+
+    const renderLoading = () => {
+        return <div className={"loader-container"}>
+            <Loader/>
+        </div>;
+    };
+
+    const renderMediaList = () => {
+        return <div className="movies-scroll">
+            <ul>
+                {mediaItems &&
+                    mediaItems.map(
+                        item =>
+                            renderMediaItem(item)
+                    )
+                }
+            </ul>
+
+        </div>;
+    }
+
     const { title } = props;
 
     return (
@@ -42,23 +73,8 @@ const MediaList  = (props) =>  {
                     <div className="content">
                         {
                             isFetching ?
-                                <div className={"loader-container"}>
-                                   <Loader/>
-                                </div> :
-
-                                <div className="movies-scroll">
-                                    {mediaItems &&
-                                        mediaItems.map(
-                                            (item, key) =>
-                                                <MediaItem
-                                                    key={key} isFavorite={favourites[item.Name]}
-                                                    movie={item} addToFavourites={addToFavourites}
-                                                    removeFromFavourites={removeFromFavourites}
-                                                />
-                                        )
-                                    }
-                                </div>
-
+                                renderLoading() :
+                                renderMediaList()
                         }
                     </div>
                 </div>

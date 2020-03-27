@@ -32,16 +32,6 @@ const MediaList  = (props) =>  {
         setFavourites([]);
     };
 
-    const renderMediaItem = (item) => {
-        return <li key={item.Name}>
-            <MediaItem
-                isFavorite={favourites[item.Name]}
-                movie={item} addToFavourites={addToFavourites}
-                removeFromFavourites={removeFromFavourites}
-            />
-        </li>;
-    };
-
     const renderLoading = () => {
         return <div className={"loader-container"}>
             <Loader/>
@@ -54,7 +44,13 @@ const MediaList  = (props) =>  {
                 {mediaItems &&
                     mediaItems.map(
                         item =>
-                            renderMediaItem(item)
+                            <li key={item.Name}>
+                                <MediaItem
+                                    isFavorite={favourites[item.Name]}
+                                    movie={item} addToFavourites={addToFavourites}
+                                    removeFromFavourites={removeFromFavourites}
+                                />
+                            </li>
                     )
                 }
             </ul>

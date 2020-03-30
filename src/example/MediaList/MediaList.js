@@ -28,8 +28,8 @@ const MediaList  = (props) =>  {
         setFavourites({...favourites, [itemName] : true});
     };
 
-    const removeFromFavourites = () => {
-        setFavourites([]);
+    const removeFromFavourites = (itemName) => {
+        setFavourites({...favourites, [itemName] : false});
     };
 
     const renderLoading = () => {

@@ -4,24 +4,27 @@ import MediaList from "./MediaList";
 import {disableFetchMocks, enableFetchMocks} from 'jest-fetch-mock'
 
 const THUMBNAIL_ALT_IMAGE_PREFIX = 'Thumbnail for ';
+const ADD_TO_FAVOURITES_LABEL = "Add to favourites";
+const REMOVE_FROM_FAVOURITES_LABEL = "Remove from favourites";
+
+const moviesList = [
+    {
+        "Name":"X-Men: The Last Stand",
+        "Year":"2006","Type":"movie",
+        "Image":"https://m.media-amazon.com/images/M/MV5BZmIyMDk5NGYtYjQ5NS00ZWQxLTg2YzQtZDk1ZmM4ZDBlN2E3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL__QL50.jpg"},
+    {
+        "Name":"The Last Airbender",
+        "Year":"2010",
+        "Type":"movie",
+        "Image":"https://m.media-amazon.com/images/M/MV5BMTM1NjE0NDA0MV5BMl5BanBnXkFtZTcwODE4NDg1Mw@@._V1_UX182_CR0,0,182,268_AL__QL50.jpg"
+    }
+];
 
 beforeAll(()=>{
     enableFetchMocks();
     fetch.mockResponse( req =>
         Promise.resolve(
-            JSON.stringify(
-                [
-                    {
-                        "Name":"X-Men: The Last Stand",
-                        "Year":"2006","Type":"movie",
-                        "Image":"https://m.media-amazon.com/images/M/MV5BZmIyMDk5NGYtYjQ5NS00ZWQxLTg2YzQtZDk1ZmM4ZDBlN2E3XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_UX182_CR0,0,182,268_AL__QL50.jpg"},
-                    {
-                        "Name":"The Last Airbender",
-                        "Year":"2010",
-                        "Type":"movie",
-                        "Image":"https://m.media-amazon.com/images/M/MV5BMTM1NjE0NDA0MV5BMl5BanBnXkFtZTcwODE4NDg1Mw@@._V1_UX182_CR0,0,182,268_AL__QL50.jpg"
-                    }
-                ])
+            JSON.stringify(moviesList)
         )
     );
 });
@@ -42,8 +45,8 @@ test('show media items when fetching is completed', async () => {
 
     expect(listItems).toHaveLength(2);
 
-    expect(mediaList.getByAltText(`${THUMBNAIL_ALT_IMAGE_PREFIX}X-Men: The Last Stand`)).toBeInTheDocument()
-    expect(mediaList.getByAltText(`${THUMBNAIL_ALT_IMAGE_PREFIX}The Last Airbender`)).toBeInTheDocument()
+    expect(mediaList.getByAltText(`${THUMBNAIL_ALT_IMAGE_PREFIX}${moviesList[0].Name}`)).toBeInTheDocument()
+    expect(mediaList.getByAltText(`${THUMBNAIL_ALT_IMAGE_PREFIX}${moviesList[1].Name}`)).toBeInTheDocument()
 });
 
 test('add movie to favourite when button is clicked', async() => {
@@ -51,13 +54,23 @@ test('add movie to favourite when button is clicked', async() => {
     const listItems = await mediaList.findAllByRole('listitem');
 
     const firstMovie = within(listItems[0]);
-    fireEvent.click(firstMovie.getByText("Add to favourites"));
-    expect(firstMovie.getByText('Remove from favourites')).toBeInTheDocument()
-    expect(firstMovie.queryByText("Add to favourites")).not.toBeInTheDocument()
-    //maybe only check that other movie button didn't change
-
     const secondMovie = within(listItems[1]);
-    fireEvent.click(secondMovie.getByText("Add to favourites"));
-    expect(secondMovie.getByText('Remove from favourites')).toBeInTheDocument()
-    expect(secondMovie.queryByText("Add to favourites")).not.toBeInTheDocument()
+
+    clickAddToFavourites(firstMovie);
+    clickAddToFavourites(secondMovie);
+
+    clickRemoveFromFavourites(firstMovie);
+    clickRemoveFromFavourites(secondMovie);
 });
+
+function clickAddToFavourites(movie) {
+    fireEvent.click(movie.getByText(ADD_TO_FAVOURITES_LABEL));
+    expect(movie.getByText(REMOVE_FROM_FAVOURITES_LABEL)).toBeInTheDocument()
+    expect(movie.queryByText(ADD_TO_FAVOURITES_LABEL)).not.toBeInTheDocument()
+}
+
+function clickRemoveFromFavourites(movie) {
+    fireEvent.click(movie.getByText(REMOVE_FROM_FAVOURITES_LABEL));
+    expect(movie.getByText(ADD_TO_FAVOURITES_LABEL)).toBeInTheDocument()
+    expect(movie.queryByText(REMOVE_FROM_FAVOURITES_LABEL)).not.toBeInTheDocument()
+}

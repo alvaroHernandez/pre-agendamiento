@@ -9,7 +9,7 @@ import useFetch from './hooks/useFetch'
 const MediaList  = (props) =>  {
 
     const [addToFavourites, removeFromFavourites, isFavourite] = useFavourites();
-    const [isFetching,mediaItems] = useFetch(props.api);
+    const [isLoading,mediaItems] = useFetch(props.api);
 
     const renderLoading = () => {
         return  <div className={"loader-container"}>
@@ -46,7 +46,7 @@ const MediaList  = (props) =>  {
                     </div>
                     <div className="content">
                         {
-                            isFetching ?
+                            isLoading ?
                                 renderLoading() :
                                 renderMediaList()
                         }

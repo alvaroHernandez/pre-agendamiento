@@ -1,24 +1,24 @@
 import {useEffect, useState} from "react";
 
 const useFetch = (url) => {
-    const [mediaItems, setMediaItems] = useState([]);
-    const [isFetching, setIsFetching] = useState(false);
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        setIsFetching(true);
+        setIsLoading(true);
         fetch(url)
             .then((response) => response.json())
             .then((json) => {
-                setMediaItems(json);
-                setIsFetching(false);
+                setData(json);
+                setIsLoading(false);
             })
             .catch((error) => {
-                setMediaItems(false);
-                setIsFetching(false);
-            });
+                setData(false);
+                setIsLoading(false);
+            })
     },[]);
 
-    return [isFetching, mediaItems];
+    return [isLoading, data];
 }
 
 export default useFetch

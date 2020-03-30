@@ -1,41 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './styles.scss'
 import MediaItem from "../MediaItem/MediaItem";
 import Loader from "../Loader/Loader";
+import useFavourites from './hooks/useFavourites'
+import useFetch from './hooks/useFetch'
 
 
 const MediaList  = (props) =>  {
 
-    const [mediaItems, setMediaItems] = useState([]);
-    const [favourites, setFavourites] = useState({});
-    const [isFetching, setIsFetching] = useState(false);
-
-    useEffect(() => {
-        setIsFetching(true);
-        fetch(props.api)
-            .then((response) => response.json())
-            .then((json) => {
-                setMediaItems(json);
-                setIsFetching(false);
-            })
-            .catch((error) => {
-                setMediaItems(false);
-                setIsFetching(false);
-            });
-    },[]);
-
-    const addToFavourites = (itemName) => {
-        setFavourites({...favourites, [itemName] : true});
-    };
-
-    const removeFromFavourites = (itemName) => {
-        setFavourites({...favourites, [itemName] : false});
-    };
+    const [addToFavourites, removeFromFavourites, isFavourite] = useFavourites();
+    const [isFetching,mediaItems] = useFetch(props.api);
 
     const renderLoading = () => {
-        return <div className={"loader-container"}>
-            <Loader/>
-        </div>;
+        return  <div className={"loader-container"}>
+                    <Loader/>
+                </div>;
     };
 
     const renderMediaList = () => {
@@ -46,7 +25,7 @@ const MediaList  = (props) =>  {
                         item =>
                             <li key={item.Name}>
                                 <MediaItem
-                                    isFavorite={favourites[item.Name]}
+                                    isFavorite={isFavourite(item.Name)}
                                     movie={item} addToFavourites={addToFavourites}
                                     removeFromFavourites={removeFromFavourites}
                                 />
@@ -54,7 +33,6 @@ const MediaList  = (props) =>  {
                     )
                 }
             </ul>
-
         </div>;
     }
 

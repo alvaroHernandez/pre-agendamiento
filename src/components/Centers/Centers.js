@@ -5,7 +5,7 @@ const Centers = (props) => {
     ]);
 
     useEffect(() => {
-        fetch("http://localhost:42000/api/centros/")
+        fetch("https://impostors.azurewebsites.net/api/centros/")
             .then((response) => response.json())
             .then((json) => {
                 setCenterItems(json.centros);

@@ -18,9 +18,9 @@ const Centers = (props) => {
 
     return  <div>
 		        <p>Centros médicos</p>
-                <ul>
+                <ol>
                     { centerItems.map( (center) => <li key={center.id}>{center.nombre}</li> ) }
-                </ul>
+                </ol>
 	        </div>
 }
 export default Centers

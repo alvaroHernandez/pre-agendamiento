@@ -62,4 +62,48 @@ stages:
                 DockerNamespace: 'preagendamiento.azurecr.io'
                 DockerRepository: 'pre-agendamiento-front'
                 DockerImageTag: '$(tag)'
+- stage: Deploy_Staging
+  displayName: Deploy Staging
+  jobs:
+    
+  - deployment: Deploy
+    displayName: Deploy
+    environment: 'fake-env-for-approvals'
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: AzureRmWebAppDeployment@4
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: 'Pre Agendamiento (ba10e75d-9812-4287-851a-a380629158f0)'
+                appType: 'webAppContainer'
+                WebAppName: 'staging-pre-agendamiento'
+                DockerNamespace: 'preagendamiento.azurecr.io'
+                DockerRepository: 'pre-agendamiento-front'
+                DockerImageTag: '$(tag)'
+- stage: Deploy_Production
+  displayName: Deploy Production
+  jobs:
+    
+  - deployment: Deploy
+    displayName: Deploy
+    environment: 'fake-env-for-approvals'
+    pool:
+      vmImage: $(vmImageName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: AzureRmWebAppDeployment@4
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: 'Pre Agendamiento (ba10e75d-9812-4287-851a-a380629158f0)'
+                appType: 'webAppContainer'
+                WebAppName: 'production-pre-agendamiento'
+                DockerNamespace: 'preagendamiento.azurecr.io'
+                DockerRepository: 'pre-agendamiento-front'
+                DockerImageTag: '$(tag)'
             

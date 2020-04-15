@@ -102,7 +102,7 @@ stages:
                 ConnectionType: 'AzureRM'
                 azureSubscription: 'Pre Agendamiento (ba10e75d-9812-4287-851a-a380629158f0)'
                 appType: 'webAppContainer'
-                WebAppName: 'pre-agendamiento'
+                WebAppName: 'pre-agendamiento-front'
                 DockerNamespace: 'preagendamiento.azurecr.io'
                 DockerRepository: 'pre-agendamiento-front'
                 DockerImageTag: '$(tag)'

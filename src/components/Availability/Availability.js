@@ -4,19 +4,24 @@ const Availability = (props) => {
     const [availabilityItems, setAvailabilityItems] = useState([
     ]);
 
+
+
     useEffect(() => {
-        fetch("http://52.141.211.84/calendaravailability/")
+        fetch("http://52.141.211.84/healthcarefacilities/")
             .then((response) => response.json())
             .then((json) => {
-                setAvailabilityItems(json);
+
+                setAvailabilityItems(json.centros[0].disponibilidad);
             })
             .catch((error) => {
                 console.log(error);
+
                 setAvailabilityItems([]);
             });
     },[]);
 
     return  <div>
+
 		        <p>Horas disponibles</p>
                 <table>
                     <thead>
@@ -33,5 +38,7 @@ const Availability = (props) => {
                     </tbody>
                 </table>
 	        </div>
+
+
 }
 export default Availability

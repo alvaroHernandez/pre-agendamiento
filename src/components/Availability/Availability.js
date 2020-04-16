@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from 'react';
 
 const Availability = (props) => {
-    const [availabilityItems, setAvailabilityItems] = useState([
-    ]);
-
+    const [availabilityItems, setAvailabilityItems] = useState([]);
+    const [centerName, setCenterName] = useState([]);
 
 
     useEffect(() => {
         fetch("http://52.141.211.84/healthcarefacilities/")
             .then((response) => response.json())
             .then((json) => {
-
+                setCenterName(json.centros[0].nombre);
                 setAvailabilityItems(json.centros[0].disponibilidad);
             })
             .catch((error) => {
@@ -21,8 +20,8 @@ const Availability = (props) => {
     },[]);
 
     return  <div>
-
 		        <p>Horas disponibles</p>
+                <p>{centerName}</p>
                 <table>
                     <thead>
                         <tr>
@@ -32,13 +31,12 @@ const Availability = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-
-                    { availabilityItems.map( (availability) => <tr key={availability.date}><td>{availability.date}</td><td>{availability.hourFrom}</td><td>{availability.hourTo}</td></tr> ) }
-
+                        { availabilityItems.map( (availability) => <tr key={availability.date+availability.hourFrom}><td>{availability.date}</td><td>{availability.hourFrom}</td><td>{availability.hourTo}</td></tr> ) }
                     </tbody>
                 </table>
 	        </div>
 
+           
 
 }
 export default Availability

@@ -6,7 +6,7 @@ const Availability = (props) => {
 
 
     useEffect(() => {
-        fetch("http://52.141.211.84/healthcarefacilities/")
+        fetch("http://13.89.110.83/healthcarefacilities/")
             .then((response) => response.json())
             .then((json) => {
                 setCenterName(json.centros[0].nombre);
@@ -14,12 +14,12 @@ const Availability = (props) => {
             })
             .catch((error) => {
                 console.log(error);
-
                 setAvailabilityItems([]);
             });
     },[]);
 
-    return  <div>
+    return  (       
+    <div>
 		        <p>Horas disponibles</p>
                 <p>{centerName}</p>
                 <table>
@@ -31,12 +31,14 @@ const Availability = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        { availabilityItems.map( (availability) => <tr key={availability.date+availability.hourFrom}><td>{availability.date}</td><td>{availability.hourFrom}</td><td>{availability.hourTo}</td></tr> ) }
+                        { availabilityItems.map( (availability) => 
+                            <tr key={availability.date+availability.hourFrom}>
+                                <td>{availability.date}</td>
+                                <td>{availability.hourFrom}</td>
+                                <td>{availability.hourTo}</td>
+                            </tr> ) }
                     </tbody>
                 </table>
-	        </div>
-
-           
-
+	        </div>)
 }
 export default Availability

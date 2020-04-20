@@ -1,11 +1,11 @@
-import React from 'react'
-import Availability from '../Availability/Availability'
+import React from "react";
+import Availability from "../Availability/Availability";
 
-const Home = () =>
-	<div>
-		<p>Bienvenido a Pre-Agendamiento!</p>
+const Home = () => (
+  <div>
+    <p>Bienvenido a Pre-Agendamiento!</p>
+    <Availability />;
+  </div>
+);
 
-		 <Availability/>;
-	</div>
-
-export default Home
+export default Home;

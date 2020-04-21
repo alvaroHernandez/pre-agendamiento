@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -32,6 +33,11 @@ const rows = [
   createData('Cupcake', 305, 3.7, 67, 4.3),
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
+
+const dataRows = [];
+this.state.rows.forEach((item, i) => {
+  dataRows.push(createData(item.id, item.category_name, item.category_details));
+});
 
 export default function DenseTable() {
   const classes = useStyles();

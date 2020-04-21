@@ -8,7 +8,7 @@ const TableAvailability = (props) => {
     const [calendar, setCalendar] = useState([]);
  
     useEffect(() => {
-        fetch("http://13.89.110.83/healthcarefacilities/")
+        fetch("http://52.141.211.84/healthcarefacilities/")
             .then((response) => response.json())
             .then((json) => {
                 setCenterName(json.centros[0].nombre);
@@ -63,8 +63,8 @@ const TableAvailability = (props) => {
         currentWeek.forEach( (day) => {
             calendar[day] = day;
         })
-
-        console.log(calendar);
+        const dates = Object.keys(calendar);
+        console.log(dates);
         return calendar;
     }
 

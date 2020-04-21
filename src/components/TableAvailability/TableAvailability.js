@@ -5,7 +5,7 @@ const TableAvailability = (props) => {
     const [centerName, setCenterName] = useState([]);
     const [week, setWeek] = useState([]);
     const [timeSlots, setTimeSlots] = useState([]);
- 
+    const [calendar, setCalendar] = useState([]);
  
     useEffect(() => {
         fetch("http://13.89.110.83/healthcarefacilities/")
@@ -20,6 +20,7 @@ const TableAvailability = (props) => {
             });
         setWeek(createCurrentWeek);
         setTimeSlots(createTimeSlots);
+        setCalendar(createCalendar);
     },[]);
  
     const createCurrentWeek = () => {
@@ -36,27 +37,37 @@ const TableAvailability = (props) => {
 
     const createTimeSlots = () => {
         let timeSlotsTable = Array(9).fill(null).map(x => Array(6).fill("x")); 
-        for (let hourIndex = 0; hourIndex <= 8; hourIndex++){
-            let hourString = hourIndex+9 + ":00 - " + (hourIndex+10) + ":00";
+        const totalHourInColumn = 9;
+        for (let hourIndex = 0; hourIndex <= totalHourInColumn - 1; hourIndex++){
+            let hourString = hourIndex+ totalHourInColumn + ":00 - " + (hourIndex+10) + ":00";
             timeSlotsTable[hourIndex][0] = hourString;
-            console.log(timeSlotsTable[hourIndex][0]);
+           
         }
 
-        let availableHours = availabilityItems;
-        let weekDays = createCurrentWeek;
-        availableHours.forEach((item) => {
-            for (let dayIndex = 0; dayIndex<=4; dayIndex++) {
-                if (item.date = weekDays[dayIndex]) {
-                    timeSlotsTable[item.hourFrom-9][dayIndex+1] = "Disponible";
-                }
-            }
-        });
+        //let availableHours = availabilityItems;
+        //let weekDays = createCurrentWeek;
+        //availableHours.forEach((item) => {
+        //    for (let dayIndex = 0; dayIndex<=4; dayIndex++) {
+        //       if (item.date = weekDays[dayIndex]) {
+        //            timeSlotsTable[item.hourFrom-9][dayIndex+1] = "Disponible";
+        //        }
+        //    }
+        //});
 
         return timeSlotsTable;       
     }
 
+    const createCalendar = () => {
+        let currentWeek = createCurrentWeek();
+        let calendar = {};
+        currentWeek.forEach( (day) => {
+            calendar[day] = day;
+        })
 
- 
+        console.log(calendar);
+        return calendar;
+    }
+
     var tableStyle = {
         "border": "1px solid black"
      };

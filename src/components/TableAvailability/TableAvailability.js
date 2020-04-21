@@ -8,7 +8,22 @@ const TableAvailability = (props) => {
     const [calendar, setCalendar] = useState([]);
  
     useEffect(() => {
-        fetch("http://13.89.110.83/healthcarefacilities/")
+        apiCall();
+        setWeek(createCurrentWeek);
+        setTimeSlots(createTimeSlots);
+        setCalendar(createCalendar);
+    },[]);
+ 
+    const apiCall = () => {
+        const obj = {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'bearer string'
+            }
+        }
+        fetch("http://52.141.211.84/healthcarefacilities/", obj)
             .then((response) => response.json())
             .then((json) => {
                 setCenterName(json.centros[0].nombre);
@@ -18,11 +33,65 @@ const TableAvailability = (props) => {
                 console.log(error);
                 setAvailabilityItems([]);
             });
-        setWeek(createCurrentWeek);
-        setTimeSlots(createTimeSlots);
-        setCalendar(createCalendar);
-    },[]);
- 
+    }
+
+    const content = () => {
+        const auth = {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'bearer string'
+            }
+        }
+        var obj;
+        fetch("http://52.141.211.84/healthcarefacilities/", auth)
+        .then(res => res.json())
+        .then(data => obj = data)
+        .then(
+            () => console.log(obj)
+            )
+    }
+
+    async function fetchApi() {
+        const auth = {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization': 'bearer string'
+            }
+        }
+        try {
+            const response = await fetch("http://52.141.211.84/healthcarefacilities/", auth);
+            const availability = await response.json();
+            return availability;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async function createCalendar() {
+        const apiResponse = await fetchApi();
+        const oneCenterAvailability = apiResponse.centros[0].disponibilidad;
+        const currentWeek = createCurrentWeek();
+        let calendar = {};
+        currentWeek.forEach( (day) => {
+            calendar[day] = {};
+        })
+        const keys = Object.keys(calendar);
+        let startHour = {};
+        oneCenterAvailability.forEach( (availability) => {
+            if (keys.includes(availability.date)) {
+                startHour[availability.hourFrom] = true;
+                calendar[availability.date] = startHour;
+            }
+        })
+
+        console.log(calendar);
+        return calendar;
+    }
+
     const createCurrentWeek = () => {
         let currentDay = new Date();
         let currentWeek = [];
@@ -43,29 +112,7 @@ const TableAvailability = (props) => {
             timeSlotsTable[hourIndex][0] = hourString;
            
         }
-
-        //let availableHours = availabilityItems;
-        //let weekDays = createCurrentWeek;
-        //availableHours.forEach((item) => {
-        //    for (let dayIndex = 0; dayIndex<=4; dayIndex++) {
-        //       if (item.date = weekDays[dayIndex]) {
-        //            timeSlotsTable[item.hourFrom-9][dayIndex+1] = "Disponible";
-        //        }
-        //    }
-        //});
-
         return timeSlotsTable;       
-    }
-
-    const createCalendar = () => {
-        let currentWeek = createCurrentWeek();
-        let calendar = {};
-        currentWeek.forEach( (day) => {
-            calendar[day] = day;
-        })
-
-        console.log(calendar);
-        return calendar;
     }
 
     var tableStyle = {
@@ -77,7 +124,6 @@ const TableAvailability = (props) => {
     <div>
                 <p>Horas disponibles</p>
                 <p>{centerName}</p>
-
                 <table style={tableStyle}>
                     <thead>
                         <tr>

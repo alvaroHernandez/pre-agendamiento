@@ -5,7 +5,7 @@ const Home = () =>
 	<div>
 		<p>Bienvenido a Pre-Agendamiento!</p>
 
-		 <Availability/>;
+		 <Availability/>
 	</div>
 
 export default Home

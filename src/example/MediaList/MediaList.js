@@ -1,28 +1,29 @@
-import React from "react";
-import "./styles.scss";
-import MediaItem from "../MediaItem/MediaItem";
-import Loader from "../Loader/Loader";
-import useFavourites from "./hooks/useFavourites";
-import useFetch from "./hooks/useFetch";
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
+import './styles.scss';
+import MediaItem from '../MediaItem/MediaItem';
+import Loader from '../Loader/Loader';
+import useFavourites from './hooks/useFavourites';
+import useFetch from './hooks/useFetch';
 
 const MediaList = (props) => {
   const [addToFavourites, removeFromFavourites, isFavourite] = useFavourites();
+  // eslint-disable-next-line react/prop-types
+  // eslint-disable-next-line react/destructuring-assignment
   const [isLoading, mediaItems] = useFetch(props.api);
 
-  const renderLoading = () => {
-    return (
-      <div className={"loader-container"}>
-        <Loader />
-      </div>
-    );
-  };
+  const renderLoading = () => (
+    <div className="loader-container">
+      <Loader />
+    </div>
+  );
 
-  const renderMediaList = () => {
-    return (
-      <div className="movies-scroll">
-        <ul>
-          {mediaItems &&
-            mediaItems.map((item) => (
+  const renderMediaList = () => (
+    <div className="movies-scroll">
+      <ul>
+        {mediaItems
+            && mediaItems.map((item) => (
               <li key={item.Name}>
                 <MediaItem
                   isFavorite={isFavourite(item.Name)}
@@ -32,11 +33,11 @@ const MediaList = (props) => {
                 />
               </li>
             ))}
-        </ul>
-      </div>
-    );
-  };
+      </ul>
+    </div>
+  );
 
+  // eslint-disable-next-line react/prop-types
   const { title } = props;
 
   return (

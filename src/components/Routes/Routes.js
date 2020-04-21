@@ -1,9 +1,10 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import Home from "../Home/Home";
-import Centers from "../Centers/Centers";
-import SamplePage from "../../example/SamplePage/SamplePage";
-import Availability from "../Availability/Availability";
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Home from '../Home/Home';
+import Centers from '../Centers/Centers';
+import SamplePage from '../../example/SamplePage/SamplePage';
+import Availability from '../Availability/Availability';
 
 export default function Routes() {
   return (

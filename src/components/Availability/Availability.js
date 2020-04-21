@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable no-console */
+/* eslint-disable react/jsx-filename-extension */
+import React, { useEffect, useState } from 'react';
 
-const Availability = (props) => {
+const Availability = () => {
   const [availabilityItems, setAvailabilityItems] = useState([]);
   const [centerName, setCenterName] = useState([]);
 
   useEffect(() => {
-    fetch("http://13.89.110.83/healthcarefacilities/")
+    fetch('http://13.89.110.83/healthcarefacilities/')
       .then((response) => response.json())
       .then((json) => {
         setCenterName(json.centros[0].nombre);

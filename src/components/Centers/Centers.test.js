@@ -1,40 +1,42 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import Centers from "./Centers";
-import { disableFetchMocks, enableFetchMocks } from "jest-fetch-mock";
-import { act } from "react-dom/test-utils";
+/* eslint-disable no-undef */
+import React from 'react';
+import { render } from '@testing-library/react';
+import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
+import { act } from 'react-dom/test-utils';
+import Centers from './Centers';
 
 const centros = {
   centros: [
     {
-      id: "d30cd5da-8424-4922-a7ff-4ecb670a6c0a",
-      nombre: "principal",
+      id: 'd30cd5da-8424-4922-a7ff-4ecb670a6c0a',
+      nombre: 'principal',
     },
     {
-      id: "d30cd5da-8424-4922-a7ff-4ecb670a6c6h",
-      nombre: "segundo",
+      id: 'd30cd5da-8424-4922-a7ff-4ecb670a6c6h',
+      nombre: 'segundo',
     },
   ],
 };
 beforeAll(() => {
   enableFetchMocks();
-  fetch.mockResponse((req) => Promise.resolve(JSON.stringify(centros)));
+  fetch.mockResponse(() => Promise.resolve(JSON.stringify(centros)));
 });
 
 afterAll(() => {
   disableFetchMocks();
 });
 
-test("renders centers", async () => {
+test('renders centers', async () => {
   let renderTitle;
   act(() => {
+    // eslint-disable-next-line react/jsx-filename-extension
     renderTitle = render(<Centers />);
   });
   const titleCenters = await renderTitle.findByText(/Centros médicos/i);
   expect(titleCenters).toBeInTheDocument();
 });
 
-test("renders list of centers from api", async () => {
+test('renders list of centers from api', async () => {
   let renderCenters;
   act(() => {
     renderCenters = render(<Centers />);

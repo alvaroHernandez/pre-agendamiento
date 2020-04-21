@@ -5,6 +5,7 @@ import Home from '../Home/Home';
 import Centers from '../Centers/Centers';
 import SamplePage from '../../example/SamplePage/SamplePage';
 import Availability from '../Availability/Availability';
+import Table from '../Table/Table';
 
 export default function Routes() {
   return (
@@ -13,6 +14,7 @@ export default function Routes() {
       <Route path="/centros" component={Centers} />
       <Route path="/medias" component={SamplePage} />
       <Route path="/disponibilidad" component={Availability} />
+      <Route path="/table" component={Table} />
     </Switch>
   );
 }

@@ -4,6 +4,7 @@ import Home from '../Home/Home';
 import Centers from '../Centers/Centers';
 import SamplePage from "../../example/SamplePage/SamplePage";
 import Availability from '../Availability/Availability';
+import TableAvailability from '../TableAvailability/TableAvailability';
 
 export default function Routes() {
     return (
@@ -12,6 +13,7 @@ export default function Routes() {
             <Route path="/centros" component={Centers} />
             <Route path="/medias" component={SamplePage} />
             <Route path="/disponibilidad" component={Availability} />
+            <Route path="/tabladisponibilidad" component={TableAvailability} />
         </Switch>
     );
 }

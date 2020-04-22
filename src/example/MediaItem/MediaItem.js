@@ -1,16 +1,16 @@
-import React from "react";
-import "./styles.scss";
+import React from 'react';
+import './styles.scss';
 
-const renderFavoriteButton = (message, handler) => {
-  return (
-    <button className={"favourite-button"} onClick={handler}>
-      {message}
-    </button>
-  );
-};
+const renderFavoriteButton = (message, handler) => (
+  <button className="favourite-button" onClick={handler}>
+    {message}
+  </button>
+);
 
 const MediaItem = (props) => {
-  const { movie, addToFavourites, removeFromFavourites, isFavorite } = props;
+  const {
+    movie, addToFavourites, removeFromFavourites, isFavorite,
+  } = props;
   return (
     <div className="movie-item">
       <div className="image-container">
@@ -21,12 +21,8 @@ const MediaItem = (props) => {
         />
         <div className="favourite-button-container">
           {isFavorite
-            ? renderFavoriteButton("Remove from favourites", () =>
-                removeFromFavourites(movie.Name)
-              )
-            : renderFavoriteButton("Add to favourites", () =>
-                addToFavourites(movie.Name)
-              )}
+            ? renderFavoriteButton('Remove from favourites', () => removeFromFavourites(movie.Name))
+            : renderFavoriteButton('Add to favourites', () => addToFavourites(movie.Name))}
         </div>
       </div>
       <div className="information">

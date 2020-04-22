@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const useFavourites = () => {
   const [favourites, setFavourites] = useState({});
@@ -11,9 +11,7 @@ const useFavourites = () => {
     setFavourites({ ...favourites, [itemName]: false });
   };
 
-  const isFavourite = (itemName) => {
-    return favourites[itemName] !== undefined && favourites[itemName] === true;
-  };
+  const isFavourite = (itemName) => favourites[itemName] !== undefined && favourites[itemName] === true;
 
   return [addToFavourites, removeFromFavourites, isFavourite];
 };

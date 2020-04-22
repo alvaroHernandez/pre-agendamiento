@@ -1,11 +1,11 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import Home from "../Home/Home";
-import Centers from "../Centers/Centers";
-import Login from "../Login/Login";
-import SamplePage from "../../example/SamplePage/SamplePage";
-import Availability from "../Availability/Availability";
-import TableAvailability from "../TableAvailability/TableAvailability";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import Home from '../Home/Home';
+import Centers from '../Centers/Centers';
+import Login from '../Login/Login';
+import SamplePage from '../../example/SamplePage/SamplePage';
+import Availability from '../Availability/Availability';
+import TableAvailability from '../TableAvailability/TableAvailability';
 
 export default function Routes() {
   return (

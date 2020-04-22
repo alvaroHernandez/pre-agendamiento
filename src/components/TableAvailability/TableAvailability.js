@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 const TableAvailability = (props) => {
   const [availabilityItems, setAvailabilityItems] = useState([]);
@@ -16,14 +16,14 @@ const TableAvailability = (props) => {
 
   const apiCall = () => {
     const obj = {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "bearer string",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'bearer string',
       },
     };
-    fetch("http://52.141.211.84/healthcarefacilities/", obj)
+    fetch('http://52.141.211.84/healthcarefacilities/', obj)
       .then((response) => response.json())
       .then((json) => {
         setCenterName(json.centros[0].nombre);
@@ -37,15 +37,15 @@ const TableAvailability = (props) => {
 
   const content = () => {
     const auth = {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "bearer string",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'bearer string',
       },
     };
-    var obj;
-    fetch("http://52.141.211.84/healthcarefacilities/", auth)
+    let obj;
+    fetch('http://52.141.211.84/healthcarefacilities/', auth)
       .then((res) => res.json())
       .then((data) => (obj = data))
       .then(() => console.log(obj));
@@ -53,17 +53,17 @@ const TableAvailability = (props) => {
 
   async function fetchApi() {
     const auth = {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "bearer string",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'bearer string',
       },
     };
     try {
       const response = await fetch(
-        "http://52.141.211.84/healthcarefacilities/",
-        auth
+        'http://52.141.211.84/healthcarefacilities/',
+        auth,
       );
       const availability = await response.json();
       return availability;
@@ -76,12 +76,12 @@ const TableAvailability = (props) => {
     const apiResponse = await fetchApi();
     const oneCenterAvailability = apiResponse.centros[0].disponibilidad;
     const currentWeek = createCurrentWeek();
-    let calendar = {};
+    const calendar = {};
     currentWeek.forEach((day) => {
       calendar[day] = {};
     });
     const keys = Object.keys(calendar);
-    let startHour = {};
+    const startHour = {};
     oneCenterAvailability.forEach((availability) => {
       if (keys.includes(availability.date)) {
         startHour[availability.hourFrom] = true;
@@ -94,33 +94,31 @@ const TableAvailability = (props) => {
   }
 
   const createCurrentWeek = () => {
-    let currentDay = new Date();
-    let currentWeek = [];
+    const currentDay = new Date();
+    const currentWeek = [];
     for (let day = 1; day <= 5; day++) {
-      let dayOfWeek = currentDay.getDate() - currentDay.getDay() + day;
-      let date = new Date(currentDay.setDate(dayOfWeek));
-      let dateString =
-        date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+      const dayOfWeek = currentDay.getDate() - currentDay.getDay() + day;
+      const date = new Date(currentDay.setDate(dayOfWeek));
+      const dateString = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
       currentWeek.push(dateString);
     }
     return currentWeek;
   };
 
   const createTimeSlots = () => {
-    let timeSlotsTable = Array(9)
+    const timeSlotsTable = Array(9)
       .fill(null)
-      .map((x) => Array(6).fill("x"));
+      .map((x) => Array(6).fill('x'));
     const totalHourInColumn = 9;
     for (let hourIndex = 0; hourIndex <= totalHourInColumn - 1; hourIndex++) {
-      let hourString =
-        hourIndex + totalHourInColumn + ":00 - " + (hourIndex + 10) + ":00";
+      const hourString = `${hourIndex + totalHourInColumn}:00 - ${hourIndex + 10}:00`;
       timeSlotsTable[hourIndex][0] = hourString;
     }
     return timeSlotsTable;
   };
 
-  var tableStyle = {
-    border: "1px solid black",
+  const tableStyle = {
+    border: '1px solid black',
   };
 
   return (
@@ -130,7 +128,7 @@ const TableAvailability = (props) => {
       <table style={tableStyle}>
         <thead>
           <tr>
-            <th></th>
+            <th />
             {week.map((day) => (
               <th key={day}>{day}</th>
             ))}

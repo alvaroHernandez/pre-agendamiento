@@ -41,7 +41,7 @@ const TableAvailability = (props) => {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJBbm5hIiwibmJmIjoxNTg3NTgzMTk2LCJleHAiOjE1ODgxODc5OTYsImlhdCI6MTU4NzU4MzE5NiwiaXNzIjoiaHR0cDovL3ByZS1hZ2VuZGFtaWVudG8tZnJvbnQuYXp1cmV3ZWJzaXRlcy5uZXQifQ.1_TNXVE3nXwJyDPGQx2wdH_vv6BQgEscHi6X2xHbaeo'
+              'Authorization': 'bearer string'
             }
         }
         var obj;
@@ -59,7 +59,7 @@ const TableAvailability = (props) => {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-              'Authorization': 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0IiwidW5pcXVlX25hbWUiOiJBbm5hIiwibmJmIjoxNTg3NTgzMTk2LCJleHAiOjE1ODgxODc5OTYsImlhdCI6MTU4NzU4MzE5NiwiaXNzIjoiaHR0cDovL3ByZS1hZ2VuZGFtaWVudG8tZnJvbnQuYXp1cmV3ZWJzaXRlcy5uZXQifQ.1_TNXVE3nXwJyDPGQx2wdH_vv6BQgEscHi6X2xHbaeo'
+              'Authorization': 'bearer string'
             }
         }
         try {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const TableAvailability = (props) => {
   const [availabilityItems, setAvailabilityItems] = useState([]);
@@ -16,14 +16,14 @@ const TableAvailability = (props) => {
 
   const apiCall = () => {
     const obj = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: 'bearer string',
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "bearer string",
       },
     };
-    fetch('http://52.141.211.84/healthcarefacilities/', obj)
+    fetch("http://52.141.211.84/healthcarefacilities/", obj)
       .then((response) => response.json())
       .then((json) => {
         setCenterName(json.centros[0].nombre);
@@ -37,15 +37,15 @@ const TableAvailability = (props) => {
 
   const content = () => {
     const auth = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: 'bearer string',
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "bearer string",
       },
     };
     let obj;
-    fetch('http://52.141.211.84/healthcarefacilities/', auth)
+    fetch("http://52.141.211.84/healthcarefacilities/", auth)
       .then((res) => res.json())
       .then((data) => (obj = data))
       .then(() => console.log(obj));
@@ -53,17 +53,17 @@ const TableAvailability = (props) => {
 
   async function fetchApi() {
     const auth = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: 'bearer string',
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "bearer string",
       },
     };
     try {
       const response = await fetch(
-        'http://52.141.211.84/healthcarefacilities/',
-        auth,
+        "http://52.141.211.84/healthcarefacilities/",
+        auth
       );
       const availability = await response.json();
       return availability;
@@ -74,7 +74,7 @@ const TableAvailability = (props) => {
 
   async function createCalendar() {
     const apiResponse = await fetchApi();
-    //const oneCenterAvailability = apiResponse.centros[0].disponibilidad;
+    // const oneCenterAvailability = apiResponse.centros[0].disponibilidad;
     const oneCenterAvailability = ["this", "is", "example", "delete"];
     const currentWeek = createCurrentWeek();
     const calendar = {};
@@ -100,7 +100,9 @@ const TableAvailability = (props) => {
     for (let day = 1; day <= 5; day++) {
       const dayOfWeek = currentDay.getDate() - currentDay.getDay() + day;
       const date = new Date(currentDay.setDate(dayOfWeek));
-      const dateString = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+      const dateString = `${date.getDate()}/${
+        date.getMonth() + 1
+      }/${date.getFullYear()}`;
       currentWeek.push(dateString);
     }
     return currentWeek;
@@ -109,17 +111,19 @@ const TableAvailability = (props) => {
   const createTimeSlots = () => {
     const timeSlotsTable = Array(9)
       .fill(null)
-      .map((x) => Array(6).fill('x'));
+      .map((x) => Array(6).fill("x"));
     const totalHourInColumn = 9;
     for (let hourIndex = 0; hourIndex <= totalHourInColumn - 1; hourIndex++) {
-      const hourString = `${hourIndex + totalHourInColumn}:00 - ${hourIndex + 10}:00`;
+      const hourString = `${hourIndex + totalHourInColumn}:00 - ${
+        hourIndex + 10
+      }:00`;
       timeSlotsTable[hourIndex][0] = hourString;
     }
     return timeSlotsTable;
   };
 
   const tableStyle = {
-    border: '1px solid black',
+    border: "1px solid black",
   };
 
   return (

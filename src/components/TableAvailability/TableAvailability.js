@@ -74,7 +74,8 @@ const TableAvailability = (props) => {
 
   async function createCalendar() {
     const apiResponse = await fetchApi();
-    const oneCenterAvailability = apiResponse.centros[0].disponibilidad;
+    //const oneCenterAvailability = apiResponse.centros[0].disponibilidad;
+    const oneCenterAvailability = ["this", "is", "example", "delete"];
     const currentWeek = createCurrentWeek();
     const calendar = {};
     currentWeek.forEach((day) => {

@@ -74,7 +74,6 @@ const createTimeSlots = () => {
 
 const CreateHeadersTable = (props) => {
   const { headers } = props;
-  console.log(headers);
   const listItems = headers.map((day) => <th key={day}>{day}</th>);
   return (
     <tr>
@@ -82,6 +81,18 @@ const CreateHeadersTable = (props) => {
       {listItems}
     </tr>
   );
+};
+
+const CreateTimeSlots = (props) => {
+  const { timeSlots } = props;
+  const listItems = timeSlots.map((slot) => (
+    <tr key={slot}>
+      {slot.map((atDay) => (
+        <th key={atDay}>{atDay}</th>
+      ))}
+    </tr>
+  ));
+  return <tbody>{listItems}</tbody>;
 };
 
 const TableAvailability = () => {
@@ -103,15 +114,8 @@ const TableAvailability = () => {
         <thead>
           <CreateHeadersTable headers={week} />
         </thead>
-        <tbody>
-          {timeSlots.map((workHourRow) => (
-            <tr key={workHourRow}>
-              {workHourRow.map((atDay) => (
-                <th key={atDay}>{atDay}</th>
-              ))}
-            </tr>
-          ))}
-        </tbody>
+
+        <CreateTimeSlots timeSlots={timeSlots} />
       </table>
     </div>
   );

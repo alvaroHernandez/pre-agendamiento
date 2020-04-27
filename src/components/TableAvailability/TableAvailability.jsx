@@ -95,13 +95,21 @@ const CreateTimeSlots = (props) => {
   return listItems;
 };
 
+const CreateCalendar = () => {
+  const calendar = createCalendar();
+  console.log(calendar);
+  return <p>Hello world!</p>;
+};
+
 const TableAvailability = () => {
   const [week, setWeek] = useState([]);
   const [timeSlots, setTimeSlots] = useState([]);
+  const [calendar, setCalendar] = useState([]);
 
   useEffect(() => {
     setWeek(createCurrentWeek);
     setTimeSlots(createTimeSlots);
+    setCalendar(createCalendar);
   }, []);
 
   const tableStyle = {
@@ -118,6 +126,7 @@ const TableAvailability = () => {
           <CreateTimeSlots timeSlots={timeSlots} />
         </tbody>
       </table>
+      <CreateCalendar calendar={calendar} />
     </div>
   );
 };

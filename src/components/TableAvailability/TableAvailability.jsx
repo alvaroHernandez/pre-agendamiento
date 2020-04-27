@@ -92,7 +92,7 @@ const CreateTimeSlots = (props) => {
       ))}
     </tr>
   ));
-  return <tbody>{listItems}</tbody>;
+  return listItems;
 };
 
 const TableAvailability = () => {
@@ -114,8 +114,9 @@ const TableAvailability = () => {
         <thead>
           <CreateHeadersTable headers={week} />
         </thead>
-
-        <CreateTimeSlots timeSlots={timeSlots} />
+        <tbody>
+          <CreateTimeSlots timeSlots={timeSlots} />
+        </tbody>
       </table>
     </div>
   );

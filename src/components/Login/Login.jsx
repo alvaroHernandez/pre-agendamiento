@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { authenticate } from "../../clients/authenticate";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -9,35 +10,16 @@ const Login = () => {
 
   const history = useHistory();
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    fetch("https://dev-pre-agendamiento.azure-api.net/Login/", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name: username, password }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          response.json().then((body) => {
-            setError("");
-            localStorage.setItem("access_token", body.token);
-            history.push("/");
-          });
-        } else if (response.status === 401) {
-          setError("Nombre y Password incorrecto");
-        } else {
-          setError("Servicio no disponible");
-          return Promise.reject(
-            new Error("Error en el servicio de autenticación")
-          );
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const authResult = await authenticate(username, password);
+    if (authResult.token !== undefined) {
+      setError("");
+      localStorage.setItem("access_token", authResult.token);
+      history.push("/");
+    } else {
+      setError(authResult.error);
+    }
   };
 
   return (

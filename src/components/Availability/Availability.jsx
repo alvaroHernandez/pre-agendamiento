@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { httpClient } from "../../clients/httpClient";
 
 const Availability = (props) => {
   const [availabilityItems, setAvailabilityItems] = useState([]);
   const [centerName, setCenterName] = useState([]);
 
   useEffect(() => {
-    fetch("http://13.89.110.83/healthcarefacilities/")
-      .then((response) => response.json())
-      .then((json) => {
+    httpClient(
+      "http://13.89.110.83/healthcarefacilities/",
+      (json) => {
         setCenterName(json.centros[0].nombre);
         setAvailabilityItems(json.centros[0].disponibilidad);
-      })
-      .catch((error) => {
+      },
+      (error) => {
         console.log(error);
         setAvailabilityItems([]);
-      });
+      }
+    );
   }, []);
 
   return (

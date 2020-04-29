@@ -8,18 +8,18 @@ const apiResponse = {
       disponibilidad: [
         {
           date: "27/4/2020",
-          hourFrom: 10,
-          hourTo: 11,
+          hourFrom: "10:00",
+          hourTo: "11:00",
         },
         {
           date: "28/4/2020",
-          hourFrom: 12,
-          hourTo: 13,
+          hourFrom: "12:00",
+          hourTo: "13:00",
         },
         {
           date: "29/4/2020",
-          hourFrom: 15,
-          hourTo: 16,
+          hourFrom: "15:00",
+          hourTo: "16:00",
         },
       ],
     },
@@ -64,9 +64,7 @@ const createTimeSlots = () => {
     .map((x) => Array(6).fill("x"));
   const totalHourInColumn = 9;
   for (let hourIndex = 0; hourIndex <= totalHourInColumn - 1; hourIndex++) {
-    const hourString = `${hourIndex + totalHourInColumn}:00 - ${
-      hourIndex + 10
-    }:00`;
+    const hourString = `${hourIndex + totalHourInColumn}:00`;
     timeSlotsTable[hourIndex][0] = hourString;
   }
   return timeSlotsTable;
@@ -77,7 +75,7 @@ const CreateHeadersTable = (props) => {
   const listItems = headers.map((day) => <th key={day}>{day}</th>);
   return (
     <tr>
-      <th></th>
+      <th />
       {listItems}
     </tr>
   );
@@ -95,10 +93,26 @@ const CreateTimeSlots = (props) => {
   return listItems;
 };
 
+const tableStyle = {
+  border: "1px solid black",
+};
+
 const CreateCalendar = () => {
   const calendar = createCalendar();
   console.log(calendar);
-  return <p>Hello world!</p>;
+  const dates = Object.keys(calendar);
+  const header = dates.map((date) => <th key={date}>{date}</th>);
+  return (
+    <table style={tableStyle}>
+      <thead>
+        <tr>
+          <th />
+          {header}
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  );
 };
 
 const TableAvailability = () => {

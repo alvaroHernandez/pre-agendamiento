@@ -1,0 +1,30 @@
+table {
+  border-spacing: 0.3rem;
+  width: 100%;
+  padding: 5%;
+}
+
+th {
+  background: none;
+  font-size: 140%;
+  font-weight: normal;
+}
+
+td {
+  border: 1px solid #999;
+  background: #e3e1e1;
+  height: 45px;
+}
+
+.timeHeader {
+  background: #999;
+  width: max-content;
+  font-size: 110%;
+  font-weight: lighter;
+  vertical-align: top;
+  text-align: center;
+}
+
+.available {
+  background: #b8fcb8;
+}

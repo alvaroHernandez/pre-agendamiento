@@ -1,34 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import "./tableAvailability.css";
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import './tableAvailability.css';
 
 const apiResponse = {
   centros: [
     {
-      id: "d30cd5da-8424-4922-a7ff-4ecb670a6c0a",
-      nombre: "ACHS principal",
+      id: 'd30cd5da-8424-4922-a7ff-4ecb670a6c0a',
+      nombre: 'ACHS principal',
       disponibilidad: [
         {
-          date: "27/4/2020",
-          hourFrom: "10:00",
-          hourTo: "11:00",
+          date: '27/4/2020',
+          hourFrom: '10:00',
+          hourTo: '11:00',
         },
         {
-          date: "28/4/2020",
-          hourFrom: "12:00",
-          hourTo: "13:00",
+          date: '28/4/2020',
+          hourFrom: '12:00',
+          hourTo: '13:00',
         },
         {
-          date: "29/4/2020",
-          hourFrom: "15:00",
-          hourTo: "16:00",
+          date: '29/4/2020',
+          hourFrom: '15:00',
+          hourTo: '16:00',
         },
       ],
     },
@@ -36,18 +36,18 @@ const apiResponse = {
 };
 
 const coreHourCenter = [
-  "09:00",
-  "10:00",
-  "11:00",
-  "12:00",
-  "13:00",
-  "14:00",
-  "15:00",
-  "16:00",
-  "17:00",
-  "18:00",
-  "19:00",
-  "20:00",
+  '09:00',
+  '10:00',
+  '11:00',
+  '12:00',
+  '13:00',
+  '14:00',
+  '15:00',
+  '16:00',
+  '17:00',
+  '18:00',
+  '19:00',
+  '20:00',
 ];
 
 const createCurrentWeek = () => {
@@ -100,12 +100,12 @@ function createCalendarRow(calendar, datesOfWeek) {
     datesOfWeek.forEach((date) => {
       const availableHoursFromOfDay = calendar[date];
       if (
-        availableHoursFromOfDay instanceof Array &&
-        availableHoursFromOfDay.includes(hour)
+        availableHoursFromOfDay instanceof Array
+        && availableHoursFromOfDay.includes(hour)
       ) {
-        weekHourData.push("disponible"); // is available (free slot)
+        weekHourData.push('disponible'); // is available (free slot)
       } else {
-        weekHourData.push("no disponible"); // is not available (busy slot)
+        weekHourData.push('no disponible'); // is not available (busy slot)
       }
     });
     rows.push(
@@ -115,8 +115,8 @@ function createCalendarRow(calendar, datesOfWeek) {
         weekHourData[1],
         weekHourData[2],
         weekHourData[3],
-        weekHourData[4]
-      )
+        weekHourData[4],
+      ),
     );
   });
   return rows;
@@ -147,28 +147,28 @@ const BodyRowsDateAvailability = (props) => {
             align="center"
             component="th"
             scope="row"
-            style={{ backgroundColor: "grey", color: "white" }}
+            style={{ backgroundColor: 'grey', color: 'white' }}
           >
             {row.hour}
           </TableCell>
           <TableCell
-            class={row.monday === "disponible" ? "available" : "notavailable"}
+            class={row.monday === 'disponible' ? 'available' : 'notavailable'}
           />
 
           <TableCell
-            class={row.tuesday === "disponible" ? "available" : "notavailable"}
+            class={row.tuesday === 'disponible' ? 'available' : 'notavailable'}
           />
 
           <TableCell
             class={
-              row.wednesday === "disponible" ? "available" : "notavailable"
+              row.wednesday === 'disponible' ? 'available' : 'notavailable'
             }
           />
           <TableCell
-            class={row.thursday === "disponible" ? "available" : "notavailable"}
+            class={row.thursday === 'disponible' ? 'available' : 'notavailable'}
           />
           <TableCell
-            class={row.friday === "disponible" ? "available" : "notavailable"}
+            class={row.friday === 'disponible' ? 'available' : 'notavailable'}
           />
         </TableRow>
       ))}

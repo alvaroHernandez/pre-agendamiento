@@ -1,4 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 
 const apiResponse = {
   centros: [
@@ -26,23 +34,20 @@ const apiResponse = {
   ],
 };
 
-const createCalendar = () => {
-  const oneCenterAvailability = apiResponse.centros[0].disponibilidad;
-  const currentWeek = createCurrentWeek();
-  const calendar = {};
-  currentWeek.forEach((day) => {
-    calendar[day] = {};
-  });
-  const keys = Object.keys(calendar);
-  const startHour = {};
-  oneCenterAvailability.forEach((availability) => {
-    if (keys.includes(availability.date)) {
-      startHour[availability.hourFrom] = true;
-      calendar[availability.date] = startHour;
-    }
-  });
-  return calendar;
-};
+const coreHourCenter = [
+  "09:00",
+  "10:00",
+  "11:00",
+  "12:00",
+  "13:00",
+  "14:00",
+  "15:00",
+  "16:00",
+  "17:00",
+  "18:00",
+  "19:00",
+  "20:00",
+];
 
 const createCurrentWeek = () => {
   const currentDay = new Date();
@@ -58,91 +63,125 @@ const createCurrentWeek = () => {
   return currentWeek;
 };
 
-const createTimeSlots = () => {
-  const timeSlotsTable = Array(9)
-    .fill(null)
-    .map((x) => Array(6).fill("x"));
-  const totalHourInColumn = 9;
-  for (let hourIndex = 0; hourIndex <= totalHourInColumn - 1; hourIndex++) {
-    const hourString = `${hourIndex + totalHourInColumn}:00`;
-    timeSlotsTable[hourIndex][0] = hourString;
-  }
-  return timeSlotsTable;
+const createCalendar = () => {
+  const oneCenterAvailability = apiResponse.centros[0].disponibilidad;
+  const currentWeek = createCurrentWeek();
+  const calendar = {};
+  currentWeek.forEach((day) => {
+    calendar[day] = {};
+  });
+  const datesOfCalendar = Object.keys(calendar);
+  const startHour = [];
+  oneCenterAvailability.forEach((availability) => {
+    if (datesOfCalendar.includes(availability.date)) {
+      startHour.push(availability.hourFrom);
+    }
+    calendar[availability.date] = startHour;
+  });
+  return calendar;
 };
 
-const CreateHeadersTable = (props) => {
-  const { headers } = props;
-  const listItems = headers.map((day) => <th key={day}>{day}</th>);
-  return (
-    <tr>
-      <th />
-      {listItems}
-    </tr>
-  );
-};
+function createData(hour, monday, tuesday, wednesday, thursday, friday) {
+  return {
+    hour,
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+  };
+}
 
-const CreateTimeSlots = (props) => {
-  const { timeSlots } = props;
-  const listItems = timeSlots.map((slot) => (
-    <tr key={slot}>
-      {slot.map((atDay) => (
-        <th key={atDay}>{atDay}</th>
-      ))}
-    </tr>
+function createCalendarRow(calendar, datesOfWeek) {
+  const rows = [];
+  coreHourCenter.forEach((hour) => {
+    const weekHourData = [];
+    datesOfWeek.forEach((date) => {
+      const availableHoursFromOfDay = calendar[date];
+      if (
+        availableHoursFromOfDay instanceof Array &&
+        availableHoursFromOfDay.includes(hour)
+      ) {
+        weekHourData.push("disponible"); // is available (free slot)
+      } else {
+        weekHourData.push("no disponible"); // is not available (busy slot)
+      }
+    });
+    rows.push(
+      createData(
+        hour,
+        weekHourData[0],
+        weekHourData[1],
+        weekHourData[2],
+        weekHourData[3],
+        weekHourData[4]
+      )
+    );
+  });
+  return rows;
+}
+
+const HeaderDatesOfCurrentWeek = (props) => {
+  const { dates } = props;
+  const headerDates = dates.map((date) => (
+    <TableCell align="right">{date}</TableCell>
   ));
-  return listItems;
-};
-
-const tableStyle = {
-  border: "1px solid black",
-};
-
-const CreateCalendar = () => {
-  const calendar = createCalendar();
-  console.log(calendar);
-  const dates = Object.keys(calendar);
-  const header = dates.map((date) => <th key={date}>{date}</th>);
   return (
-    <table style={tableStyle}>
-      <thead>
-        <tr>
-          <th />
-          {header}
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <TableHead>
+      <TableRow>
+        <TableCell> </TableCell>
+        {headerDates}
+      </TableRow>
+    </TableHead>
   );
 };
 
-const TableAvailability = () => {
+const BodyRowsDateAvailability = (props) => {
+  const rows = createCalendarRow(props.calendar, props.dates);
+  return (
+    <TableBody>
+      {rows.map((row) => (
+        <TableRow key={row.hour}>
+          <TableCell
+            component="th"
+            scope="row"
+            style={{ backgroundColor: "grey", color: "white" }}
+          >
+            {row.hour}
+          </TableCell>
+          <TableCell align="right">{row.monday}</TableCell>
+          <TableCell align="right">{row.tuesday}</TableCell>
+          <TableCell align="right">{row.wednesday}</TableCell>
+          <TableCell align="right">{row.thursday}</TableCell>
+          <TableCell align="right">{row.friday}</TableCell>
+        </TableRow>
+      ))}
+    </TableBody>
+  );
+};
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
+
+export default function SimpleTableAvailability() {
+  const classes = useStyles();
   const [week, setWeek] = useState([]);
-  const [timeSlots, setTimeSlots] = useState([]);
   const [calendar, setCalendar] = useState([]);
 
   useEffect(() => {
     setWeek(createCurrentWeek);
-    setTimeSlots(createTimeSlots);
     setCalendar(createCalendar);
   }, []);
 
-  const tableStyle = {
-    border: "1px solid black",
-  };
-
   return (
-    <div>
-      <table style={tableStyle}>
-        <thead>
-          <CreateHeadersTable headers={week} />
-        </thead>
-        <tbody>
-          <CreateTimeSlots timeSlots={timeSlots} />
-        </tbody>
-      </table>
-      <CreateCalendar calendar={calendar} />
-    </div>
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <HeaderDatesOfCurrentWeek dates={week} />
+        <BodyRowsDateAvailability dates={week} calendar={calendar} />
+      </Table>
+    </TableContainer>
   );
-};
-
-export default TableAvailability;
+}

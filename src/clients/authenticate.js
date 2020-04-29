@@ -2,7 +2,7 @@ const UNEXPECTED_ERROR_MESSAGE =
   "Error al contactar el servicio de autenticación";
 const UNAUTHORIZED_ERROR_MESSAGE = "Nombre y Password incorrecto";
 
-const LOGIN_API_URL = `${process.env.API_MANAGEMENT_URL}/Login`;
+const LOGIN_API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/Login`;
 
 const handleServerError = (error) => {
   // TODO: log to external service

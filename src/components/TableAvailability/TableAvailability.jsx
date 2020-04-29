@@ -7,6 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import "./tableAvailability.css";
 
 const apiResponse = {
   centros: [
@@ -124,7 +125,7 @@ function createCalendarRow(calendar, datesOfWeek) {
 const HeaderDatesOfCurrentWeek = (props) => {
   const { dates } = props;
   const headerDates = dates.map((date) => (
-    <TableCell align="right">{date}</TableCell>
+    <TableCell align="center">{date}</TableCell>
   ));
   return (
     <TableHead>
@@ -143,17 +144,32 @@ const BodyRowsDateAvailability = (props) => {
       {rows.map((row) => (
         <TableRow key={row.hour}>
           <TableCell
+            align="center"
             component="th"
             scope="row"
             style={{ backgroundColor: "grey", color: "white" }}
           >
             {row.hour}
           </TableCell>
-          <TableCell align="right">{row.monday}</TableCell>
-          <TableCell align="right">{row.tuesday}</TableCell>
-          <TableCell align="right">{row.wednesday}</TableCell>
-          <TableCell align="right">{row.thursday}</TableCell>
-          <TableCell align="right">{row.friday}</TableCell>
+          <TableCell
+            class={row.monday === "disponible" ? "available" : "notavailable"}
+          />
+
+          <TableCell
+            class={row.tuesday === "disponible" ? "available" : "notavailable"}
+          />
+
+          <TableCell
+            class={
+              row.wednesday === "disponible" ? "available" : "notavailable"
+            }
+          />
+          <TableCell
+            class={row.thursday === "disponible" ? "available" : "notavailable"}
+          />
+          <TableCell
+            class={row.friday === "disponible" ? "available" : "notavailable"}
+          />
         </TableRow>
       ))}
     </TableBody>
@@ -162,7 +178,7 @@ const BodyRowsDateAvailability = (props) => {
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    minWidth: 450,
   },
 });
 

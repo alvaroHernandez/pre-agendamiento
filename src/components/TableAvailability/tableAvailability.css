@@ -11,7 +11,7 @@ th {
 }
 
 td {
-  border: 1px solid #999;
+  border: 1px solid rgb(255, 255, 255);
   background: #e3e1e1;
   height: 45px;
 }
@@ -26,5 +26,9 @@ td {
 }
 
 .available {
-  background: #b8fcb8;
+  background: #d5fad5;
+}
+
+.notavailable {
+  background: #e0dfdf;
 }

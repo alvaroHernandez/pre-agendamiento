@@ -18,17 +18,6 @@ const stubHttp401Response = {
 
 beforeAll(() => {
   enableFetchMocks();
-  fetch.mockResponse((req) =>
-    req.url === "fakeUrl"
-      ? Promise.resolve(JSON.stringify(stubHttpResponse))
-      : console.log("no mock found for give url")
-  );
-
-  fetch.mockResponse((req) =>
-    req.url === "fake401Url"
-      ? Promise.resolve(stubHttp401Response)
-      : console.log("no mock found for give url")
-  );
 });
 
 afterAll(() => {
@@ -37,15 +26,18 @@ afterAll(() => {
 
 test("should call response callback with body when response status is 200", async () => {
   const callbackResponse = jest.fn();
+  fetch.mockIf("fakeUrl", (req) =>
+    Promise.resolve(JSON.stringify(stubHttpResponse))
+  );
 
-  await httpClient("fakeUrls", callbackResponse, undefined);
+  await httpClient("fakeUrl", callbackResponse, undefined);
 
   expect(callbackResponse).toHaveBeenCalledWith(stubHttpResponse);
 });
 
 test("should redirect to login when response status is 401", async () => {
   history.push = jest.fn();
-  const callbackResponse = jest.fn();
+  fetch.mockIf("fake401Url", (req) => Promise.resolve(stubHttp401Response));
 
   await httpClient("fake401Url", undefined, undefined);
 

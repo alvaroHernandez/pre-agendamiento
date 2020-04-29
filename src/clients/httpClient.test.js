@@ -1,12 +1,6 @@
 import { disableFetchMocks, enableFetchMocks } from "jest-fetch-mock";
 import { httpClient } from "./httpClient";
 import history from "../services/history";
-// didnt throw error
-// 200
-// 401
-// other
-
-// error
 
 const stubHttpResponse = {
   fakeProperty: "fakeValue",
@@ -15,6 +9,12 @@ const stubHttpResponse = {
 const stubHttp401Response = {
   status: 401,
 };
+
+const stubHttp500Response = {
+  status: 500,
+};
+
+const stubErrorResponse = new Error("Dinosaurio rex");
 
 beforeAll(() => {
   enableFetchMocks();
@@ -42,4 +42,24 @@ test("should redirect to login when response status is 401", async () => {
   await httpClient("fake401Url", undefined, undefined);
 
   expect(history.push).toHaveBeenCalledWith("/Login");
+});
+
+test("should call error callback when response status is 500", async () => {
+  const errorCallback = jest.fn();
+
+  fetch.mockIf("fake500Url", (req) => Promise.resolve(stubHttp500Response));
+
+  await httpClient("fake500Url", undefined, errorCallback);
+
+  expect(errorCallback).toHaveBeenCalled();
+});
+
+test("should call error callback when response an error ocurr during the call", async () => {
+  const errorCallback = jest.fn();
+
+  fetch.mockIf("fakeErrorUrl", (req) => Promise.reject(stubErrorResponse));
+
+  await httpClient("fakeErrorUrl", undefined, errorCallback);
+
+  expect(errorCallback).toHaveBeenCalledWith(stubErrorResponse);
 });

@@ -7,7 +7,6 @@ export const httpClient = async (url, callbackResponse, callbackError) => {
       const body = await response.json();
       callbackResponse(body);
     } else if (response.status === 401) {
-      console.log(response.status);
       history.push("/Login");
     } else {
       callbackError();

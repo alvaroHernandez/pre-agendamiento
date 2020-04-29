@@ -55,12 +55,16 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "husky": "^4.2.5",
     "jest-fetch-mock": "^3.0.3",
+    "lint-staged": "^10.2.0",
     "prettier": "2.0.5",
     "pretty-quick": "^2.0.1"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,html,css}": ["prettier --write, eslint --fix, eslint"]
   }
 }

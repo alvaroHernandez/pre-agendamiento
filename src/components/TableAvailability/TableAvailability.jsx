@@ -10,7 +10,7 @@ import Paper from '@material-ui/core/Paper';
 
 import { createCurrentWeek, createCalendar, createCalendarRow } from '../../services/AppointmentTableService';
 
-import './TableAvailability.css';
+import './tableAvailability.css';
 
 const HeaderDatesOfCurrentWeek = (props) => {
   const { dates } = props;
@@ -37,7 +37,7 @@ const BodyRowsDateAvailability = (props) => {
             align="center"
             component="th"
             scope="row"
-            style={{ backgroundColor: 'grey', color: 'white' }}
+            style={{ backgroundColor: '#9B9B9B', color: 'black' }}
           >
             {row.hour}
           </TableCell>

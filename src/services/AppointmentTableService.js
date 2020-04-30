@@ -23,8 +23,8 @@ export const createCalendar = () => {
     calendar[day] = {};
   });
   const datesOfCalendar = Object.keys(calendar);
-  const startHour = [];
   oneCenterAvailability.forEach((availability) => {
+    const startHour = [];
     if (datesOfCalendar.includes(availability.date)) {
       startHour.push(availability.hourFrom);
     }

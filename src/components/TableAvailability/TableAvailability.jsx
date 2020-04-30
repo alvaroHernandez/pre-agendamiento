@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import { createCurrentWeek, createCalendar, createCalendarRow } from '../../services/AppointmentTableService';
+import { hourAvailability } from '../../data/HourAvailabilityType';
 
 import './tableAvailability.css';
 
@@ -42,23 +43,23 @@ const BodyRowsDateAvailability = (props) => {
             {row.hour}
           </TableCell>
           <TableCell
-            class={row.monday === 'disponible' ? 'available' : 'notavailable'}
+            class={row.monday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
 
           <TableCell
-            class={row.tuesday === 'disponible' ? 'available' : 'notavailable'}
+            class={row.tuesday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
 
           <TableCell
             class={
-              row.wednesday === 'disponible' ? 'available' : 'notavailable'
+              row.wednesday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'
             }
           />
           <TableCell
-            class={row.thursday === 'disponible' ? 'available' : 'notavailable'}
+            class={row.thursday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
           <TableCell
-            class={row.friday === 'disponible' ? 'available' : 'notavailable'}
+            class={row.friday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
         </TableRow>
       ))}

@@ -1,4 +1,5 @@
 import { CORE_HOURS_CENTERS, API_RESPONSE } from '../constants/ServiceConstants';
+import { hourAvailability } from '../data/HourAvailabilityType';
 
 export const createCurrentWeek = () => {
   const currentDay = new Date();
@@ -53,9 +54,9 @@ export function createCalendarRow(calendar, datesOfWeek) {
         availableHoursFromOfDay instanceof Array
           && availableHoursFromOfDay.includes(hour)
       ) {
-        weekHourData.push('disponible'); // is available (free slot)
+        weekHourData.push(hourAvailability.AVAILABLE);
       } else {
-        weekHourData.push('no disponible'); // is not available (busy slot)
+        weekHourData.push(hourAvailability.NOT_AVAILABLE);
       }
     });
     rows.push(

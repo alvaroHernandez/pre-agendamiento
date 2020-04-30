@@ -31,8 +31,8 @@ export const API_RESPONSE = {
         },
         {
           date: '29/4/2020',
-          hourFrom: '15:00',
-          hourTo: '16:00',
+          hourFrom: '16:00',
+          hourTo: '17:00',
         },
       ],
     },

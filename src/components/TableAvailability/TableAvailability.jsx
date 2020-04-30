@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import { createCurrentWeek, createCalendar, createCalendarRow } from '../../services/AppointmentTableService';
-import { hourAvailability } from '../../data/HourAvailabilityType';
+import hourAvailability from '../../data/HourAvailabilityType';
 
 import './tableAvailability.css';
 

@@ -27,11 +27,9 @@ afterAll(() => {
 test('should call response callback with body when response status is 200', async () => {
   const callbackResponse = jest.fn();
 
-  fetch.mockIf("fakeUrl", () =>
-    Promise.resolve(JSON.stringify(stubHttpResponse))
-  );
+  fetch.mockIf('fakeUrl', () => Promise.resolve(JSON.stringify(stubHttpResponse)));
 
-  await httpClient("fakeUrl", "GET", callbackResponse, undefined);
+  await httpClient('fakeUrl', 'GET', callbackResponse, undefined);
 
   expect(callbackResponse).toHaveBeenCalledWith(stubHttpResponse);
 });
@@ -39,9 +37,9 @@ test('should call response callback with body when response status is 200', asyn
 test('should redirect to login when response status is 401', async () => {
   history.push = jest.fn();
 
-  fetch.mockIf("fake401Url", () => Promise.resolve(stubHttp401Response));
+  fetch.mockIf('fake401Url', () => Promise.resolve(stubHttp401Response));
 
-  await httpClient("fake401Url", "GET", undefined, undefined);
+  await httpClient('fake401Url', 'GET', undefined, undefined);
 
   expect(history.push).toHaveBeenCalledWith('/Login');
 });
@@ -49,9 +47,9 @@ test('should redirect to login when response status is 401', async () => {
 test('should call error callback when response status is 500', async () => {
   const errorCallback = jest.fn();
 
-  fetch.mockIf("fake500Url", () => Promise.resolve(stubHttp500Response));
+  fetch.mockIf('fake500Url', () => Promise.resolve(stubHttp500Response));
 
-  await httpClient("fake500Url", "GET", () => {}, errorCallback);
+  await httpClient('fake500Url', 'GET', () => {}, errorCallback);
 
   expect(errorCallback).toHaveBeenCalled();
 });
@@ -59,30 +57,36 @@ test('should call error callback when response status is 500', async () => {
 test('should call error callback when response an error ocurr during the call', async () => {
   const errorCallback = jest.fn();
 
-  fetch.mockIf("fakeErrorUrl", () => Promise.reject(stubErrorResponse));
+  fetch.mockIf('fakeErrorUrl', () => Promise.reject(stubErrorResponse));
 
-  await httpClient("fakeErrorUrl", "GET", () => {}, errorCallback);
+  await httpClient('fakeErrorUrl', 'GET', () => {}, errorCallback);
 
   expect(errorCallback).toHaveBeenCalledWith(stubErrorResponse);
 });
 
-test("should make http call with given method and headers with authorization from local storage", async () => {
-  localStorage.setItem("access_token", "fake");
+test('should make http call with given method and headers with authorization from local storage', async () => {
+  localStorage.setItem('access_token', 'fake');
 
-  const method = "GET";
+  const method = 'GET';
   const callbackResponse = jest.fn();
 
-  fetch.mockIf("fakeUrl", (req) => {
+  fetch.mockIf('fakeUrl', (req) => {
     if (
-      req.headers.get("Authorization") ===
-        `Bearer ${localStorage.getItem("access_token")}` &&
-      req.method === method
+      req.headers.get('Authorization')
+        === `Bearer ${localStorage.getItem('access_token')}`
+      && req.method === method
     ) {
       return Promise.resolve(JSON.stringify(stubHttpResponse));
     }
     return Promise.reject();
   });
 
-  await httpClient("fakeUrl", method, callbackResponse, () => {});
+  await httpClient('fakeUrl', method, callbackResponse, () => {});
   expect(callbackResponse).toHaveBeenCalled();
+});
+
+test("should redirect to /login when access_toke in localStore doesn't exists", async () => {
+  history.push = jest.fn();
+  await httpClient(undefined, undefined, () => {}, () => {});
+  expect(history.push).toHaveBeenCalledWith('/Login');
 });

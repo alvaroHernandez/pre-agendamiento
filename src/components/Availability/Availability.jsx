@@ -8,6 +8,7 @@ const Availability = (props) => {
   useEffect(() => {
     httpClient(
       API_URL,
+      "GET",
       (json) => {
         setCenterName(json.centros[0].nombre);
         setAvailabilityItems(json.centros[0].disponibilidad);

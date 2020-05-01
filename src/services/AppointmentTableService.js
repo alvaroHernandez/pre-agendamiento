@@ -1,5 +1,5 @@
 import { CORE_HOURS_CENTERS, API_RESPONSE } from '../constants/ServiceConstants';
-import hourAvailability from "../data/HourAvailabilityType";
+import hourAvailability from '../data/HourAvailabilityType';
 
 export const createCurrentWeek = () => {
   const currentDay = new Date();

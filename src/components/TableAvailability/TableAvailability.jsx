@@ -31,28 +31,33 @@ const HeaderDatesOfCurrentWeek = (props) => {
 const BodyRowsDateAvailability = (props) => {
   const rows = createCalendarRow(props.calendar, props.dates);
 
-  const handleCellClick = (key, columnName, valueOfCell) => {
+  const onCellClickHandler = (key, columnName, isAvailable) => {
     console.log("cell clicked");
     console.log(key);
     console.log(columnName);
-    console.log(valueOfCell);
+    console.log(isAvailable);
+    if (isAvailable === hourAvailability.AVAILABLE) {
+      isAvailable = hourAvailability.NOT_AVAILABLE;
+      console.log("Before was available, now not");
+      console.log(isAvailable);
+    }
   };
 
   return (
     <TableBody>
       {rows.map((row) => (
-        <TableRow key={row.hour} hover>
+        <TableRow key={row.hour}>
           <TableCell
             align="center"
             component="th"
             scope="row"
             style={{ backgroundColor: '#9B9B9B', color: 'black' }}
-            onClick={() => handleCellClick(row.hour, "columnName")}
+            onClick={() => onCellClickHandler(row.hour, "columnName")}
           >
             {row.hour}
           </TableCell>
           <TableCell
-            onClick={() => handleCellClick(row.hour, "columnName", row.monday)}
+            onClick={() => onCellClickHandler(row.hour, "columnName", row.monday)}
             class={row.monday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
 

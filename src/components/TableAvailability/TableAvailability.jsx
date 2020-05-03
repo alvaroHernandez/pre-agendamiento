@@ -30,19 +30,29 @@ const HeaderDatesOfCurrentWeek = (props) => {
 
 const BodyRowsDateAvailability = (props) => {
   const rows = createCalendarRow(props.calendar, props.dates);
+
+  const handleCellClick = (key, columnName, valueOfCell) => {
+    console.log("cell clicked");
+    console.log(key);
+    console.log(columnName);
+    console.log(valueOfCell);
+  };
+
   return (
     <TableBody>
       {rows.map((row) => (
-        <TableRow key={row.hour}>
+        <TableRow key={row.hour} hover>
           <TableCell
             align="center"
             component="th"
             scope="row"
             style={{ backgroundColor: '#9B9B9B', color: 'black' }}
+            onClick={() => handleCellClick(row.hour, "columnName")}
           >
             {row.hour}
           </TableCell>
           <TableCell
+            onClick={() => handleCellClick(row.hour, "columnName", row.monday)}
             class={row.monday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
 

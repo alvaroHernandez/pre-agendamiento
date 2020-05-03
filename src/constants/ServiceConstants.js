@@ -20,19 +20,29 @@ export const API_RESPONSE = {
       nombre: 'ACHS principal',
       disponibilidad: [
         {
-          date: '27/4/2020',
+          date: '4/5/2020',
           hourFrom: '10:00',
           hourTo: '11:00',
         },
         {
-          date: '28/4/2020',
+          date: '5/5/2020',
           hourFrom: '12:00',
           hourTo: '13:00',
         },
         {
-          date: '29/4/2020',
+          date: '6/5/2020',
+          hourFrom: '14:00',
+          hourTo: '15:00',
+        },
+        {
+          date: '6/5/2020',
           hourFrom: '16:00',
           hourTo: '17:00',
+        },
+        {
+          date: '7/5/2020',
+          hourFrom: '15:00',
+          hourTo: '16:00',
         },
       ],
     },

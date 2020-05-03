@@ -45,6 +45,8 @@ export function createData(hour, monday, tuesday, wednesday, thursday, friday) {
 }
 
 export function createCalendarRow(calendar, datesOfWeek) {
+  console.log(calendar);
+  console.log(datesOfWeek);
   const rows = [];
   CORE_HOURS_CENTERS.forEach((hour) => {
     const weekHourData = [];
@@ -70,5 +72,6 @@ export function createCalendarRow(calendar, datesOfWeek) {
       ),
     );
   });
+  console.log(rows);
   return rows;
 }

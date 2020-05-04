@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
 import { createCurrentWeek, createCalendar, createCalendarRow } from '../../services/AppointmentTableService';
 import hourAvailability from '../../data/HourAvailabilityType';
-
 import './tableAvailability.css';
 
 const HeaderDatesOfCurrentWeek = (props) => {
@@ -22,16 +20,9 @@ const HeaderDatesOfCurrentWeek = (props) => {
 
 const BodyRowsDateAvailability = (props) => {
   const rows = createCalendarRow(props.calendar, props.dates);
-
   const onCellClickHandler = (key, columnName, isAvailable) => {
-    console.log("cell clicked");
-    console.log(key);
-    console.log(columnName);
-    console.log(isAvailable);
     if (isAvailable === hourAvailability.AVAILABLE) {
       isAvailable = hourAvailability.NOT_AVAILABLE;
-      console.log("Before was available, now not");
-      console.log(isAvailable);
     }
   };
 
@@ -49,11 +40,9 @@ const BodyRowsDateAvailability = (props) => {
             onClick={() => onCellClickHandler(row.hour, "columnName", row.monday)}
             className={row.monday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
-
           <td
             className={row.tuesday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
-
           <td
             className={
               row.wednesday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'
@@ -71,7 +60,6 @@ const BodyRowsDateAvailability = (props) => {
   );
 };
 
-
 export default function SimpleTableAvailability() {
   const [week, setWeek] = useState([]);
   const [calendar, setCalendar] = useState([]);
@@ -82,11 +70,9 @@ export default function SimpleTableAvailability() {
   }, []);
 
   return (
-
     <table>
       <HeaderDatesOfCurrentWeek dates={week} />
       <BodyRowsDateAvailability dates={week} calendar={calendar} />
     </table>
-
   );
 }

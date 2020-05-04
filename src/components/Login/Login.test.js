@@ -51,13 +51,15 @@ test('get logged through login form and redirected to home', async () => {
 });
 
 test('should show required filed tooltip when login button is clicked without fill the required fiedls', async () => {
+  localStorage.removeItem('access_token')
   const loginForm = render(
     <MemoryRouter>
       <Login />
     </MemoryRouter>,
   );
-
   fireEvent.click(loginForm.getByText(/Acceder/i));
 
-  expect(mockHistoryPush).toBeCalledTimes(0);
+
+  expect(localStorage.getItem('access_token')).toEqual(null);
+
 });

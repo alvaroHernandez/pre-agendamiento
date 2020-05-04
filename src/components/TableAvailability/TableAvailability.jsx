@@ -1,12 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
 import { createCurrentWeek, createCalendar, createCalendarRow } from '../../services/AppointmentTableService';
 import hourAvailability from '../../data/HourAvailabilityType';
@@ -16,15 +8,15 @@ import './tableAvailability.css';
 const HeaderDatesOfCurrentWeek = (props) => {
   const { dates } = props;
   const headerDates = dates.map((date) => (
-    <TableCell align="center">{date}</TableCell>
+    <th  key={date}>{date}</th>
   ));
   return (
-    <TableHead>
-      <TableRow>
-        <TableCell> </TableCell>
+    <thead>
+      <tr>
+        <th> </th>
         {headerDates}
-      </TableRow>
-    </TableHead>
+      </tr>
+    </thead>
   );
 };
 
@@ -44,52 +36,43 @@ const BodyRowsDateAvailability = (props) => {
   };
 
   return (
-    <TableBody>
+    <tbody>
       {rows.map((row) => (
-        <TableRow key={row.hour}>
-          <TableCell
-            align="center"
-            component="th"
-            scope="row"
-            style={{ backgroundColor: '#9B9B9B', color: 'black' }}
+        <tr key={row.hour}>
+          <td
+            className ="timeHeader"
             onClick={() => onCellClickHandler(row.hour, "columnName")}
           >
             {row.hour}
-          </TableCell>
-          <TableCell
+          </td>
+          <td
             onClick={() => onCellClickHandler(row.hour, "columnName", row.monday)}
-            class={row.monday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
+            className={row.monday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
 
-          <TableCell
-            class={row.tuesday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
+          <td
+            className={row.tuesday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
 
-          <TableCell
-            class={
+          <td
+            className={
               row.wednesday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'
             }
           />
-          <TableCell
-            class={row.thursday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
+          <td
+            className={row.thursday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
-          <TableCell
-            class={row.friday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
+          <td
+            className={row.friday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
           />
-        </TableRow>
+        </tr>
       ))}
-    </TableBody>
+    </tbody>
   );
 };
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 450,
-  },
-});
 
 export default function SimpleTableAvailability() {
-  const classes = useStyles();
   const [week, setWeek] = useState([]);
   const [calendar, setCalendar] = useState([]);
 
@@ -99,11 +82,11 @@ export default function SimpleTableAvailability() {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <HeaderDatesOfCurrentWeek dates={week} />
-        <BodyRowsDateAvailability dates={week} calendar={calendar} />
-      </Table>
-    </TableContainer>
+
+    <table>
+      <HeaderDatesOfCurrentWeek dates={week} />
+      <BodyRowsDateAvailability dates={week} calendar={calendar} />
+    </table>
+
   );
 }

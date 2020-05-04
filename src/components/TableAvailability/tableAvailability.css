@@ -2,12 +2,16 @@ table {
   border-spacing: 0.3rem;
   width: 100%;
   padding: 5%;
+  border-spacing: 22px 6px;
 }
 
 th {
-  background: none;
-  font-size: 140%;
-  font-weight: normal;
+    background: none;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 160%;
 }
 
 td {
@@ -17,18 +21,24 @@ td {
 }
 
 .timeHeader {
-  background: #999;
-  width: max-content;
-  font-size: 110%;
-  font-weight: lighter;
-  vertical-align: top;
-  text-align: center;
+    background: #C4C4C4;
+    width: max-content;
+    font-size: 110%;
+    font-weight: lighter;
+    vertical-align: top;
+    text-align: center;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 150%;
 }
 
 .available {
-  background: #d5fad5;
+    background: #6FCF97;
 }
 
 .notAvailable {
-  background: #e0dfdf;
+    background: #EB5757;
 }

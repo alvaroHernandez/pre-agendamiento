@@ -16,19 +16,17 @@ export const createCurrentWeek = () => {
 };
 
 export const createCalendar = () => {
-  const oneCenterAvailability = API_RESPONSE.centros[0].disponibilidad;
+  const hoursAvailable = API_RESPONSE.centros[0].disponibilidad;
   const currentWeek = createCurrentWeek();
   const calendar = {};
   currentWeek.forEach((day) => {
-    calendar[day] = {};
+    calendar[day] = [];
   });
-  const datesOfCalendar = Object.keys(calendar);
-  oneCenterAvailability.forEach((availability) => {
-    const startHour = [];
-    if (datesOfCalendar.includes(availability.date)) {
-      startHour.push(availability.hourFrom);
+  const dates = Object.keys(calendar);
+  hoursAvailable.forEach((hour) => {
+    if (dates.includes(hour.date)) {
+      calendar[hour.date].push(hour.hourFrom);
     }
-    calendar[availability.date] = startHour;
   });
   return calendar;
 };
@@ -45,8 +43,6 @@ export function createData(hour, monday, tuesday, wednesday, thursday, friday) {
 }
 
 export function createCalendarRow(calendar, datesOfWeek) {
-  console.log(calendar);
-  console.log(datesOfWeek);
   const rows = [];
   CORE_HOURS_CENTERS.forEach((hour) => {
     const weekHourData = [];
@@ -72,6 +68,5 @@ export function createCalendarRow(calendar, datesOfWeek) {
       ),
     );
   });
-  console.log(rows);
   return rows;
 }

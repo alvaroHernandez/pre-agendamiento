@@ -3,8 +3,10 @@ import hourAvailability from '../data/HourAvailabilityType';
 
 export const createCurrentWeek = () => {
   const currentDay = new Date();
+  const firstDayNumber = 1;
+  const lastDayNumber = 5;
   const currentWeek = [];
-  for (let day = 1; day <= 5; day++) {
+  for (let day = firstDayNumber; day <= lastDayNumber; day++) {
     const dayOfWeek = currentDay.getDate() - currentDay.getDay() + day;
     const date = new Date(currentDay.setDate(dayOfWeek));
     const dateString = `${date.getDate()}/${

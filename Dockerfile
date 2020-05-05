@@ -10,5 +10,8 @@ RUN yarn test --watchAll=false
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=react-build /app/build /usr/share/nginx/html
-EXPOSE 80
+RUN apk add openssh \
+     && echo "root:Docker!" | chpasswd
+COPY sshd_config /etc/ssh/
+EXPOSE 80 2222
 CMD ["nginx", "-g", "daemon off;"]

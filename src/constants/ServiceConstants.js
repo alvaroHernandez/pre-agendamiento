@@ -40,6 +40,11 @@ export const API_RESPONSE = {
           hourTo: '17:00',
         },
         {
+          date: '6/5/2020',
+          hourFrom: '17:00',
+          hourTo: '18:00',
+        },
+        {
           date: '7/5/2020',
           hourFrom: '15:00',
           hourTo: '16:00',

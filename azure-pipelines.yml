@@ -41,6 +41,7 @@ stages:
           DockerRepository: 'pre-agendamiento-front'
           DockerImageTag: '$(tag)'
           AppSettings: '-e REACT_APP_API_MANAGEMENT_URL=https://dev-pre-agendamiento.azure-api.net'
+          StartupCommand: '-e REACT_APP_API_MANAGEMENT_URL=https://dev-pre-agendamiento.azure-api.net'
 - stage: Deploy_QA
   displayName: Deploy QA
   jobs:
@@ -107,6 +108,12 @@ stages:
                 DockerNamespace: 'preagendamiento.azurecr.io'
                 DockerRepository: 'pre-agendamiento-front'
                 DockerImageTag: '$(tag)'
-
-                
-            
+            - task: AzureRmWebAppDeployment@4
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: 'Pre Agendamiento (ba10e75d-9812-4287-851a-a380629158f0)'
+                appType: 'webAppContainer'
+                WebAppName: 'dev-pre-agendamiento'
+                DockerNamespace: 'namespace'
+                DockerRepository: 'image'
+                DockerImageTag: 'tag'

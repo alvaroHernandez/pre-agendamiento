@@ -40,7 +40,6 @@ stages:
           DockerNamespace: 'preagendamiento.azurecr.io'
           DockerRepository: 'pre-agendamiento-front'
           DockerImageTag: '$(tag)'
-          StartupCommand: '-e REACT_APP_API_MANAGEMENT_URL="https://dev-pre-agendamiento.azure-api.net"'
 - stage: Deploy_QA
   displayName: Deploy QA
   jobs:

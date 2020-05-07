@@ -30,7 +30,6 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile.production'
         tags: 'production_$(Build.BuildId)'
-        arguments: --build-arg ENVIRONMENT=production
         
 
 - stage: Deploy_Dev

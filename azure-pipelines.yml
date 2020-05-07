@@ -15,12 +15,24 @@ stages:
       vmImage: $(vmImageName)
     steps:
     - task: Docker@2
-      displayName: Build an image
+      displayName: Build Dev image
       inputs:
         repository: $(imageName)
         command: buildAndPush
         Dockerfile: ./Dockerfile
         containerRegistry: preagendamiento-cr
+        tags: 'development_$(tag)'
+        arguments: --build-arg ENVIRONMENT=development
+    - task: Docker@2
+      displayName: Build production image
+      inputs:
+        containerRegistry: 'preagendamiento-cr'
+        repository: 'pre-agendamiento-front'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: 'production_$(Build.BuildId)'
+        arguments: --build-arg ENVIRONMENT=production
+        
 
 - stage: Deploy_Dev
   displayName: Deploy Dev
@@ -39,7 +51,7 @@ stages:
           WebAppName: 'dev-pre-agendamiento'
           DockerNamespace: 'preagendamiento.azurecr.io'
           DockerRepository: 'pre-agendamiento-front'
-          DockerImageTag: '$(tag)'
+          DockerImageTag: 'development_$(tag)'
 - stage: Deploy_QA
   displayName: Deploy QA
   jobs:
@@ -61,7 +73,7 @@ stages:
                 WebAppName: 'qa-pre-agendamiento'
                 DockerNamespace: 'preagendamiento.azurecr.io'
                 DockerRepository: 'pre-agendamiento-front'
-                DockerImageTag: '$(tag)'
+                DockerImageTag: 'development_$(tag)'
 - stage: Deploy_Staging
   displayName: Deploy Staging
   jobs:
@@ -83,7 +95,7 @@ stages:
                 WebAppName: 'staging-pre-agendamiento'
                 DockerNamespace: 'preagendamiento.azurecr.io'
                 DockerRepository: 'pre-agendamiento-front'
-                DockerImageTag: '$(tag)'
+                DockerImageTag: 'development_$(tag)'
 - stage: Deploy_Production
   displayName: Deploy Production
   jobs:
@@ -105,13 +117,4 @@ stages:
                 WebAppName: 'pre-agendamiento-front'
                 DockerNamespace: 'preagendamiento.azurecr.io'
                 DockerRepository: 'pre-agendamiento-front'
-                DockerImageTag: '$(tag)'
-            - task: AzureRmWebAppDeployment@4
-              inputs:
-                ConnectionType: 'AzureRM'
-                azureSubscription: 'Pre Agendamiento (ba10e75d-9812-4287-851a-a380629158f0)'
-                appType: 'webAppContainer'
-                WebAppName: 'dev-pre-agendamiento'
-                DockerNamespace: 'namespace'
-                DockerRepository: 'image'
-                DockerImageTag: 'tag'
+                DockerImageTag: 'production_$(tag)'

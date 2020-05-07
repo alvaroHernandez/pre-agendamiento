@@ -2,9 +2,11 @@
 FROM node:10 as react-build
 WORKDIR /app
 COPY . ./
+ARG ENVIRONMENT="development"
+ENV ENVIRONMENT=$ENVIRONMENT
 RUN yarn
-RUN yarn build
-RUN yarn test --watchAll=false
+RUN yarn build:$ENVIRONMENT
+#RUN yarn test --watchAll=false
 
 # Stage 2 - the production environment
 FROM nginx:alpine

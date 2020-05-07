@@ -22,14 +22,13 @@ stages:
         Dockerfile: ./Dockerfile
         containerRegistry: preagendamiento-cr
         tags: 'development_$(tag)'
-        arguments: --build-arg ENVIRONMENT=development
     - task: Docker@2
       displayName: Build production image
       inputs:
         containerRegistry: 'preagendamiento-cr'
         repository: 'pre-agendamiento-front'
         command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
+        Dockerfile: '**/Dockerfile.production'
         tags: 'production_$(Build.BuildId)'
         arguments: --build-arg ENVIRONMENT=production
         

@@ -16,7 +16,7 @@ const Login = () => {
     if (authResult.token !== undefined) {
       setError('');
       localStorage.setItem('access_token', authResult.token);
-      history.push('/');
+      history.push('/tabladisponibilidad');
     } else {
       setError(authResult.error);
     }

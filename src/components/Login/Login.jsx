@@ -49,7 +49,7 @@ const Login = () => {
 
   return (
     <div className="loginStyle">
-    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleLogin}>
+    <form noValidate autoComplete="off" onSubmit={handleLogin}>
       <TextField id="outlined-user" label="Nombre" variant="outlined" value={username} onChange={onChangeEventValueUsername}/>
       <br />
       <TextField id="outlined-pass" label="Password" variant="outlined" value={password} onChange={onChangeEventValuePassword} type="password"/>

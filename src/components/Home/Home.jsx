@@ -1,7 +1,6 @@
 import React from "react";
 import TableAvailability from "../TableAvailability/TableAvailability";
 import SimpleListCenters from "../SimpleListCenters/SimpleListCenters";
-import WelcomeAlert from "../WelcomeAlert/WelcomeAlert";
 
 import Logout from "../Logout/Logout";
 

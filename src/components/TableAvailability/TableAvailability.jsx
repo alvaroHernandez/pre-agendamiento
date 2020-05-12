@@ -30,7 +30,6 @@ const HeaderDatesOfCurrentWeek = (props) => {
 
 const BodyRowsDateAvailability = (props) => {
   const rows = createCalendarRow(props.centerCalendar, props.dates);
-  const rows2 = createCalendarRow(props.userCalendar, props.dates);
 
   const onCellClickHandler = (key, columnName, isAvailable) => {
     console.log("cell clicked");

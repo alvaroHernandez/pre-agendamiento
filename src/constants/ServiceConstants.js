@@ -13,43 +13,44 @@ export const CORE_HOURS_CENTERS = [
   '20:00',
 ];
 
-export const API_RESPONSE = {
-  centros: [
+export const API_CENTER_RESPONSE = {
+  appointments: [
+          {
+            "id": 1,
+            "description": "Cita de Alvaro",
+            "date": "11/5/2020",
+            "time": "14:00",
+            "slotId": "202005051400",
+            "healthcareFacility": null
+          },
+          {
+            "id": 2,
+            "description": "Dentista",
+            "date": "12/5/2020",
+            "time": "19:00",
+            "slotId": "202005081624",
+            "healthcareFacility": null
+          }
+      ]
+};
+
+export const API_USER_RESPONSE = {
+  appointments: [
     {
-      id: 'd30cd5da-8424-4922-a7ff-4ecb670a6c0a',
-      nombre: 'ACHS principal',
-      disponibilidad: [
-        {
-          date: '11/5/2020',
-          hourFrom: '10:00',
-          hourTo: '11:00',
-        },
-        {
-          date: '12/5/2020',
-          hourFrom: '12:00',
-          hourTo: '13:00',
-        },
-        {
-          date: '13/5/2020',
-          hourFrom: '14:00',
-          hourTo: '15:00',
-        },
-        {
-          date: '14/5/2020',
-          hourFrom: '16:00',
-          hourTo: '17:00',
-        },
-        {
-          date: '14/5/2020',
-          hourFrom: '17:00',
-          hourTo: '18:00',
-        },
-        {
-          date: '15/5/2020',
-          hourFrom: '15:00',
-          hourTo: '16:00',
-        },
-      ],
+      "id": 1,
+      "description": "Cita de Alvaro",
+      "date": "11/5/2020",
+      "time": "15:00",
+      "slotId": "202005051400",
+      "healthcareFacility": null
     },
-  ],
+    {
+      "id": 2,
+      "description": "Dentista",
+      "date": "12/5/2020",
+      "time": "18:00",
+      "slotId": "202005081624",
+      "healthcareFacility": null
+    }
+  ]
 };

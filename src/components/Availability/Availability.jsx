@@ -4,10 +4,9 @@ import { httpClient } from "../../clients/httpClient";
 const Availability = (props) => {
   const [availabilityItems, setAvailabilityItems] = useState([]);
   const [centerName, setCenterName] = useState([]);
-  const API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/healthcarefacilities`;
   useEffect(() => {
     httpClient(
-      API_URL,
+      `${process.env.REACT_APP_API_MANAGEMENT_URL}/healthcarefacilities`,
       "GET",
       (json) => {
         setCenterName(json.centros[0].nombre);

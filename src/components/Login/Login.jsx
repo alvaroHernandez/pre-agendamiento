@@ -4,6 +4,8 @@ import { authenticate } from '../../clients/authenticate';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Button from '@material-ui/core/Button';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -49,7 +51,10 @@ const Login = () => {
       <br />
       <TextField id="outlined-pass" label="Password" variant="outlined" value={password} onChange={onChangeEventValuePassword} type="password"/>
       <br />
-      <input type="submit" value="Acceder" />
+
+      <Button variant="contained" color="primary" type="submit" value="Acceder">
+        Login
+      </Button>
       <span>{error}</span>
     </form>
   );

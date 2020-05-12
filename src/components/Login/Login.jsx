@@ -5,12 +5,15 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
+import './login.css';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
       width: '25ch',
+      background: 'green',
     },
   },
 }));
@@ -46,6 +49,7 @@ const Login = () => {
   const classes = useStyles();
 
   return (
+    <div className="loginStyle">
     <form className={classes.root} noValidate autoComplete="off" onSubmit={handleLogin}>
       <TextField id="outlined-user" label="Nombre" variant="outlined" value={username} onChange={onChangeEventValueUsername}/>
       <br />
@@ -53,10 +57,11 @@ const Login = () => {
       <br />
 
       <Button variant="contained" color="primary" type="submit" value="Acceder">
-        Login
+        Iniciar Sesión
       </Button>
       <span>{error}</span>
     </form>
+    </div>
   );
 };
 

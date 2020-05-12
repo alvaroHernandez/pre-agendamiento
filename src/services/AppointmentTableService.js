@@ -1,4 +1,8 @@
-import { CORE_HOURS_CENTERS, API_RESPONSE } from '../constants/ServiceConstants';
+import {
+  CORE_HOURS_CENTERS,
+  API_USER_RESPONSE,
+  API_CENTER_RESPONSE
+} from '../constants/ServiceConstants';
 import hourAvailability from '../data/HourAvailabilityType';
 
 export const createCurrentWeek = () => {
@@ -17,17 +21,25 @@ export const createCurrentWeek = () => {
   return currentWeek;
 };
 
-export const createCalendar = () => {
-  const hoursAvailable = API_RESPONSE.centros[0].disponibilidad;
+export function createCenterCalendar () {
+  return createCalendar(API_CENTER_RESPONSE.appointments);
+}
+export function createUserCalendar () {
+  return createCalendar(API_USER_RESPONSE.appointments);
+
+}
+
+export const createCalendar = (data) => {
+  const hoursAvailable = data;
   const currentWeek = createCurrentWeek();
   const calendar = {};
   currentWeek.forEach((day) => {
     calendar[day] = [];
   });
   const dates = Object.keys(calendar);
-  hoursAvailable.forEach((hour) => {
-    if (dates.includes(hour.date)) {
-      calendar[hour.date].push(hour.hourFrom);
+  hoursAvailable.forEach((appointment) => {
+    if (dates.includes(appointment.date)) {
+      calendar[appointment.date].push(appointment.time);
     }
   });
   return calendar;

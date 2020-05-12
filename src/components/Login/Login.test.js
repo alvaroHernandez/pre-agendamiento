@@ -47,7 +47,7 @@ test('get logged through login form and redirected to home', async () => {
   });
 
   expect(localStorage.getItem('access_token')).toEqual(loginResponse.token);
-  expect(mockHistoryPush).toHaveBeenCalledWith('/tabladisponibilidad');
+  expect(mockHistoryPush).toHaveBeenCalledWith('/');
 });
 
 test('should show required filed tooltip when login button is clicked without fill the required fiedls', async () => {

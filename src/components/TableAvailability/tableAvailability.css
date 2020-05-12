@@ -15,9 +15,9 @@ th {
 }
 
 td {
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid rgba(224, 224, 224, 1)  ;
   background: #e3e1e1;
-  height: 45px;
+  height: 20px;
 }
 
 .timeHeader {
@@ -40,5 +40,5 @@ td {
 }
 
 .notAvailable {
-    background: rgb(226, 226, 226);
+  background: #FFFFFF;
 }

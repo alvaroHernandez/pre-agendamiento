@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { authenticate } from '../../clients/authenticate';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
+}));
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -22,26 +33,22 @@ const Login = () => {
     }
   };
 
+  const onChangeEventValueUsername = (event) => {
+    setUsername(event.target.value)
+  };
+
+  const onChangeEventValuePassword = (event) => {
+    setPassword(event.target.value)
+  };
+
+  const classes = useStyles();
+
   return (
-    <form onSubmit={handleLogin}>
-      <label>
-        Nombre:
-        <input
-          onChange={(e) => setUsername(e.target.value)}
-          type="text"
-          name="username"
-          required
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          name="password"
-          required
-        />
-      </label>
+    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleLogin}>
+      <TextField id="outlined-user" label="Nombre" variant="outlined" value={username} onChange={onChangeEventValueUsername}/>
+      <br />
+      <TextField id="outlined-pass" label="Password" variant="outlined" value={password} onChange={onChangeEventValuePassword} type="password"/>
+      <br />
       <input type="submit" value="Acceder" />
       <span>{error}</span>
     </form>

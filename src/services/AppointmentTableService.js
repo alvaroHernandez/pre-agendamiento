@@ -66,9 +66,10 @@ export function createCalendarRow(calendar, datesOfWeek) {
         availableHoursFromOfDay instanceof Array
           && availableHoursFromOfDay.includes(hour)
       ) {
-        weekHourData.push(hourAvailability.AVAILABLE);
-      } else {
         weekHourData.push(hourAvailability.NOT_AVAILABLE);
+      } else {
+        weekHourData.push(hourAvailability.AVAILABLE);
+
       }
     });
     rows.push(

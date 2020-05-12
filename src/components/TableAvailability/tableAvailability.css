@@ -35,10 +35,10 @@ td {
     line-height: 150%;
 }
 
-.available {
+.notAvailable {
     background: #6FCF97;
 }
 
-.notAvailable {
-  background: rgb(243, 243, 243);
+.available {
+  background: rgb(255, 255, 255);
 }

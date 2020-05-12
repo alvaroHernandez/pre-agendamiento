@@ -6,7 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import { httpClient } from "../../clients/httpClient";
 
-const API_URL = 'http://localhost:5000/healthcarefacilities/'
+const API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/healthcarefacilities`;
 
 const useStyles = makeStyles((theme) => ({
   root: {

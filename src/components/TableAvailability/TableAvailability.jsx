@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { httpClient } from "../../clients/httpClient";
-import { createCurrentWeek, createCenterCalendar,createUserCalendar, createCalendar,createCalendarRow } from '../../services/AppointmentTableService';
+import { createCurrentWeek, createCalendar,createCalendarRow } from '../../services/AppointmentTableService';
 import hourAvailability from '../../data/HourAvailabilityType';
 
 import './tableAvailability.css';

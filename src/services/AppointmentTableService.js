@@ -68,6 +68,7 @@ export function createCalendarRow(calendar, datesOfWeek) {
           && (availableHoursFromOfDay.some(e => e.hour === hour))
       ) {
         const appointment = availableHoursFromOfDay.find(e => e.hour === hour);
+        appointment.type = (appointment.type=== undefined)?hourAvailability.USER_APPOINTMENT:appointment.type;
         weekHourData.push(appointment)
       } else {
         weekHourData.push({type:hourAvailability.AVAILABLE, description:""});

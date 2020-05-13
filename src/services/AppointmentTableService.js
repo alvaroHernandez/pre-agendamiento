@@ -21,8 +21,8 @@ export const createCurrentWeek = () => {
   return currentWeek;
 };
 
-export function createCenterCalendar () {
-  return createCalendar(API_CENTER_RESPONSE.appointments);
+export async function createCenterCalendar () {
+  return createCalendar([]);
 }
 export function createUserCalendar () {
   return createCalendar(API_USER_RESPONSE.appointments);
@@ -30,7 +30,7 @@ export function createUserCalendar () {
 }
 
 export const createCalendar = (data) => {
-  const hoursAvailable = data;
+  const hoursAvailable = API_CENTER_RESPONSE.appointments;
   const currentWeek = createCurrentWeek();
   const calendar = {};
   currentWeek.forEach((day) => {
@@ -39,7 +39,7 @@ export const createCalendar = (data) => {
   const dates = Object.keys(calendar);
   hoursAvailable.forEach((appointment) => {
     if (dates.includes(appointment.date)) {
-      calendar[appointment.date].push(appointment.time);
+      calendar[appointment.date].push({hour:appointment.hour, type:appointment.type});
     }
   });
   return calendar;
@@ -64,9 +64,12 @@ export function createCalendarRow(calendar, datesOfWeek) {
       const availableHoursFromOfDay = calendar[date];
       if (
         availableHoursFromOfDay instanceof Array
-          && availableHoursFromOfDay.includes(hour)
+          && (availableHoursFromOfDay.some(e => e.hour === hour))
       ) {
-        weekHourData.push(hourAvailability.NOT_AVAILABLE);
+        if(availableHoursFromOfDay.some(e => e.hour === hour && e.type==='center'))
+          weekHourData.push(hourAvailability.CENTER_APPOINTMENT);
+        else if(availableHoursFromOfDay.some(e => e.hour === hour && e.type==='user'))
+          weekHourData.push(hourAvailability.USER_APPOINTMENT);
       } else {
         weekHourData.push(hourAvailability.AVAILABLE);
 

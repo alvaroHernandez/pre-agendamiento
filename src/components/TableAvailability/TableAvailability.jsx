@@ -7,11 +7,13 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
-import { createCurrentWeek, createCenterCalendar,createUserCalendar, createCalendarRow } from '../../services/AppointmentTableService';
+import { httpClient } from "../../clients/httpClient";
+import { createCurrentWeek, createCenterCalendar,createUserCalendar, createCalendar,createCalendarRow } from '../../services/AppointmentTableService';
 import hourAvailability from '../../data/HourAvailabilityType';
 
 import './tableAvailability.css';
+
+const API_URL = `http://localhost:5000/user/${localStorage.getItem("user_id")}/appointment`;
 
 const HeaderDatesOfCurrentWeek = (props) => {
   const { dates } = props;
@@ -32,12 +34,8 @@ const BodyRowsDateAvailability = (props) => {
   const rows = createCalendarRow(props.centerCalendar, props.dates);
 
   const onCellClickHandler = (key, columnName, isAvailable) => {
-    console.log("cell clicked");
-    console.log(key);
-    console.log(columnName);
-    console.log(isAvailable);
     if (isAvailable === hourAvailability.AVAILABLE) {
-      isAvailable = hourAvailability.NOT_AVAILABLE;
+      isAvailable = hourAvailability.CENTER_APPOINTMENT;
       console.log("Before was available, now not");
       console.log(isAvailable);
     }
@@ -58,27 +56,25 @@ const BodyRowsDateAvailability = (props) => {
           </TableCell>
           <TableCell
             onClick={() => onCellClickHandler(row.hour, props.dates[0], row.monday)}
-            className={row.monday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
-          />
+            className={row.monday}
+          >{(row.monday!='available')?row.monday:''}</TableCell>
 
           <TableCell
             onClick={() => onCellClickHandler(row.hour, props.dates[1], row.tuesday)}
-            className={row.tuesday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
+            className={row.tuesday}
           />
 
           <TableCell
             onClick={() => onCellClickHandler(row.hour, props.dates[2], row.wednesday)}
-            className={
-              row.wednesday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'
-            }
+            className={row.wednesday}
           />
           <TableCell
             onClick={() => onCellClickHandler(row.hour, props.dates[3], row.thursday)}
-            className={row.thursday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
-          />
+            className={row.thursday}
+          >{(row.thursday!='available')?row.thursday:''}</TableCell>
           <TableCell
             onClick={() => onCellClickHandler(row.hour, props.dates[4], row.friday)}
-            className={row.friday === hourAvailability.AVAILABLE ? 'available' : 'notAvailable'}
+            className={row.friday}
           />
         </TableRow>
       ))}
@@ -92,21 +88,37 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleTableAvailability() {
+export default function TableAvailability() {
+
   const classes = useStyles();
   const [week, setWeek] = useState([]);
   const [centerCalendar, setCenterCalendar] = useState([]);
   const [userCalendar, setUserCalendar] = useState([]);
 
-  useEffect(() => {
+  const setAvailability = (data)=> {
+    let calendarData = createCalendar(data)
     setWeek(createCurrentWeek);
-    setCenterCalendar(createCenterCalendar);
+    setCenterCalendar(calendarData);
     setUserCalendar(createUserCalendar);
+  }
+
+  useEffect(() => {
+
+    httpClient(
+      API_URL,
+      "GET",
+      (json) => {
+        setAvailability(json.appointments)
+      },
+      (error) => {
+        setAvailability([])
+      }
+    );
   }, []);
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
+      <Table className={classes.table} aria-label="Availability">
         <HeaderDatesOfCurrentWeek dates={week} />
         <BodyRowsDateAvailability dates={week} centerCalendar={centerCalendar} userCalendar={userCalendar}/>
       </Table>

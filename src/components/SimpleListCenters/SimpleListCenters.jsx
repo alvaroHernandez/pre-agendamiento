@@ -44,6 +44,7 @@ export default function SelectedListItem() {
       <List component="nav" aria-label="main mailbox folders">
         { healthFacilities.map( (healthFacility, i) =>
           <ListItem
+            key={i}
             button
             selected={selectedIndex === i}
             onClick={(event) => handleListItemClick(event, i)}

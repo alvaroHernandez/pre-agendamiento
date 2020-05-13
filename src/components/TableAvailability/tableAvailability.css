@@ -35,8 +35,11 @@ td {
     line-height: 150%;
 }
 
-.notAvailable {
+.centerAppointment {
     background: #6FCF97;
+}
+.userAppointment {
+  background: rgb(104, 142, 255);
 }
 
 .available {

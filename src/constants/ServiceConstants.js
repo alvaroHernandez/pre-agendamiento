@@ -19,17 +19,28 @@ export const API_CENTER_RESPONSE = {
             "id": 1,
             "description": "Cita de Alvaro",
             "date": "11/5/2020",
-            "time": "14:00",
+            "hour": "14:00",
             "slotId": "202005051400",
-            "healthcareFacility": null
+            "healthcareFacility": "Mordor",
+            "type": "user"
           },
           {
             "id": 2,
             "description": "Dentista",
             "date": "12/5/2020",
-            "time": "19:00",
+            "hour": "19:00",
             "slotId": "202005081624",
-            "healthcareFacility": null
+            "healthcareFacility": "Providencia",
+            "type": "user"
+          },
+          {
+            "id": 3,
+            "description": "Dentista",
+            "date": "12/5/2020",
+            "hour": "15:00",
+            "slotId": "202005081624",
+            "healthcareFacility": "Neverland",
+            "type": "center"
           }
       ]
 };
@@ -40,7 +51,7 @@ export const API_USER_RESPONSE = {
       "id": 1,
       "description": "Cita de Alvaro",
       "date": "11/5/2020",
-      "time": "15:00",
+      "hour": "15:00",
       "slotId": "202005051400",
       "healthcareFacility": null
     },
@@ -48,7 +59,7 @@ export const API_USER_RESPONSE = {
       "id": 2,
       "description": "Dentista",
       "date": "12/5/2020",
-      "time": "18:00",
+      "hour": "18:00",
       "slotId": "202005081624",
       "healthcareFacility": null
     }

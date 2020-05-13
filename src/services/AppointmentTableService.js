@@ -4,6 +4,7 @@ import {
   API_CENTER_RESPONSE
 } from '../constants/ServiceConstants';
 import hourAvailability from '../data/HourAvailabilityType';
+import dayOfTheWeekToString from "./dayOfTheWeekToString";
 
 export const createCurrentWeek = () => {
   const currentDay = new Date();
@@ -13,7 +14,7 @@ export const createCurrentWeek = () => {
   for (let day = firstDayNumber; day <= lastDayNumber; day++) {
     const dayOfWeek = currentDay.getDate() - currentDay.getDay() + day;
     const date = new Date(currentDay.setDate(dayOfWeek));
-    const dateString = `${date.getDate()}/${
+    const dateString = `${dayOfTheWeekToString(date.getDay())} ${date.getDate()}/${
       date.getMonth() + 1
     }/${date.getFullYear()}`;
     currentWeek.push(dateString);

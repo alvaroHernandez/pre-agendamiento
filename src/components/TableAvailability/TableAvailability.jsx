@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { httpClient } from "../../clients/httpClient";
-import { createCurrentWeek, createCalendar,createCalendarRow } from '../../services/AppointmentTableService';
+import { createCurrentWeek, createCurrentWeekHeader, createCalendar,createCalendarRow } from '../../services/AppointmentTableService';
 import hourAvailability from '../../data/HourAvailabilityType';
 
 import './tableAvailability.css';
@@ -90,11 +90,13 @@ export default function TableAvailability(props) {
 
   const classes = useStyles();
   const [week, setWeek] = useState([]);
+  const [weekHeader, setWeekHeader] = useState([]);
   const [centerCalendar, setCenterCalendar] = useState([]);
   const [id, setId] = useState(localStorage.getItem("user_id"));
 
   const setAvailability = (data) => {
     const appointments = createCalendar(data);
+    setWeekHeader(createCurrentWeekHeader);
     setWeek(createCurrentWeek);
     setCenterCalendar(appointments);
   };
@@ -120,7 +122,7 @@ export default function TableAvailability(props) {
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="Availability">
-        <HeaderDatesOfCurrentWeek dates={week} />
+        <HeaderDatesOfCurrentWeek dates={weekHeader} />
         <BodyRowsDateAvailability dates={week} centerCalendar={centerCalendar}/>
       </Table>
     </TableContainer>

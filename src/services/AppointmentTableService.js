@@ -6,6 +6,22 @@ import {
 import hourAvailability from '../data/HourAvailabilityType';
 import dayOfTheWeekToString from "./dayOfTheWeekToString";
 
+export const createCurrentWeekHeader = () => {
+  const currentDay = new Date();
+  const firstDayNumber = 1;
+  const lastDayNumber = 5;
+  const currentWeek = [];
+  for (let day = firstDayNumber; day <= lastDayNumber; day++) {
+    const dayOfWeek = currentDay.getDate() - currentDay.getDay() + day;
+    const date = new Date(currentDay.setDate(dayOfWeek));
+    const dateString = `${dayOfTheWeekToString(date.getDay())} ${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+    currentWeek.push(dateString);
+  }
+  return currentWeek;
+};
+
 export const createCurrentWeek = () => {
   const currentDay = new Date();
   const firstDayNumber = 1;

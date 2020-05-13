@@ -30,9 +30,9 @@ const Login = () => {
     const authResult = await authenticate(username, password);
     if (authResult.token !== undefined) {
       setError('');
-      localStorage.setItem('access_token', authResult.token);
-      localStorage.setItem('user_id', authResult.id);
-      localStorage.setItem('user_name', authResult.name)
+      await localStorage.setItem('access_token', authResult.token);
+      await localStorage.setItem('user_id', authResult.id);
+      await localStorage.setItem('user_name', authResult.name)
       history.push('/');
     } else {
       setError(authResult.error);

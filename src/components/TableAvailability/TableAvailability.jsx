@@ -13,7 +13,6 @@ import hourAvailability from '../../data/HourAvailabilityType';
 
 import './tableAvailability.css';
 
-const API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/user/${localStorage.getItem("user_id")}/appointment`;
 
 const HeaderDatesOfCurrentWeek = (props) => {
   const { dates } = props;
@@ -92,6 +91,7 @@ export default function TableAvailability() {
   const classes = useStyles();
   const [week, setWeek] = useState([]);
   const [centerCalendar, setCenterCalendar] = useState([]);
+  const [id, setId] = useState(localStorage.getItem("user_id"));
 
   const setAvailability = (data) => {
 
@@ -101,6 +101,8 @@ export default function TableAvailability() {
   };
 
   useEffect(() => {
+    const API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/user/${id}/appointment`;
+    console.log(API_URL);
     console.log("useEffect Table Availability")
     httpClient(
       API_URL,

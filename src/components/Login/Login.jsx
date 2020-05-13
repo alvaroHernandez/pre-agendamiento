@@ -56,10 +56,10 @@ const Login = () => {
         position: 'absolute', left: '50%', top: '50%',
         transform: 'translate(-50%, -50%)'
     }}>
-    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleLogin}>
-      <TextField id="outlined-user" label="Nombre" variant="outlined" value={username} onChange={onChangeEventValueUsername}/>
+    <form className={classes.root} autoComplete="off" onSubmit={handleLogin}>
+      <TextField id="outlined-user" required label="Nombre" variant="outlined" value={username} onChange={onChangeEventValueUsername} style={{ border: '#20673e', boxShadow: 'none'}}/>
       <br />
-      <TextField id="outlined-pass" label="Password" variant="outlined" value={password} onChange={onChangeEventValuePassword} type="password"/>
+      <TextField id="outlined-pass" required label="Password" variant="outlined" value={password} onChange={onChangeEventValuePassword} type="password"/>
       <br />
 
       <Button variant="contained" color="primary" type="submit" value="Acceder">

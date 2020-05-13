@@ -4,6 +4,8 @@ import {
   API_CENTER_RESPONSE
 } from '../constants/ServiceConstants';
 import hourAvailability from '../data/HourAvailabilityType';
+import {httpClient} from "../clients/httpClient";
+const API_URL = `http://localhost:5000/user/${localStorage.getItem("user_id")}/appointment`;
 
 export const createCurrentWeek = () => {
   const currentDay = new Date();
@@ -21,8 +23,18 @@ export const createCurrentWeek = () => {
   return currentWeek;
 };
 
-export async function createCenterCalendar () {
-  return createCalendar([]);
+export function createCenterCalendar () {
+  httpClient(
+    API_URL,
+    "GET",
+    (json) => {
+      //return createCalendar(json.appointments)
+    },
+    (error) => {
+      //return createCalendar([])
+    }
+  );
+  return createCalendar(API_CENTER_RESPONSE.appointments);
 }
 export function createUserCalendar () {
   return createCalendar(API_USER_RESPONSE.appointments);
@@ -30,7 +42,8 @@ export function createUserCalendar () {
 }
 
 export const createCalendar = (data) => {
-  const hoursAvailable = API_CENTER_RESPONSE.appointments;
+  console.log(data)
+  const hoursAvailable = data;
   const currentWeek = createCurrentWeek();
   const calendar = {};
   currentWeek.forEach((day) => {
@@ -39,7 +52,7 @@ export const createCalendar = (data) => {
   const dates = Object.keys(calendar);
   hoursAvailable.forEach((appointment) => {
     if (dates.includes(appointment.date)) {
-      calendar[appointment.date].push({hour:appointment.hour, type:appointment.type});
+      calendar[appointment.date].push(appointment);
     }
   });
   return calendar;
@@ -66,12 +79,10 @@ export function createCalendarRow(calendar, datesOfWeek) {
         availableHoursFromOfDay instanceof Array
           && (availableHoursFromOfDay.some(e => e.hour === hour))
       ) {
-        if(availableHoursFromOfDay.some(e => e.hour === hour && e.type==='center'))
-          weekHourData.push(hourAvailability.CENTER_APPOINTMENT);
-        else if(availableHoursFromOfDay.some(e => e.hour === hour && e.type==='user'))
-          weekHourData.push(hourAvailability.USER_APPOINTMENT);
+        const appointment = availableHoursFromOfDay.find(e => e.hour === hour);
+        weekHourData.push(appointment)
       } else {
-        weekHourData.push(hourAvailability.AVAILABLE);
+        weekHourData.push({type:hourAvailability.AVAILABLE, description:""});
 
       }
     });

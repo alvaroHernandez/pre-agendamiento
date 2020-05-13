@@ -22,7 +22,7 @@ export const API_CENTER_RESPONSE = {
             "hour": "14:00",
             "slotId": "202005051400",
             "healthcareFacility": "Mordor",
-            "type": "user"
+            "type": "userAppointment"
           },
           {
             "id": 2,
@@ -31,16 +31,16 @@ export const API_CENTER_RESPONSE = {
             "hour": "19:00",
             "slotId": "202005081624",
             "healthcareFacility": "Providencia",
-            "type": "user"
+            "type": "userAppointment"
           },
           {
             "id": 3,
-            "description": "Dentista",
+            "description": "",
             "date": "12/5/2020",
             "hour": "15:00",
             "slotId": "202005081624",
             "healthcareFacility": "Neverland",
-            "type": "center"
+            "type": "centerAppointment"
           }
       ]
 };

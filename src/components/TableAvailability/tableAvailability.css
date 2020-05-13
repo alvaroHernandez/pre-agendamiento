@@ -40,6 +40,7 @@ td {
 }
 .userAppointment {
   background: rgb(104, 142, 255);
+  color: #FFFFFF !important;
 }
 
 .available {

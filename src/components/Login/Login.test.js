@@ -43,7 +43,7 @@ test('get logged through login form and redirected to home', async () => {
     fireEvent.change(loginForm.getByLabelText(/Password/i), {
       target: { value: 'fakePassword' },
     });
-    fireEvent.click(loginForm.getByText(/Acceder/i));
+    fireEvent.click(loginForm.getByText(/Iniciar Sesión/i));
   });
 
   expect(localStorage.getItem('access_token')).toEqual(loginResponse.token);
@@ -57,7 +57,7 @@ test('should show required filed tooltip when login button is clicked without fi
       <Login />
     </MemoryRouter>,
   );
-  fireEvent.click(loginForm.getByText(/Acceder/i));
+  fireEvent.click(loginForm.getByText(/Iniciar Sesión/i));
 
 
   expect(localStorage.getItem('access_token')).toEqual(null);

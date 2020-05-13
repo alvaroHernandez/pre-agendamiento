@@ -28,7 +28,7 @@ const Header = () => {
         <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          Pre-Agendamiento - Bienvenido <b>{localStorage.getItem("user_name")}</b>
+          Bienvenido a Pre-Agendamiento! <b>{localStorage.getItem("user_name")}</b>
         </Typography>
         <Logout/>
       </Toolbar>

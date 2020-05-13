@@ -13,7 +13,6 @@ import hourAvailability from '../../data/HourAvailabilityType';
 
 import './tableAvailability.css';
 
-const API_URL = `http://localhost:5000/user/${localStorage.getItem("user_id")}/appointment`;
 
 const HeaderDatesOfCurrentWeek = (props) => {
   const { dates } = props;
@@ -32,7 +31,7 @@ const HeaderDatesOfCurrentWeek = (props) => {
 
 const BodyRowsDateAvailability = (props) => {
   const rows = createCalendarRow(props.centerCalendar, props.dates);
-
+console.log(rows);
   const onCellClickHandler = (key, columnName, isAvailable) => {
     if (isAvailable === hourAvailability.AVAILABLE) {
       isAvailable = hourAvailability.CENTER_APPOINTMENT;
@@ -55,27 +54,27 @@ const BodyRowsDateAvailability = (props) => {
             {row.hour}
           </TableCell>
           <TableCell
-            onClick={() => onCellClickHandler(row.hour, props.dates[0], row.monday)}
-            className={row.monday}
-          >{(row.monday!='available')?row.monday:''}</TableCell>
+            onClick={() => onCellClickHandler(row.hour, props.dates[0], row?.monday?.type)}
+            className={row?.monday?.type}
+          >{(row.monday?.type!='available')?row.monday?.description:''}</TableCell>
 
           <TableCell
-            onClick={() => onCellClickHandler(row.hour, props.dates[1], row.tuesday)}
-            className={row.tuesday}
-          />
+            onClick={() => onCellClickHandler(row.hour, props.dates[1], row.tuesday?.type)}
+            className={row.tuesday?.type}
+          >{(row.tuesday?.type!='available')?row.tuesday?.description:''}</TableCell>
 
           <TableCell
-            onClick={() => onCellClickHandler(row.hour, props.dates[2], row.wednesday)}
-            className={row.wednesday}
-          />
+            onClick={() => onCellClickHandler(row.hour, props.dates[2], row.wednesday?.type)}
+            className={row.wednesday?.type}
+          >{(row.wednesday?.type!='available')?row.wednesday?.description:''}</TableCell>
           <TableCell
-            onClick={() => onCellClickHandler(row.hour, props.dates[3], row.thursday)}
-            className={row.thursday}
-          >{(row.thursday!='available')?row.thursday:''}</TableCell>
+            onClick={() => onCellClickHandler(row.hour, props.dates[3], row.thursday?.type)}
+            className={row.thursday?.type}
+          >{(row.thursday?.type!='available')?row.thursday?.description:''}</TableCell>
           <TableCell
-            onClick={() => onCellClickHandler(row.hour, props.dates[4], row.friday)}
-            className={row.friday}
-          />
+            onClick={() => onCellClickHandler(row.hour, props.dates[4], row.friday?.type)}
+            className={row.friday?.type}
+          >{(row.friday?.type!='available')?row.friday?.description:''}</TableCell>
         </TableRow>
       ))}
     </TableBody>
@@ -95,25 +94,11 @@ export default function TableAvailability() {
   const [centerCalendar, setCenterCalendar] = useState([]);
   const [userCalendar, setUserCalendar] = useState([]);
 
-  const setAvailability = (data)=> {
-    let calendarData = createCalendar(data)
-    setWeek(createCurrentWeek);
-    setCenterCalendar(calendarData);
-    setUserCalendar(createUserCalendar);
-  }
-
   useEffect(() => {
+    setWeek(createCurrentWeek);
+    setCenterCalendar(createCenterCalendar);
+    setUserCalendar(createUserCalendar);
 
-    httpClient(
-      API_URL,
-      "GET",
-      (json) => {
-        setAvailability(json.appointments)
-      },
-      (error) => {
-        setAvailability([])
-      }
-    );
   }, []);
 
   return (

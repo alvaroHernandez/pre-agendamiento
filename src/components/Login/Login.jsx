@@ -50,18 +50,12 @@ const Login = () => {
   const classes = useStyles();
 
   return (
-
-    <div
-    style={{
-        position: 'absolute', left: '50%', top: '50%',
-        transform: 'translate(-50%, -50%)'
-    }}>
-    <form className={classes.root} autoComplete="off" onSubmit={handleLogin}>
-      <TextField id="outlined-user" required label="Nombre" variant="outlined" value={username} onChange={onChangeEventValueUsername} style={{ border: '#20673e', boxShadow: 'none'}}/>
-      <br />
-      <TextField id="outlined-pass" required label="Password" variant="outlined" value={password} onChange={onChangeEventValuePassword} type="password"/>
-      <br />
-
+      <div className="loginStyle">
+        <form autoComplete="off" onSubmit={handleLogin}>
+          <TextField id="outlined-user" required label="Nombre" variant="outlined" value={username} onChange={onChangeEventValueUsername}/>
+          <br />
+          <TextField id="outlined-pass" required label="Password" variant="outlined" value={password} onChange={onChangeEventValuePassword} type="password"/>
+          <br />
       <Button variant="contained" color="primary" type="submit" value="Acceder">
         Iniciar Sesión
       </Button>

@@ -86,7 +86,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TableAvailability() {
+export default function TableAvailability(props) {
 
   const classes = useStyles();
   const [week, setWeek] = useState([]);
@@ -94,7 +94,6 @@ export default function TableAvailability() {
   const [id, setId] = useState(localStorage.getItem("user_id"));
 
   const setAvailability = (data) => {
-
     const appointments = createCalendar(data);
     setWeek(createCurrentWeek);
     setCenterCalendar(appointments);
@@ -103,7 +102,6 @@ export default function TableAvailability() {
   useEffect(() => {
     const API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/user/${id}/appointment`;
     console.log(API_URL);
-    console.log("useEffect Table Availability")
     httpClient(
       API_URL,
       "GET",
@@ -117,7 +115,7 @@ export default function TableAvailability() {
         setAvailability([]);
       }
     );
-  }, []);
+  }, [props.centerId]);
 
   return (
     <TableContainer component={Paper}>

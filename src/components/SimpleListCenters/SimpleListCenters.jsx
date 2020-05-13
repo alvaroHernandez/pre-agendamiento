@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SelectedListItem() {
+export default function SelectedListItem(props) {
   const classes = useStyles();
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [healthFacilities, setHealthFacilities] = useState([]);
@@ -35,8 +35,9 @@ export default function SelectedListItem() {
     );
   }, []);
 
-  const handleListItemClick = (event, index) => {
+  const handleListItemClick = (event, index, healthFacility) => {
     setSelectedIndex(index);
+    props.setActive(healthFacility.id);
   };
 
   return (
@@ -47,7 +48,7 @@ export default function SelectedListItem() {
             key={i}
             button
             selected={selectedIndex === i}
-            onClick={(event) => handleListItemClick(event, i)}
+            onClick={(event) => handleListItemClick(event, i, healthFacility)}
           >
             <ListItemText primary= {healthFacility.name} />
         </ListItem>

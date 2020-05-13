@@ -13,6 +13,7 @@ import hourAvailability from '../../data/HourAvailabilityType';
 
 import './tableAvailability.css';
 
+const API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/user/${localStorage.getItem("user_id")}/appointment`;
 
 const HeaderDatesOfCurrentWeek = (props) => {
   const { dates } = props;
@@ -31,7 +32,6 @@ const HeaderDatesOfCurrentWeek = (props) => {
 
 const BodyRowsDateAvailability = (props) => {
   const rows = createCalendarRow(props.centerCalendar, props.dates);
-console.log(rows);
   const onCellClickHandler = (key, columnName, isAvailable) => {
     if (isAvailable === hourAvailability.AVAILABLE) {
       isAvailable = hourAvailability.CENTER_APPOINTMENT;
@@ -92,20 +92,36 @@ export default function TableAvailability() {
   const classes = useStyles();
   const [week, setWeek] = useState([]);
   const [centerCalendar, setCenterCalendar] = useState([]);
-  const [userCalendar, setUserCalendar] = useState([]);
+
+  const setAvailability = (data) => {
+
+    const appointments = createCalendar(data);
+    setWeek(createCurrentWeek);
+    setCenterCalendar(appointments);
+  };
 
   useEffect(() => {
-    setWeek(createCurrentWeek);
-    setCenterCalendar(createCenterCalendar);
-    setUserCalendar(createUserCalendar);
+    console.log("useEffect Table Availability")
+    httpClient(
+      API_URL,
+      "GET",
+      (json) => {
+        console.log("callback")
+        console.log(json)
+        setAvailability(json.appointments)
 
+      },
+      (error) => {
+        setAvailability([]);
+      }
+    );
   }, []);
 
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="Availability">
         <HeaderDatesOfCurrentWeek dates={week} />
-        <BodyRowsDateAvailability dates={week} centerCalendar={centerCalendar} userCalendar={userCalendar}/>
+        <BodyRowsDateAvailability dates={week} centerCalendar={centerCalendar}/>
       </Table>
     </TableContainer>
   );

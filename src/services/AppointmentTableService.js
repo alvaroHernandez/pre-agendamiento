@@ -4,8 +4,6 @@ import {
   API_CENTER_RESPONSE
 } from '../constants/ServiceConstants';
 import hourAvailability from '../data/HourAvailabilityType';
-import {httpClient} from "../clients/httpClient";
-const API_URL = `http://localhost:5000/user/${localStorage.getItem("user_id")}/appointment`;
 
 export const createCurrentWeek = () => {
   const currentDay = new Date();
@@ -24,16 +22,6 @@ export const createCurrentWeek = () => {
 };
 
 export function createCenterCalendar () {
-  httpClient(
-    API_URL,
-    "GET",
-    (json) => {
-      //return createCalendar(json.appointments)
-    },
-    (error) => {
-      //return createCalendar([])
-    }
-  );
   return createCalendar(API_CENTER_RESPONSE.appointments);
 }
 export function createUserCalendar () {

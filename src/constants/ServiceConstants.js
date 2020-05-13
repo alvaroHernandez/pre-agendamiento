@@ -41,6 +41,15 @@ export const API_CENTER_RESPONSE = {
             "slotId": "202005081624",
             "healthcareFacility": "Neverland",
             "type": "centerAppointment"
+          },
+          {
+            "id": 3,
+            "description": "Vacuna Influenza",
+            "date": "14/5/2020",
+            "hour": "10:00",
+            "slotId": "202005081624",
+            "healthcareFacility": "Neverland",
+            "type": "userAppointment"
           }
       ]
 };

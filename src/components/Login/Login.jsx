@@ -48,7 +48,12 @@ const Login = () => {
   const classes = useStyles();
 
   return (
-    <div className="loginStyle">
+
+    <div
+    style={{
+        position: 'absolute', left: '50%', top: '50%',
+        transform: 'translate(-50%, -50%)'
+    }}>
     <form className={classes.root} noValidate autoComplete="off" onSubmit={handleLogin}>
       <TextField id="outlined-user" label="Nombre" variant="outlined" value={username} onChange={onChangeEventValueUsername}/>
       <br />

@@ -93,10 +93,7 @@ const BodyRowsDateAvailability = (props) => {
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            Subscribe
+            Ok
           </Button>
         </DialogActions>
       </Dialog>

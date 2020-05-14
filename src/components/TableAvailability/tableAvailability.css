@@ -37,6 +37,7 @@ td {
 
 .centerAppointment {
     background: #6FCF97;
+    color: #FFFFFF !important;
 }
 .userAppointment {
   background: rgb(104, 142, 255);

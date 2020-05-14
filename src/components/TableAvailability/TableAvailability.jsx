@@ -102,16 +102,15 @@ export default function TableAvailability(props) {
   };
 
   useEffect(() => {
-    const API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/user/${id}/appointment`;
-    console.log(API_URL);
+    let API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/user/${id}/appointment`;
+    if (Number.isInteger(props.centerId)) {
+      API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/user/${id}/appointment/center/${props.centerId}`;
+    }
     httpClient(
       API_URL,
       "GET",
       (json) => {
-        console.log("callback")
-        console.log(json)
-        setAvailability(json.appointments)
-
+        setAvailability(json)
       },
       (error) => {
         setAvailability([]);

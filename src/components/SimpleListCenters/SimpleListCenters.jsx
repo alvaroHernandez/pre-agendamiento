@@ -10,8 +10,6 @@ const API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/healthcarefacilitie
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
 }));

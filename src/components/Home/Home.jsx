@@ -5,7 +5,7 @@ import Header from "../Header/Header";
 import Box from '@material-ui/core/Box';
 
 const Home = () => {
-  const [centerActive, setCenterActive] = useState([]);
+  const [centerActive, setCenterActive] = useState(1);
 
   const handleActive = (index) => {
     setCenterActive(index);

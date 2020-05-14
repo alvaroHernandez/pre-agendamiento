@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SelectedListItem(props) {
   const classes = useStyles();
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [healthFacilities, setHealthFacilities] = useState([]);
 
   useEffect(() => {

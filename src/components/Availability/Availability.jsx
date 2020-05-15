@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { httpClient } from "../../clients/httpClient";
+import React, { useEffect, useState } from 'react';
+import { httpClient } from '../../clients/httpClient';
 
-const Availability = (props) => {
+const Availability = () => {
   const [availabilityItems, setAvailabilityItems] = useState([]);
   const [centerName, setCenterName] = useState([]);
   useEffect(() => {
     httpClient(
       `${process.env.REACT_APP_API_MANAGEMENT_URL}/healthcarefacilities`,
-      "GET",
+      'GET',
       (json) => {
         setCenterName(json.centros[0].nombre);
         setAvailabilityItems(json.centros[0].disponibilidad);
       },
-      (error) => {
-        console.log(error);
+      () => {
         setAvailabilityItems([]);
-      }
+      },
     );
   }, []);
 

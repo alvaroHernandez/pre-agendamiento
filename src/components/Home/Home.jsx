@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import TableAvailability from "../TableAvailability/TableAvailability";
-import SimpleListCenters from "../SimpleListCenters/SimpleListCenters";
-import Header from "../Header/Header";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
+import TableAvailability from '../TableAvailability/TableAvailability';
+import SimpleListCenters from '../SimpleListCenters/SimpleListCenters';
+import Header from '../Header/Header';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
-    paddingTop: "12px",
+    paddingTop: '12px',
   },
 }));
 
@@ -22,18 +22,16 @@ const Home = () => {
   const classes = useStyles();
   return (
     <div>
-      <Header/>
+      <Header />
       <Container className={classes.container}>
-        <Grid container direction="row" spacing={2} bgcolor="background.paper">
-
-          <Grid item xs={12} sm={2} bgcolor="grey.300">
+        <Grid container direction='row' spacing={2} bgcolor='background.paper'>
+          <Grid item xs={12} sm={2} bgcolor='grey.300'>
             <SimpleListCenters setActive={handleActive} />
           </Grid>
 
-          <Grid item xs={12} sm={10} bgcolor="grey.300">
+          <Grid item xs={12} sm={10} bgcolor='grey.300'>
             <TableAvailability centerId={centerActive} />
           </Grid>
-
         </Grid>
       </Container>
     </div>

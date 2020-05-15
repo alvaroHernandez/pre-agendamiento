@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-const Centers = (props) => {
+const Centers = () => {
   const [centerItems, setCenterItems] = useState([]);
 
   useEffect(() => {
-    fetch("https://impostors.azurewebsites.net/api/centros/")
+    fetch('https://impostors.azurewebsites.net/api/centros/')
       .then((response) => response.json())
       .then((json) => {
         setCenterItems(json.centros);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
         setCenterItems([]);
       });
   }, []);

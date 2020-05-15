@@ -51,8 +51,8 @@ const MediaList = (props) => {
 };
 
 MediaList.propTypes = {
-  title: PropTypes.string.required,
-  api: PropTypes.string.required,
+  title: PropTypes.string.isRequired,
+  api: PropTypes.string.isRequired,
 };
 
 export default MediaList;

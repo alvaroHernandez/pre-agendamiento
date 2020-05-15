@@ -1,7 +1,7 @@
-import React from "react";
-import { render } from "@testing-library/react";
-import App from "./App";
-import {disableFetchMocks, enableFetchMocks} from "jest-fetch-mock";
+import React from 'react';
+import { render } from '@testing-library/react';
+import App from './App';
+import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 
 beforeAll(() => {
   enableFetchMocks();
@@ -12,7 +12,7 @@ afterAll(() => {
   disableFetchMocks();
 });
 
-test("renders home page", () => {
+test('renders home page', () => {
   localStorage.setItem('access_token', 'eyJhb');
   const { getByText } = render(<App />);
   const titleHome = getByText(/Bienvenido a Pre-Agendamiento!/i);

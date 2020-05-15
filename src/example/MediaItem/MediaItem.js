@@ -39,10 +39,10 @@ const MediaItem = (props) => {
 };
 
 MediaItem.propTypes = {
-  movie: PropTypes.object.required,
-  addToFavourites: PropTypes.func.required,
-  removeFromFavourites: PropTypes.func.required,
-  isFavorite: PropTypes.func.required,
+  movie: PropTypes.object.isRequired,
+  addToFavourites: PropTypes.func.isRequired,
+  removeFromFavourites: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
 };
 
 export default MediaItem;

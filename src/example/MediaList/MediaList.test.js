@@ -31,7 +31,7 @@ const moviesList = [
 
 beforeAll(() => {
   enableFetchMocks();
-  fetch.mockResponse((req) => Promise.resolve(JSON.stringify(moviesList)));
+  fetch.mockResponse(() => Promise.resolve(JSON.stringify(moviesList)));
 });
 
 afterAll(() => {
@@ -39,27 +39,31 @@ afterAll(() => {
 });
 
 test('loader disappear when fetching is completed', async () => {
-  const mediaList = render(<MediaList title="someTitle" api="someApi" />);
+  const mediaList = render(<MediaList title='someTitle' api='someApi' />);
   await waitForElementToBeRemoved(() => mediaList.getByLabelText('Cargando'));
 });
 
 test('show media items when fetching is completed', async () => {
-  const mediaList = render(<MediaList title="someTitle" api="someApi" />);
+  const mediaList = render(<MediaList title='someTitle' api='someApi' />);
 
   const listItems = await mediaList.findAllByRole('listitem');
 
   expect(listItems).toHaveLength(2);
 
   expect(
-    mediaList.getByAltText(`${THUMBNAIL_ALT_IMAGE_PREFIX}${moviesList[0].Name}`),
+    mediaList.getByAltText(
+      `${THUMBNAIL_ALT_IMAGE_PREFIX}${moviesList[0].Name}`,
+    ),
   ).toBeInTheDocument();
   expect(
-    mediaList.getByAltText(`${THUMBNAIL_ALT_IMAGE_PREFIX}${moviesList[1].Name}`),
+    mediaList.getByAltText(
+      `${THUMBNAIL_ALT_IMAGE_PREFIX}${moviesList[1].Name}`,
+    ),
   ).toBeInTheDocument();
 });
 
 test('add movie to favourite when button is clicked', async () => {
-  const mediaList = render(<MediaList title="someTitle" api="someApi" />);
+  const mediaList = render(<MediaList title='someTitle' api='someApi' />);
   const listItems = await mediaList.findAllByRole('listitem');
 
   const firstMovie = within(listItems[0]);

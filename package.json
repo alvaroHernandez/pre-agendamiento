@@ -27,14 +27,11 @@
     "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\"",
     "prettier:check": "yarn prettier --list-different",
     "prettier:fix": "yarn prettier --write",
-    "lint:check": "eslint --ignore-path .gitignore --ignore-path .prettierignore src/**/*.js",
+    "lint:check": "eslint --ignore-path .gitignore .",
     "lint:fix": "yarn lint:check --fix",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [

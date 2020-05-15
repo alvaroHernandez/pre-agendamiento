@@ -5,7 +5,6 @@ import { act } from 'react-dom/test-utils';
 import Login from './Login';
 import history from '../../services/history';
 
-
 const successfulLoginResponse = {
   id: '1',
   name: 'fakeUsername',
@@ -21,7 +20,7 @@ beforeAll(() => {
 });
 
 afterAll(() => {
-  localStorage.removeItem('access_token');
+  disableFetchMocks();
 });
 
 afterEach(() => {
@@ -30,10 +29,10 @@ afterEach(() => {
 
 test('get logged through login form and redirected to home', async () => {
   history.push = jest.fn();
-  fetch.mockResponse(() => Promise.resolve(JSON.stringify(successfulLoginResponse)));
-  const loginForm = render(
-      <Login />
+  fetch.mockResponse(() =>
+    Promise.resolve(JSON.stringify(successfulLoginResponse)),
   );
+  const loginForm = render(<Login />);
 
   await act(async () => {
     fireEvent.change(loginForm.getByLabelText(/Nombre/i), {
@@ -45,16 +44,18 @@ test('get logged through login form and redirected to home', async () => {
     fireEvent.click(loginForm.getByText(/Iniciar Sesión/i));
   });
 
-  expect(localStorage.getItem('access_token')).toEqual(successfulLoginResponse.token);
+  expect(localStorage.getItem('access_token')).toEqual(
+    successfulLoginResponse.token,
+  );
   expect(localStorage.getItem('user_id')).toEqual(successfulLoginResponse.id);
-  expect(localStorage.getItem('user_name')).toEqual(successfulLoginResponse.name);
+  expect(localStorage.getItem('user_name')).toEqual(
+    successfulLoginResponse.name,
+  );
   expect(history.push).toHaveBeenCalledWith('/');
 });
 
 test('should show required filed tooltip when login button is clicked without fill the required fiedls', async () => {
-  const loginForm = render(
-      <Login />
-  );
+  const loginForm = render(<Login />);
   fireEvent.click(loginForm.getByText(/Iniciar Sesión/i));
 
   expect(localStorage.getItem('access_token')).toEqual(null);
@@ -62,9 +63,7 @@ test('should show required filed tooltip when login button is clicked without fi
 
 test('should show error when username or password is wrong', async () => {
   fetch.mockResponse(() => Promise.resolve(failedLoginResponse));
-  const loginForm = render(
-      <Login />
-  );
+  const loginForm = render(<Login />);
 
   fireEvent.change(loginForm.getByLabelText(/Nombre/i), {
     target: { value: 'wrongUsername' },
@@ -74,6 +73,8 @@ test('should show error when username or password is wrong', async () => {
   });
   fireEvent.click(loginForm.getByText(/Iniciar Sesión/i));
 
-  const errorMessage = await loginForm.findByText('Nombre y/o Password incorrecto');
+  const errorMessage = await loginForm.findByText(
+    'Nombre y/o Password incorrecto',
+  );
   expect(errorMessage).toBeInTheDocument();
 });

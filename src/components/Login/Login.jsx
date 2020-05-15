@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import history from "../../services/history";
 import { authenticate } from '../../clients/authenticate';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -23,8 +23,6 @@ const Login = () => {
 
   const [error, setError] = useState('');
 
-  const history = useHistory();
-
   const handleLogin = async (event) => {
     event.preventDefault();
     const authResult = await authenticate(username, password);
@@ -32,7 +30,7 @@ const Login = () => {
       setError('');
       await localStorage.setItem('access_token', authResult.token);
       await localStorage.setItem('user_id', authResult.id);
-      await localStorage.setItem('user_name', authResult.name)
+      await localStorage.setItem('user_name', authResult.name);
       history.push('/');
     } else {
       setError(authResult.error);

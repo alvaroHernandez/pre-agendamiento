@@ -2,38 +2,37 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { act } from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
 import Login from './Login';
+import history from '../../services/history';
 
-const mockHistoryPush = jest.fn();
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useHistory: () => ({
-    push: mockHistoryPush,
-  }),
-}));
-
-const loginResponse = {
+const successfulLoginResponse = {
   id: '1',
   name: 'fakeUsername',
   token: 'fakeToken',
 };
 
+const failedLoginResponse = {
+  status: 401,
+};
+
 beforeAll(() => {
   enableFetchMocks();
-  fetch.mockResponse(() => Promise.resolve(JSON.stringify(loginResponse)));
 });
 
 afterAll(() => {
-  disableFetchMocks();
+  localStorage.removeItem('access_token');
+});
+
+afterEach(() => {
+  localStorage.removeItem('access_token');
 });
 
 test('get logged through login form and redirected to home', async () => {
+  history.push = jest.fn();
+  fetch.mockResponse(() => Promise.resolve(JSON.stringify(successfulLoginResponse)));
   const loginForm = render(
-    <MemoryRouter>
       <Login />
-    </MemoryRouter>,
   );
 
   await act(async () => {
@@ -46,20 +45,35 @@ test('get logged through login form and redirected to home', async () => {
     fireEvent.click(loginForm.getByText(/Iniciar Sesión/i));
   });
 
-  expect(localStorage.getItem('access_token')).toEqual(loginResponse.token);
-  expect(mockHistoryPush).toHaveBeenCalledWith('/');
+  expect(localStorage.getItem('access_token')).toEqual(successfulLoginResponse.token);
+  expect(localStorage.getItem('user_id')).toEqual(successfulLoginResponse.id);
+  expect(localStorage.getItem('user_name')).toEqual(successfulLoginResponse.name);
+  expect(history.push).toHaveBeenCalledWith('/');
 });
 
 test('should show required filed tooltip when login button is clicked without fill the required fiedls', async () => {
-  localStorage.removeItem('access_token')
   const loginForm = render(
-    <MemoryRouter>
       <Login />
-    </MemoryRouter>,
   );
   fireEvent.click(loginForm.getByText(/Iniciar Sesión/i));
 
-
   expect(localStorage.getItem('access_token')).toEqual(null);
+});
 
+test('should show error when username or password is wrong', async () => {
+  fetch.mockResponse(() => Promise.resolve(failedLoginResponse));
+  const loginForm = render(
+      <Login />
+  );
+
+  fireEvent.change(loginForm.getByLabelText(/Nombre/i), {
+    target: { value: 'wrongUsername' },
+  });
+  fireEvent.change(loginForm.getByLabelText(/Password/i), {
+    target: { value: 'wrongPassword' },
+  });
+  fireEvent.click(loginForm.getByText(/Iniciar Sesión/i));
+
+  const errorMessage = await loginForm.findByText('Nombre y/o Password incorrecto');
+  expect(errorMessage).toBeInTheDocument();
 });

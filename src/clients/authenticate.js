@@ -3,9 +3,8 @@ const UNAUTHORIZED_ERROR_MESSAGE = 'Nombre y/o Password incorrecto';
 
 const LOGIN_API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/Login`;
 
-const handleServerError = (error) => {
-  // TODO: log to external service
-  console.log(error);
+const handleServerError = () => {
+  // TODO: log error to external service
   return { error: UNEXPECTED_ERROR_MESSAGE };
 };
 

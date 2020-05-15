@@ -29,7 +29,9 @@ test('should call response callback with body when response status is 200', asyn
   localStorage.setItem('access_token', 'fake');
   const callbackResponse = jest.fn();
 
-  fetch.mockIf('fakeUrl', () => Promise.resolve(JSON.stringify(stubHttpResponse)));
+  fetch.mockIf('fakeUrl', () =>
+    Promise.resolve(JSON.stringify(stubHttpResponse)),
+  );
 
   await httpClient('fakeUrl', 'GET', callbackResponse, undefined);
 
@@ -77,9 +79,9 @@ test('should make http call with given method and headers with authorization fro
 
   fetch.mockIf('fakeUrl', (req) => {
     if (
-      req.headers.get('Authorization')
-        === `Bearer ${localStorage.getItem('access_token')}`
-      && req.method === method
+      req.headers.get('Authorization') ===
+        `Bearer ${localStorage.getItem('access_token')}` &&
+      req.method === method
     ) {
       return Promise.resolve(JSON.stringify(stubHttpResponse));
     }
@@ -93,6 +95,11 @@ test('should make http call with given method and headers with authorization fro
 test("should redirect to /login when access_toke in localStore doesn't exists", async () => {
   localStorage.removeItem('access_token');
   history.push = jest.fn();
-  await httpClient(undefined, undefined, () => {}, () => {});
+  await httpClient(
+    undefined,
+    undefined,
+    () => {},
+    () => {},
+  );
   expect(history.push).toHaveBeenCalledWith('/Login');
 });

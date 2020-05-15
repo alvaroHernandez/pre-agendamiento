@@ -1,21 +1,21 @@
 const dayOfTheWeekToString = (dayNumber) => {
   switch (dayNumber) {
     case 1:
-      return "LUN";
+      return 'LUN';
     case 2:
-      return "MAR";
+      return 'MAR';
     case 3:
-      return "MIE";
+      return 'MIE';
     case 4:
-      return "JUE";
+      return 'JUE';
     case 5:
-      return "VIE";
+      return 'VIE';
     case 6:
-      return "SAB";
+      return 'SAB';
     case 7:
-      return "DOM";
+      return 'DOM';
     default:
-      return ""
+      return '';
   }
 };
 

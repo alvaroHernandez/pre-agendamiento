@@ -1,10 +1,10 @@
 import {
   CORE_HOURS_CENTERS,
   API_USER_RESPONSE,
-  API_CENTER_RESPONSE
+  API_CENTER_RESPONSE,
 } from '../constants/ServiceConstants';
 import hourAvailability from '../data/HourAvailabilityType';
-import dayOfTheWeekToString from "./dayOfTheWeekToString";
+import dayOfTheWeekToString from './dayOfTheWeekToString';
 
 export const createCurrentWeekHeader = () => {
   const currentDay = new Date();
@@ -14,9 +14,9 @@ export const createCurrentWeekHeader = () => {
   for (let day = firstDayNumber; day <= lastDayNumber; day++) {
     const dayOfWeek = currentDay.getDate() - currentDay.getDay() + day;
     const date = new Date(currentDay.setDate(dayOfWeek));
-    const dateString = `${dayOfTheWeekToString(date.getDay())} ${date.getDate()}/${
-      date.getMonth() + 1
-    }/${date.getFullYear()}`;
+    const dateString = `${dayOfTheWeekToString(
+      date.getDay(),
+    )} ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     currentWeek.push(dateString);
   }
   return currentWeek;
@@ -38,16 +38,14 @@ export const createCurrentWeek = () => {
   return currentWeek;
 };
 
-export function createCenterCalendar () {
+export function createCenterCalendar() {
   return createCalendar(API_CENTER_RESPONSE.appointments);
 }
-export function createUserCalendar () {
+export function createUserCalendar() {
   return createCalendar(API_USER_RESPONSE.appointments);
-
 }
 
 export const createCalendar = (data) => {
-  console.log(data)
   const hoursAvailable = data;
   const currentWeek = createCurrentWeek();
   const calendar = {};
@@ -81,15 +79,22 @@ export function createCalendarRow(calendar, datesOfWeek) {
     datesOfWeek.forEach((date) => {
       const availableHoursFromOfDay = calendar[date];
       if (
-        availableHoursFromOfDay instanceof Array
-          && (availableHoursFromOfDay.some(e => e.hour === hour))
+        availableHoursFromOfDay instanceof Array &&
+        availableHoursFromOfDay.some((e) => e.hour === hour)
       ) {
-        const appointment = availableHoursFromOfDay.find(e => e.hour === hour);
-        appointment.type = (appointment.type=== undefined)?hourAvailability.USER_APPOINTMENT:appointment.type;
-        weekHourData.push(appointment)
+        const appointment = availableHoursFromOfDay.find(
+          (e) => e.hour === hour,
+        );
+        appointment.type =
+          appointment.type === undefined
+            ? hourAvailability.USER_APPOINTMENT
+            : appointment.type;
+        weekHourData.push(appointment);
       } else {
-        weekHourData.push({type:hourAvailability.AVAILABLE, description:""});
-
+        weekHourData.push({
+          type: hourAvailability.AVAILABLE,
+          description: '',
+        });
       }
     });
     rows.push(

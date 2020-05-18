@@ -12,10 +12,16 @@ afterAll(() => {
   disableFetchMocks();
 });
 
-test('renders home page', async () => {
+test('renders home page by default', async () => {
   localStorage.setItem('access_token', 'eyJhb');
   const { findByText } = render(<App />);
   const titleHome = await findByText(/Bienvenido a Pre-Agendamiento!/i);
   expect(titleHome).toBeInTheDocument();
   localStorage.removeItem('access_token');
+});
+
+test('renders login page', async () => {
+  const { findByText } = render(<App />);
+  const loginText = await findByText(/Iniciar Sesión/i);
+  expect(loginText).toBeInTheDocument();
 });

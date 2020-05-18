@@ -10,6 +10,7 @@
     "SharedArrayBuffer": "readonly"
   },
   "extends": [
+    "react-app",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:security/recommended",

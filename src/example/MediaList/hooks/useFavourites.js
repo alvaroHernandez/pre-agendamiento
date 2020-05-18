@@ -12,7 +12,8 @@ const useFavourites = () => {
   };
 
   const isFavourite = (itemName) =>
-    favourites[itemName] !== undefined && favourites[itemName] === true;
+    favourites[itemName.toString()] !== undefined &&
+    favourites[itemName.toString()] === true;
 
   return [addToFavourites, removeFromFavourites, isFavourite];
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -81,8 +81,7 @@ const BodyRowsDateAvailability = (props) => {
       setInfoText('El centro tiene un cupo disponible en este horario');
     } else if (appointment.type === hourAvailability.USER_APPOINTMENT) {
       handleClickOpen();
-      const textToDisplay =
-        'Fecha: ' + appointment.date + '\n' + 'Hora: ' + appointment.hour;
+      const textToDisplay = `Fecha: ${appointment.date} \nHora: ${appointment.hour}`;
       setInfoDescription(appointment.description);
       setInfoText(textToDisplay);
     }
@@ -126,21 +125,23 @@ const BodyRowsDateAvailability = (props) => {
               onClick={() => onCellClickHandler(row?.monday)}
               className={row?.monday?.type}
             >
-              {row.monday?.type != 'available' ? row.monday?.description : ''}
+              {row.monday?.type !== 'available' ? row.monday?.description : ''}
             </TableCell>
 
             <TableCell
               onClick={() => onCellClickHandler(row?.tuesday)}
               className={row.tuesday?.type}
             >
-              {row.tuesday?.type != 'available' ? row.tuesday?.description : ''}
+              {row.tuesday?.type !== 'available'
+                ? row.tuesday?.description
+                : ''}
             </TableCell>
 
             <TableCell
               onClick={() => onCellClickHandler(row?.wednesday)}
               className={row.wednesday?.type}
             >
-              {row.wednesday?.type != 'available'
+              {row.wednesday?.type !== 'available'
                 ? row.wednesday?.description
                 : ''}
             </TableCell>
@@ -148,7 +149,7 @@ const BodyRowsDateAvailability = (props) => {
               onClick={() => onCellClickHandler(row?.thursday)}
               className={row.thursday?.type}
             >
-              {row.thursday?.type != 'available'
+              {row.thursday?.type !== 'available'
                 ? row.thursday?.description
                 : ''}
             </TableCell>
@@ -156,7 +157,7 @@ const BodyRowsDateAvailability = (props) => {
               onClick={() => onCellClickHandler(row?.friday)}
               className={row.friday?.type}
             >
-              {row.friday?.type != 'available' ? row.friday?.description : ''}
+              {row.friday?.type !== 'available' ? row.friday?.description : ''}
             </TableCell>
           </TableRow>
         ))}
@@ -205,7 +206,7 @@ const TableAvailability = (props) => {
         setAvailability([]);
       },
     );
-  }, [props.centerId]);
+  }, [id, props.centerId]);
 
   return (
     <TableContainer component={Paper}>

@@ -7,7 +7,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
 
 import './login.css';
 
@@ -16,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       margin: theme.spacing(1),
       width: '25ch',
+    },
+    input: {
+      color: 'white',
     },
   },
 }));
@@ -50,7 +52,9 @@ const Login = () => {
 
   // eslint-disable-next-line no-unused-vars
   const classes = useStyles();
-  const institutionalTheme = createMuiTheme({ palette: { primary: green } });
+  const institutionalTheme = createMuiTheme({
+    palette: { primary: { 500: '#007a33' } },
+  });
 
   return (
     <ThemeProvider theme={institutionalTheme}>
@@ -80,7 +84,6 @@ const Login = () => {
             color='primary'
             type='submit'
             value='Acceder'
-            colorOverrides={{ background: 'green' }}
           >
             Iniciar Sesión
           </Button>

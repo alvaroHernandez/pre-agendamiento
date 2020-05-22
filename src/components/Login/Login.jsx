@@ -54,6 +54,11 @@ const Login = () => {
   const classes = useStyles();
   const institutionalTheme = createMuiTheme({
     palette: { primary: { 500: '#007a33' } },
+    typography: {
+      button: {
+        textTransform: 'none',
+      },
+    },
   });
 
   return (

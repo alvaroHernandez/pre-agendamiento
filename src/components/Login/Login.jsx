@@ -93,6 +93,18 @@ const Login = () => {
             Iniciar Sesión
           </Button>
           <span>{error}</span>
+          <br></br>
+          <p>
+            <b>
+              <u>¿Te olvidaste la contraseña?</u>
+            </b>
+          </p>
+          <p>
+            ¿No tienes cuenta?{' '}
+            <b>
+              <u>Registrarse</u>
+            </b>
+          </p>
         </form>
       </div>
     </ThemeProvider>

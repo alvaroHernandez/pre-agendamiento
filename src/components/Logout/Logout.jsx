@@ -1,11 +1,11 @@
 import React from 'react';
-import history from '../../services/history';
 import Button from '@material-ui/core/Button';
+import useAuth from '../../hooks/useAuth';
 
 const Logout = () => {
+  const authContext = useAuth();
   const clickHandler = () => {
-    localStorage.removeItem('access_token');
-    history.push('/Login');
+    authContext.logout();
   };
 
   return (

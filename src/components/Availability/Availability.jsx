@@ -1,46 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { httpClient } from '../../clients/httpClient';
+import React, { useState } from 'react';
+import useAuthenticatedFetch from '../../hooks/useAuthenticatedFetch';
+import * as centerClient from '../../clients/centersClient';
 
 const Availability = () => {
-  const [availabilityItems, setAvailabilityItems] = useState([]);
-  const [centerName, setCenterName] = useState([]);
-  useEffect(() => {
-    httpClient(
-      `${process.env.REACT_APP_API_MANAGEMENT_URL}/healthcarefacilities`,
-      'GET',
-      (json) => {
-        setCenterName(json.centros[0].nombre);
-        setAvailabilityItems(json.centros[0].disponibilidad);
-      },
-      () => {
-        setAvailabilityItems([]);
-      },
-    );
-  }, []);
+  const [availabilityItems] = useState([]);
+  const [centerName] = useState([]);
+  const { status } = useAuthenticatedFetch(['centers'], centerClient.getAll);
 
-  return (
-    <div>
-      <p>Horas disponibles</p>
-      <p>{centerName}</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Hora Inicio</th>
-            <th>Hora Fin</th>
-          </tr>
-        </thead>
-        <tbody>
-          {availabilityItems.map((availability) => (
-            <tr key={availability.date + availability.hourFrom}>
-              <td>{availability.date}</td>
-              <td>{availability.hourFrom}</td>
-              <td>{availability.hourTo}</td>
+  if (status === 'success') {
+    return (
+      <div>
+        <p>Horas disponibles</p>
+        <p>{centerName}</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Hora Inicio</th>
+              <th>Hora Fin</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+          </thead>
+          <tbody>
+            {availabilityItems.map((availability) => (
+              <tr key={availability.date + availability.hourFrom}>
+                <td>{availability.date}</td>
+                <td>{availability.hourFrom}</td>
+                <td>{availability.hourTo}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  return null;
 };
 export default Availability;

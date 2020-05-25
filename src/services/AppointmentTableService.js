@@ -1,6 +1,6 @@
 import { CORE_HOURS_CENTERS } from '../constants/ServiceConstants';
 import hourAvailability from '../data/HourAvailabilityType';
-import dayOfTheWeekToString from './dayOfTheWeekToString';
+import dayOfTheWeekToString from './strings/dayOfTheWeekToString';
 
 export const createCurrentWeekHeader = () => {
   const currentDay = new Date();

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import history from '../../services/history';
-import { authenticate } from '../../clients/authenticate';
+import { authenticate } from '../../services/auth/authenticate';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-
 import Button from '@material-ui/core/Button';
 import { ThemeProvider } from '@material-ui/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import './login.css';
+
+import useAuth from '../../hooks/useAuth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,18 +26,22 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const [loading, setLoading] = React.useState(false);
+
+  const authContext = useAuth();
+
   const [error, setError] = useState('');
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
     const authResult = await authenticate(username, password);
-    if (authResult.token !== undefined) {
+    if (authResult.error === undefined) {
       setError('');
-      await localStorage.setItem('access_token', authResult.token);
-      await localStorage.setItem('user_id', authResult.id);
-      await localStorage.setItem('user_name', authResult.name);
-      history.push('/');
+      setLoading(false);
+      authContext.login(authResult);
     } else {
+      setLoading(false);
       setError(authResult.error);
     }
   };
@@ -90,7 +94,7 @@ const Login = () => {
             type='submit'
             value='Acceder'
           >
-            Iniciar Sesión
+            {loading ? 'Iniciando' : 'Iniciar Sesión'}
           </Button>
           <span>{error}</span>
           <br></br>

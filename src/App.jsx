@@ -1,14 +1,32 @@
 import React from 'react';
 import './App.css';
-import { Router } from 'react-router-dom';
-import history from './services/history';
-import Routes from './components/Routes/Routes';
+
+import SessionExpiredModal from './components/SessionExpiredModal/SessionExpiredModal';
+import AuthenticatedApp from './components/AuthenticatedApp/AuthenticatedApp';
+import UnauthenticatedApp from './components/UnauthenticatedApp/UnauthenticatedApp';
+import useAuth from './hooks/useAuth';
 
 function App() {
+  const {
+    authenticatedUser,
+    showExpiredSessionMessage,
+    setShowExpiredSessionMessage,
+    logout,
+  } = useAuth();
+
+  const logoutHandler = () => {
+    logout();
+    setShowExpiredSessionMessage(false);
+  };
+
   return (
-    <Router history={history}>
-      <Routes />
-    </Router>
+    <>
+      <SessionExpiredModal
+        handleClose={logoutHandler}
+        open={showExpiredSessionMessage}
+      />
+      {authenticatedUser ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+    </>
   );
 }
 

@@ -5,6 +5,7 @@ import Logout from '../Logout/Logout';
 import AppBar from '@material-ui/core/AppBar';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import useAuth from '../../hooks/useAuth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
   const classes = useStyles();
 
+  const { authenticatedUser } = useAuth();
+
   return (
     <AppBar
       color='primary'
@@ -36,7 +39,7 @@ const Header = () => {
           aria-label='menu'
         ></IconButton>
         <Typography variant='h6' className={classes.title}>
-          Bienvenido a Pre-Agendamiento!{' '}
+          Bienvenido a Pre-Agendamiento! {authenticatedUser.userName}
           <b>{localStorage.getItem('user_name')}</b>
         </Typography>
         <Logout />

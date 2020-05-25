@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -8,7 +8,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { httpClient } from '../../clients/httpClient';
 import {
   createCurrentWeek,
   createCurrentWeekHeader,
@@ -177,44 +176,16 @@ const useStyles = makeStyles({
   },
 });
 
-const TableAvailability = (props) => {
+const TableAvailability = ({ appointments }) => {
   const classes = useStyles();
-  const [week, setWeek] = useState([]);
-  const [weekHeader, setWeekHeader] = useState([]);
-  const [centerCalendar, setCenterCalendar] = useState([]);
-  const [id] = useState(localStorage.getItem('user_id'));
-
-  const setAvailability = (data) => {
-    const appointments = createCalendar(data);
-    setWeekHeader(createCurrentWeekHeader);
-    setWeek(createCurrentWeek);
-    setCenterCalendar(appointments);
-  };
-
-  useEffect(() => {
-    let API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/user/${id}/appointment`;
-    if (Number.isInteger(props.centerId)) {
-      API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/user/${id}/appointment/center/${props.centerId}`;
-    }
-    httpClient(
-      API_URL,
-      'GET',
-      (json) => {
-        setAvailability(json);
-      },
-      () => {
-        setAvailability([]);
-      },
-    );
-  }, [id, props.centerId]);
 
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label='Availability'>
-        <HeaderDatesOfCurrentWeek dates={weekHeader} />
+        <HeaderDatesOfCurrentWeek dates={createCurrentWeekHeader()} />
         <BodyRowsDateAvailability
-          dates={week}
-          centerCalendar={centerCalendar}
+          dates={createCurrentWeek()}
+          centerCalendar={createCalendar(appointments)}
         />
       </Table>
     </TableContainer>
@@ -222,7 +193,7 @@ const TableAvailability = (props) => {
 };
 
 TableAvailability.propTypes = {
-  centerId: PropTypes.number.isRequired,
+  appointments: PropTypes.any.isRequired,
 };
 
 export default TableAvailability;

@@ -29,7 +29,18 @@ export const authenticate = async (username, password) => {
       composeRequestPayload(username, password),
     );
     if (response.ok) {
-      return await response.json();
+      const authResult = await response.json();
+      if (
+        typeof authResult.token === 'string' &&
+        typeof authResult.id === 'string' &&
+        typeof authResult.name === 'string'
+      ) {
+        return {
+          accessToken: authResult.token,
+          userId: authResult.id,
+          userName: authResult.name,
+        };
+      }
     }
     if (response.status === 401) {
       return { error: UNAUTHORIZED_ERROR_MESSAGE };

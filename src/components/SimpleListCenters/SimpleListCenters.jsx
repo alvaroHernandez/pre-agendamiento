@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-
-import { httpClient } from '../../clients/httpClient';
 import PropTypes from 'prop-types';
-
-const API_URL = `${process.env.REACT_APP_API_MANAGEMENT_URL}/healthcarefacilities`;
+import useAuthenticatedFetch from '../../hooks/useAuthenticatedFetch';
+import * as centerClient from '../../clients/centersClient';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,30 +17,29 @@ const useStyles = makeStyles((theme) => ({
 const SelectedListItem = (props) => {
   const classes = useStyles();
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [healthFacilities, setHealthFacilities] = useState([]);
 
-  useEffect(() => {
-    httpClient(
-      API_URL,
-      'GET',
-      (json) => {
-        setHealthFacilities(json);
-      },
-      () => {
-        setHealthFacilities([]);
-      },
-    );
-  }, []);
+  const { status, data, error } = useAuthenticatedFetch(
+    ['centers'],
+    centerClient.getAll,
+  );
 
   const handleListItemClick = (event, index, healthFacility) => {
     setSelectedIndex(index);
     props.setActive(healthFacility.id);
   };
 
+  if (status === 'loading') {
+    return <span>Loading...</span>;
+  }
+
+  if (status === 'error') {
+    return <ErrorMessage message={error.message} />;
+  }
+
   return (
     <div className={classes.root}>
       <List component='nav' aria-label='main mailbox folders'>
-        {healthFacilities.map((healthFacility, i) => (
+        {data.map((healthFacility, i) => (
           <ListItem
             key={i}
             button

@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import useAuth from '../../hooks/useAuth';
+import { useAuth } from '../../context/AuthProvider';
 
 const Logout = () => {
   const authContext = useAuth();

@@ -5,8 +5,8 @@ import Logout from '../Logout/Logout';
 import AppBar from '@material-ui/core/AppBar';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import useAuth from '../../hooks/useAuth';
 import FeatureToggles from './../../toggles/FeatureToggles';
+import { useAuth } from '../../context/AuthProvider';
 
 const WELCOME_TO_MESSAGE = `Bienvenido a Pre-Agendamiento!`;
 const WELCOME_MESSAGE = `Bienvenido`;

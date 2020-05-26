@@ -4,13 +4,10 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import TableAvailability from '../TableAvailability/TableAvailability';
 import PropTypes from 'prop-types';
 import useAuthenticatedFetch from '../../hooks/useAuthenticatedFetch';
-import useAuth from '../../hooks/useAuth';
 
-const AvailabilityContainer = ({ centerId }) => {
-  const { authenticatedUser } = useAuth();
-
+const AvailabilityContainer = ({ userId, centerId }) => {
   const { status, data, error } = useAuthenticatedFetch(
-    ['appointments', { userId: authenticatedUser.userId, centerId }],
+    ['appointments', { userId, centerId }],
     appointmentsClient.getForUserAndCenter,
   );
 
@@ -26,6 +23,7 @@ const AvailabilityContainer = ({ centerId }) => {
 };
 
 AvailabilityContainer.propTypes = {
+  userId: PropTypes.string.isRequired,
   centerId: PropTypes.number.isRequired,
 };
 

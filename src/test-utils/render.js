@@ -1,12 +1,10 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import * as rtl from '@testing-library/react';
 import { LOCAL_STORAGE_AUTH_KEY } from '../services/auth/useAuthHandler';
 import { ReactQueryConfigProvider } from 'react-query';
-import { MemoryRouter as Router } from 'react-router-dom';
-import * as AuthProvider from '../context/AuthProvider';
-
-jest.requireActual('../context/AuthProvider');
+import PropTypes from 'prop-types';
+import { AuthProvider } from '../context/AuthProvider';
+jest.mock('../context/AuthProvider');
 
 const queryConfig = {
   retry: 0,
@@ -18,13 +16,10 @@ async function render(
   { route = '/', initialEntries = [route], user, ...renderOptions } = {},
 ) {
   user = typeof user === 'undefined' ? await loginAsUser() : user;
-
   function Wrapper({ children }) {
     return (
       <ReactQueryConfigProvider config={queryConfig}>
-        <Router initialEntries={initialEntries}>
-          <AuthProvider.AuthProvider>{children}</AuthProvider.AuthProvider>
-        </Router>
+        <AuthProvider>{children}</AuthProvider>
       </ReactQueryConfigProvider>
     );
   }
@@ -35,6 +30,10 @@ async function render(
       ...renderOptions,
     }),
     user,
+  };
+
+  Wrapper.propTypes = {
+    children: PropTypes.node.isRequired,
   };
 
   return returnValue;
@@ -53,12 +52,9 @@ async function loginAsUser() {
   );
 
   if (AuthProvider) {
-    AuthProvider.authContext._currentValue.authenticatedUser = {
-      accessToken: 'testToken',
-      userId: 'testUserId',
-      userName: 'testUserName',
-    };
+    AuthProvider.__mock.mockValue.authenticatedUser = authenticatedUser;
   }
+  return authenticatedUser;
 }
 
 export * from '@testing-library/react';

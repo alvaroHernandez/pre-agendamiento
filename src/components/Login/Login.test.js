@@ -1,5 +1,5 @@
+import { render, fireEvent, screen } from '../../test-utils/render';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import Login from './Login';
 import userEvent from '@testing-library/user-event';
@@ -21,24 +21,24 @@ afterEach(() => {
 });
 
 test('should show required filed tooltip when login button is clicked without fill the required fiedls', async () => {
-  const loginForm = render(<Login />);
-  userEvent.click(loginForm.getByText(/Iniciar Sesión/i));
-  expect(await loginForm.findByText(/Iniciar Sesión/i));
+  await render(<Login />, { user: null });
+  userEvent.click(screen.getByText(/Iniciar Sesión/i));
+  expect(await screen.findByText(/Iniciar Sesión/i));
 });
 
 test('should show error when username or password is wrong', async () => {
   fetch.mockResponse(() => Promise.resolve(failedLoginResponse));
-  const loginForm = render(<Login />);
+  await render(<Login />);
 
-  fireEvent.change(loginForm.getByLabelText(/Nombre/i), {
+  fireEvent.change(screen.getByLabelText(/Nombre/i), {
     target: { value: 'wrongUsername' },
   });
-  fireEvent.change(loginForm.getByLabelText(/Password/i), {
+  fireEvent.change(screen.getByLabelText(/Password/i), {
     target: { value: 'wrongPassword' },
   });
-  fireEvent.click(loginForm.getByText(/Iniciar Sesión/i));
+  fireEvent.click(screen.getByText(/Iniciar Sesión/i));
 
-  const errorMessage = await loginForm.findByText(
+  const errorMessage = await screen.findByText(
     'Nombre y/o Password incorrecto',
   );
   expect(errorMessage).toBeInTheDocument();

@@ -4,7 +4,7 @@ import './App.css';
 import SessionExpiredModal from './components/SessionExpiredModal/SessionExpiredModal';
 import AuthenticatedApp from './components/AuthenticatedApp/AuthenticatedApp';
 import UnauthenticatedApp from './components/UnauthenticatedApp/UnauthenticatedApp';
-import useAuth from './hooks/useAuth';
+import { useAuth } from './context/AuthProvider';
 
 function App() {
   const {

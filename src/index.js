@@ -2,18 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { AuthProvider } from './context/AuthProvider';
-import { ReactQueryConfigProvider } from 'react-query';
-
-const queryConfig = {
-  refetchAllOnWindowFocus: false,
-};
+import { AppProviders } from './services/AppProviders';
 
 ReactDOM.render(
-  <AuthProvider>
-    <ReactQueryConfigProvider config={queryConfig}>
-      <App />
-    </ReactQueryConfigProvider>
-  </AuthProvider>,
+  <AppProviders>
+    <App />
+  </AppProviders>,
   document.getElementById('root'),
 );

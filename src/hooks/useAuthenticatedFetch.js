@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import useAuth from './useAuth';
+import { useAuth } from '../context/AuthProvider';
 
 const RETRIES = 3;
 

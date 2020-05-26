@@ -1,25 +1,30 @@
 import useAuthHandler from '../services/auth/useAuthHandler';
-import React, { createContext } from 'react';
+import React, { createContext, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-export const authContext = createContext({
-  authenticatedUser: null,
-  login: () => {},
-  logout: () => {},
-  sessionExpired: () => false,
-  setShouldDisplayModal: () => {},
-});
+const AuthContext = createContext();
+AuthContext.displayName = 'AuthContext';
 
-const { Provider } = authContext;
-
-const AuthProvider = ({ children }) => {
+function AuthProvider({ children }) {
+  //TODO: useMemo
   const authHandler = useAuthHandler();
 
-  return <Provider value={authHandler}>{children}</Provider>;
-};
+  return (
+    <AuthContext.Provider value={authHandler}>{children}</AuthContext.Provider>
+  );
+}
 
 AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export { AuthProvider };
+function useAuth() {
+  const context = useContext(AuthContext);
+
+  if (context === undefined) {
+    throw new Error(`useAuth must be used within a AuthProvider`);
+  }
+  return context;
+}
+
+export { AuthProvider, useAuth };

@@ -8,7 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import './login.css';
 
-import useAuth from '../../hooks/useAuth';
+import { useAuth } from '../../context/AuthProvider';
 
 const useStyles = makeStyles((theme) => ({
   root: {

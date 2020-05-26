@@ -6,7 +6,10 @@ import AppBar from '@material-ui/core/AppBar';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import useAuth from '../../hooks/useAuth';
+import FeatureToggles from './../../toggles/FeatureToggles';
 
+const WELCOME_TO_MESSAGE = `Bienvenido a Pre-Agendamiento!`;
+const WELCOME_MESSAGE = `Bienvenido`;
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -25,6 +28,14 @@ const Header = () => {
 
   const { authenticatedUser } = useAuth();
 
+  function renderWelcomeMessage() {
+    return FeatureToggles.DISPLAY_USERNAME_HEADER ? (
+      <>{WELCOME_TO_MESSAGE + ' ' + authenticatedUser.userName}</>
+    ) : (
+      <>{WELCOME_MESSAGE}</>
+    );
+  }
+
   return (
     <AppBar
       color='primary'
@@ -39,8 +50,7 @@ const Header = () => {
           aria-label='menu'
         ></IconButton>
         <Typography variant='h6' className={classes.title}>
-          Bienvenido a Pre-Agendamiento! {authenticatedUser.userName}
-          <b>{localStorage.getItem('user_name')}</b>
+          {renderWelcomeMessage()}
         </Typography>
         <Logout />
       </Toolbar>

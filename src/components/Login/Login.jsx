@@ -3,27 +3,16 @@ import { authenticate } from '../../services/auth/authenticate';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import institutionalTheme from './theme';
 
 import './login.css';
 
-import '../../assets/css/catamaran.css';
-
 import { useAuth } from '../../context/AuthProvider';
-
-const catamaran = {
-  fontFamily: 'Catamaran',
-  fontStyle: 'normal',
-  src: `
-    local('Catamaran'),
-    local('Catamaran-Regular'),
-  `,
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,72 +60,6 @@ const Login = () => {
 
   // eslint-disable-next-line no-unused-vars
   const classes = useStyles();
-  const institutionalTheme = createMuiTheme({
-    MuiCssBaseline: {
-      '@global': {
-        '@font-face': [catamaran],
-      },
-    },
-    palette: {
-      primary: {
-        main: '#007a33',
-      },
-      secondary: {
-        main: '#00b2a9',
-      },
-    },
-    typography: {
-      fontFamily: 'Catamaran',
-      button: {
-        textTransform: 'none',
-      },
-      h1: {
-        fontFamily: 'Catamaran',
-        fontSize: '36px',
-        lineHeight: '48px',
-      },
-      h2: {
-        fontFamily: 'Catamaran',
-        fontSize: '30px',
-        lineHeight: '36px',
-      },
-      h3: {
-        fontFamily: 'Catamaran',
-        fontSize: '24px',
-        lineHeight: '32px',
-      },
-      h4: {
-        fontFamily: 'Catamaran',
-        fontSize: '18px',
-        lineHeight: '24px',
-      },
-      h5: {
-        fontFamily: 'Catamaran',
-        fontSize: '14px',
-        lineHeight: '16px',
-      },
-      h6: {
-        fontFamily: 'Catamaran',
-        fontSize: '12px',
-        lineHeight: '16px',
-      },
-      p: {
-        fontFamily: 'Catamaran-Regular',
-        fontSize: '12px',
-        lineHeight: '17.4px',
-      },
-      body1: {
-        fontFamily: 'Catamaran-Regular',
-        fontSize: '12px',
-        lineHeight: '17.4px',
-      },
-      body2: {
-        fontFamily: 'Catamaran-Regular',
-        fontSize: '12px',
-        lineHeight: '17.4px',
-      },
-    },
-  });
 
   return (
     <ThemeProvider theme={institutionalTheme}>

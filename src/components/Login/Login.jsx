@@ -8,10 +8,23 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import './login.css';
+import '../../assets/css/catamaran.css';
+import Catamaran from '../../assets/fonts/Catamaran-Regular.woff2';
 
 import { useAuth } from '../../context/AuthProvider';
+
+const catamaran = {
+  fontFamily: 'Catamaran',
+  fontStyle: 'normal',
+  src: `
+    local('Catamaran'),
+    local('Catamaran-Regular'),
+    url(${Catamaran}) format('woff2')
+  `,
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,6 +73,11 @@ const Login = () => {
   // eslint-disable-next-line no-unused-vars
   const classes = useStyles();
   const institutionalTheme = createMuiTheme({
+    MuiCssBaseline: {
+      '@global': {
+        '@font-face': [catamaran],
+      },
+    },
     palette: {
       primary: {
         main: '#007a33',
@@ -89,7 +107,7 @@ const Login = () => {
         lineHeight: '32px',
       },
       h4: {
-        fontFamily: 'Catamaran-Regular',
+        fontFamily: 'Catamaran',
         fontSize: '18px',
         lineHeight: '24px',
       },
@@ -104,17 +122,17 @@ const Login = () => {
         lineHeight: '16px',
       },
       p: {
-        fontFamily: 'Roboto',
+        fontFamily: 'Catamaran-Regular',
         fontSize: '12px',
         lineHeight: '17.4px',
       },
       body1: {
-        fontFamily: 'Roboto-Medium',
+        fontFamily: 'Catamaran-Regular',
         fontSize: '12px',
         lineHeight: '17.4px',
       },
       body2: {
-        fontFamily: 'Roboto-Light',
+        fontFamily: 'Catamaran-Regular',
         fontSize: '12px',
         lineHeight: '17.4px',
       },
@@ -123,15 +141,10 @@ const Login = () => {
 
   return (
     <ThemeProvider theme={institutionalTheme}>
+      <CssBaseline />
       <div className='loginStyle'>
         <Grid container alignItems='center'>
-          <Grid
-            item
-            xs={12}
-            align='center'
-            justify='center'
-            alignItems='center'
-          >
+          <Grid item xs={12} align='center'>
             <Typography variant='h4'>Inicia sesión</Typography>
           </Grid>
         </Grid>

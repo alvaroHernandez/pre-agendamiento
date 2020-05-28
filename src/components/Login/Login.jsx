@@ -11,6 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import './login.css';
+
 import '../../assets/css/catamaran.css';
 import Catamaran from '../../assets/fonts/Catamaran-Regular.woff2';
 

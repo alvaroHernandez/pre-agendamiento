@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import '../../assets/css/catamaran.css';
+import './css/catamaran.css';
 
 const catamaran = {
   fontFamily: 'Catamaran',

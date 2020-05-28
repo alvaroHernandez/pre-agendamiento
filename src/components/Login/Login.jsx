@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import institutionalTheme from './theme';
+import institutionalTheme from '../../assets/theme';
 
 import './login.css';
 

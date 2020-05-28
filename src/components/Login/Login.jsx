@@ -13,7 +13,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import './login.css';
 
 import '../../assets/css/catamaran.css';
-import Catamaran from '../../assets/fonts/Catamaran-Regular.woff2';
 
 import { useAuth } from '../../context/AuthProvider';
 
@@ -23,7 +22,6 @@ const catamaran = {
   src: `
     local('Catamaran'),
     local('Catamaran-Regular'),
-    url(${Catamaran}) format('woff2')
   `,
 };
 

@@ -74,22 +74,26 @@ const Login = () => {
         <Divider variant='middle' />
         <form autoComplete='off' onSubmit={handleLogin} variant='h4'>
           <TextField
-            id='outlined-user'
             required
+            id='outlined-user'
             label='Nombre'
             variant='outlined'
             value={username}
             onChange={onChangeEventValueUsername}
+            inputProps={{ style: { fontSize: 18, fontFamily: 'Catamaran' } }}
+            InputLabelProps={{ style: { fontFamily: 'Catamaran' } }}
           />
           <br />
           <TextField
-            id='outlined-pass'
             required
+            id='outlined-pass'
             label='Password'
             variant='outlined'
             value={password}
             onChange={onChangeEventValuePassword}
             type='password'
+            inputProps={{ style: { fontSize: 18, fontFamily: 'Catamaran' } }}
+            InputLabelProps={{ style: { fontFamily: 'Catamaran' } }}
           />
           <br />
           <Button

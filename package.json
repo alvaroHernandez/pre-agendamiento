@@ -19,7 +19,7 @@
     "react-scripts": "3.4.0"
   },
   "scripts": {
-    "start": "env-cmd -e development react-scripts start",
+    "start": "chmod +x ./env.sh && ./env.sh && cp env-config.js ./public/ && env-cmd -e development react-scripts start",
     "start:development": "env-cmd -e development react-scripts start",
     "start:production": "env-cmd -e production react-scripts start",
     "build:development": "env-cmd -e development react-scripts build",

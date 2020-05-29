@@ -41,7 +41,7 @@ const successfulLoginResponse = {
   token: 'fakeToken',
 };
 
-beforeAll(() => {
+beforeAll(async () => {
   enableFetchMocks();
 });
 
@@ -49,7 +49,6 @@ afterAll(() => {
   disableFetchMocks();
 });
 
-//TODO: move test to a wrapper that is using app provider to avoid enclosing App with dependencies
 test('get logged through login form and redirected to home', async () => {
   fetch.mockResponse(() =>
     Promise.resolve(JSON.stringify(successfulLoginResponse)),

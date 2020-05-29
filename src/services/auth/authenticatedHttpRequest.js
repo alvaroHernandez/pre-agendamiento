@@ -1,21 +1,19 @@
 /* eslint-disable no-console */
 
-const UNAUTHORIZED = 'No autorizado';
-const UNEXPECTED_ERROR_MESSAGE = 'Whoops! Algo no salió bien, intenta de nuevo';
+import UnauthorizedError from './UnauthorizedError';
 
-function UnauthorizedError() {
-  return { message: UNAUTHORIZED, unauthorized: true };
-}
+const UNAUTHORIZED_ERROR_MESSAGE = 'No autorizado';
+const UNEXPECTED_ERROR_MESSAGE = 'Whoops! Algo no salió bien, intenta de nuevo';
 
 function getAccessToken() {
   let accessToken;
   try {
     accessToken = JSON.parse(localStorage.getItem('userAuth')).accessToken;
   } catch (e) {
-    throw UnauthorizedError();
+    throw new UnauthorizedError(UNAUTHORIZED_ERROR_MESSAGE);
   }
   if (!accessToken) {
-    throw UnauthorizedError;
+    throw new UnauthorizedError(UNAUTHORIZED_ERROR_MESSAGE);
   }
   return accessToken;
 }
@@ -57,7 +55,7 @@ export const authenticatedHttpRequest = async (url, method, body) => {
   if (response.ok) {
     return await response.json();
   } else if (response.status === 401) {
-    throw UnauthorizedError();
+    throw new UnauthorizedError();
   } else {
     throw Error(UNEXPECTED_ERROR_MESSAGE);
   }

@@ -68,8 +68,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
 ### Environment variables
-"REACT_APP_ENVIRONMENT": "development",
-      "REACT_APP_API_MANAGEMENT_URL":"https://dev-pre-agendamiento.azure-api.net"
 Environment variables Details:
 
 | **Env var**                   | **Mandatory** | **Description** |

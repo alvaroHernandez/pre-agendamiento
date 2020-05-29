@@ -105,6 +105,7 @@ const Login = () => {
               maxWidth: '486px',
               maxHeight: '56px',
               borderRadius: '4px',
+              padding: '14px 18px',
             }}
           >
             {loading ? 'Iniciando' : 'Iniciar sesión'}
@@ -120,9 +121,7 @@ const Login = () => {
           >
             <Typography variant='body1'>
               <p>
-                <b>
-                  <u>¿Te olvidaste la contraseña?</u>
-                </b>
+                <u>¿Te olvidaste la contraseña?</u>
               </p>
             </Typography>
             <Typography variant='body2'>

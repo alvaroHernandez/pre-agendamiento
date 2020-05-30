@@ -60,17 +60,17 @@ const institutionalTheme = createMuiTheme({
       lineHeight: '16px',
     },
     p: {
-      fontFamily: 'Catamaran-Regular',
+      fontFamily: 'Catamaran',
       fontSize: '12px',
       lineHeight: '17.4px',
     },
     body1: {
-      fontFamily: 'Catamaran-Regular',
+      fontFamily: 'Catamaran',
       fontSize: '12px',
       lineHeight: '17.4px',
     },
     body2: {
-      fontFamily: 'Catamaran-Regular',
+      fontFamily: 'Catamaran',
       fontSize: '12px',
       lineHeight: '17.4px',
     },

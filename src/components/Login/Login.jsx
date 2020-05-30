@@ -117,7 +117,7 @@ const Login = () => {
               maxWidth: '486px',
               maxHeight: '56px',
               borderRadius: '4px',
-              padding: '14px 18px',
+              padding: '16px 18px',
             }}
           >
             {loading ? 'Iniciando' : 'Iniciar sesión'}

@@ -81,7 +81,13 @@ const Login = () => {
             value={username}
             onChange={onChangeEventValueUsername}
             inputProps={{ style: { fontSize: 18, fontFamily: 'Catamaran' } }}
-            InputLabelProps={{ style: { fontFamily: 'Catamaran' } }}
+            InputLabelProps={{
+              style: {
+                fontSize: 18,
+                fontFamily: 'Catamaran',
+                backgroundColor: 'white',
+              },
+            }}
           />
           <br />
           <TextField
@@ -93,7 +99,13 @@ const Login = () => {
             onChange={onChangeEventValuePassword}
             type='password'
             inputProps={{ style: { fontSize: 18, fontFamily: 'Catamaran' } }}
-            InputLabelProps={{ style: { fontFamily: 'Catamaran' } }}
+            InputLabelProps={{
+              style: {
+                fontSize: 18,
+                fontFamily: 'Catamaran',
+                backgroundColor: 'white',
+              },
+            }}
           />
           <br />
           <Button
@@ -119,19 +131,19 @@ const Login = () => {
             alignItems='stretch'
             className='labelButtom'
           >
-            <Typography variant='body1'>
-              <p>
-                <u>¿Te olvidaste la contraseña?</u>
-              </p>
-            </Typography>
-            <Typography variant='body2'>
-              <p>
+            <p>
+              <Typography variant='h5'>
+                <u>¿Te olvidaste la contraseña?</u>{' '}
+              </Typography>
+            </p>
+            <p>
+              <Typography variant='h5'>
                 ¿No tienes cuenta?{' '}
                 <b>
                   <u>Registrarse</u>
                 </b>
-              </p>
-            </Typography>
+              </Typography>
+            </p>
           </Grid>
         </form>
       </div>

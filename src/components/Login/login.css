@@ -24,4 +24,5 @@
   align-content: stretch;
   align-items: stretch;
   padding: 26px;
+  outline-offset: -6px;
 }

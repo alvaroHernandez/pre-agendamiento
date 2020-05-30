@@ -19,8 +19,10 @@ function App() {
     setShowExpiredSessionMessage(false);
   };
 
+  const a = window._env_.REACT_APP_CUSTOM_VARIABLE;
   return (
     <>
+      {a}
       <SessionExpiredModal
         handleClose={logoutHandler}
         open={showExpiredSessionMessage}

@@ -118,6 +118,7 @@ const Login = () => {
               maxHeight: '56px',
               borderRadius: '4px',
               padding: '16px 18px',
+              fontSize: 18,
             }}
           >
             {loading ? 'Iniciando' : 'Iniciar sesión'}

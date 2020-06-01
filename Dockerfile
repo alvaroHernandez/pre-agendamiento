@@ -16,6 +16,7 @@ COPY --from=react-build /app/build /usr/share/nginx/html
 WORKDIR /usr/share/nginx/html
 
 COPY ./env.sh .
+COPY ./.env .
 COPY ./.env.* ./
 
 RUN apk add --no-cache bash

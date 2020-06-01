@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../Header/Header';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
-import AppointmentScheduler from '../Calendar/AppointmentScheduler';
+import AppointmentScheduler from '../AppointmentScheduler/AppointmentScheduler';
 
 const useStyles = makeStyles(() => ({
   container: {

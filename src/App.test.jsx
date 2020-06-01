@@ -1,3 +1,4 @@
+import '../env-config';
 import React from 'react';
 // import { screen, render } from './test-utils/render';
 import App from './App';
@@ -7,7 +8,6 @@ import { getAll } from '../src/clients/centersClient';
 import { getForUserAndCenter } from '../src/clients/appointmentsClient';
 import userEvent from '@testing-library/user-event';
 import { AppProviders } from './services/AppProviders';
-require('../env-config');
 
 jest.mock('../src/clients/centersClient');
 getAll.mockResolvedValue([]);

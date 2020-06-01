@@ -20,12 +20,10 @@
     "react-scripts": "3.4.0"
   },
   "scripts": {
-    "start": "chmod +x ./env.sh && ./env.sh && cp env-config.js ./public/ && env-cmd -e development react-scripts start",
-    "start:development": "env-cmd -e development react-scripts start",
-    "start:production": "env-cmd -e production react-scripts start",
-    "build:development": "env-cmd -e development react-scripts build",
-    "build:production": "env-cmd -e production react-scripts build",
-    "test": "chmod +x ./env.sh && ./env.sh && cp env-config.js ./public/ && env-cmd -e development react-scripts test --env=jest-environment-jsdom-sixteen",
+    "start": "chmod +x ./env.sh && ./env.sh && cp env-config.js ./public/ && react-scripts start",
+    "start:development": "export ENVIRONMENT=development && chmod +x ./env.sh && ./env.sh && cp env-config.js ./public/ && react-scripts start",
+    "test": "chmod +x ./env.sh && ./env.sh && cp env-config.js ./public/ && react-scripts test --env=jest-environment-jsdom-sixteen",
+    "build": "react-scripts build",
     "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\"",
     "prettier:check": "yarn prettier --list-different",
     "prettier:fix": "yarn prettier --write",

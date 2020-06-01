@@ -1,4 +1,4 @@
-const environment = process.env.REACT_APP_ENVIRONMENT;
+const environment = window._env_.REACT_APP_ENVIRONMENT;
 
 let toggles = undefined;
 switch (environment) {
@@ -18,6 +18,11 @@ switch (environment) {
     };
     break;
   case 'production':
+    toggles = {
+      DISPLAY_USERNAME_HEADER: true,
+    };
+    break;
+  case 'local':
     toggles = {
       DISPLAY_USERNAME_HEADER: true,
     };

@@ -3,7 +3,7 @@ FROM node:10 as react-build
 WORKDIR /app
 COPY . ./
 RUN yarn
-RUN yarn build:development
+RUN yarn build
 RUN yarn test --watchAll=false
 
 # Stage 2 - the production environment

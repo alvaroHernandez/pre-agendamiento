@@ -1,3 +1,4 @@
+import '../../../env-config';
 import { render, fireEvent, screen } from '../../test-utils/render';
 import React from 'react';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';

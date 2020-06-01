@@ -21,15 +21,7 @@ stages:
               command: buildAndPush
               Dockerfile: ./Dockerfile
               containerRegistry: preagendamiento-cr
-              tags: 'development_$(tag)'
-          - task: Docker@2
-            displayName: Build production image
-            inputs:
-              containerRegistry: 'preagendamiento-cr'
-              repository: 'pre-agendamiento-front'
-              command: 'buildAndPush'
-              Dockerfile: '**/Dockerfile.production'
-              tags: 'production_$(Build.BuildId)'
+              tags: '$(tag)'
 
   - stage: Deploy_Dev
     displayName: Deploy Dev
@@ -47,7 +39,7 @@ stages:
               WebAppName: 'dev-pre-agendamiento'
               DockerNamespace: 'preagendamiento.azurecr.io'
               DockerRepository: 'pre-agendamiento-front'
-              DockerImageTag: 'development_$(tag)'
+              DockerImageTag: '$(tag)'
   - stage: Deploy_QA
     displayName: Deploy QA
     jobs:
@@ -68,7 +60,7 @@ stages:
                     WebAppName: 'qa-pre-agendamiento'
                     DockerNamespace: 'preagendamiento.azurecr.io'
                     DockerRepository: 'pre-agendamiento-front'
-                    DockerImageTag: 'development_$(tag)'
+                    DockerImageTag: '$(tag)'
   - stage: Deploy_Staging
     displayName: Deploy Staging
     jobs:
@@ -89,7 +81,7 @@ stages:
                     WebAppName: 'staging-pre-agendamiento'
                     DockerNamespace: 'preagendamiento.azurecr.io'
                     DockerRepository: 'pre-agendamiento-front'
-                    DockerImageTag: 'development_$(tag)'
+                    DockerImageTag: '$(tag)'
   - stage: Deploy_Production
     displayName: Deploy Production
     jobs:
@@ -110,4 +102,4 @@ stages:
                     WebAppName: 'pre-agendamiento-front'
                     DockerNamespace: 'preagendamiento.azurecr.io'
                     DockerRepository: 'pre-agendamiento-front'
-                    DockerImageTag: 'production_$(tag)'
+                    DockerImageTag: '$(tag)'

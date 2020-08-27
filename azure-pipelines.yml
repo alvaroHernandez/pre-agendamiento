@@ -7,6 +7,32 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
+  - stage: Approve 1
+    displayName: Build and Push
+    jobs:
+      - job:
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: CmdLine@2
+            inputs:
+              script: |
+                echo approved
+                
+                echo Hello world
+          
+  - stage: approve 2
+    displayName: Build and Push
+    jobs:
+      - job:
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: CmdLine@2
+            inputs:
+              script: |
+                echo approved 2
+                
   - stage: Build
     displayName: Build and Push
     jobs:

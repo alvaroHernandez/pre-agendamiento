@@ -7,8 +7,8 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
-  - stage: Approve 1
-    displayName: Build and Push
+  - stage: Approve1
+    displayName: Approve 1
     jobs:
       - job:
         pool:
@@ -21,8 +21,8 @@ stages:
                 
                 echo Hello world
           
-  - stage: approve 2
-    displayName: Build and Push
+  - stage: approve2
+    displayName: Approve 2
     jobs:
       - job:
         pool:

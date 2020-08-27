@@ -7,9 +7,12 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
-  - stage: Approve1
-    displayName: Approve 1
+  - stage: ApproveSQA
+    displayName: Approve SQA
     jobs:
+      - deployment: SQA
+        displayName: Approve SQA
+        environment: 'pre_agendamiento_SQA'
       - job:
         pool:
           vmImage: $(vmImageName)
@@ -21,9 +24,12 @@ stages:
                 
                 echo Hello world
           
-  - stage: approve2
-    displayName: Approve 2
+  - stage: approveSPN
+    displayName: Approve SPN
     jobs:
+      - deployment: SPN
+        displayName: Approve SPN
+        environment: 'pre_agendamiento_SPN'  
       - job:
         pool:
           vmImage: $(vmImageName)
@@ -65,7 +71,7 @@ stages:
               WebAppName: 'dev-pre-agendamiento'
               DockerNamespace: 'preagendamiento.azurecr.io'
               DockerRepository: 'pre-agendamiento-front'
-              DockerImageTag: '$(tag)'
+              DockerImageTag: '$(tag)_xxx'
   - stage: Deploy_QA
     displayName: Deploy QA
     jobs:

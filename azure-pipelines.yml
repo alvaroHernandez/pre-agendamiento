@@ -5,6 +5,7 @@ variables:
   imageName: 'pre-agendamiento-front'
   tag: '$(Build.BuildId)'
   vmImageName: 'ubuntu-latest'
+  bodyText: initialValue 
 
 stages:        
   - stage: ApproveSQA
@@ -15,6 +16,14 @@ stages:
         environment: 'pre_agendamiento_SQA'
       - job:
         steps:
+          - task: CmdLine@2
+            inputs:
+              script: |
+                 echo ${{ variables.bodyText }} # outputs initialValue
+          - task: CmdLine@2
+            inputs:
+              script: |
+                 echo '##vso[task.setvariable variable=v]secondValue'
           - task: CmdLine@2
             inputs:
               script: |

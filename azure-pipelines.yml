@@ -17,7 +17,6 @@ stages:
         steps:
             - task: InvokeRESTAPI@1
               inputs:
-                connectionType: 'connectedServiceName'
                 method: 'POST'
                 headers: |
                   {
@@ -69,9 +68,32 @@ stages:
           - task: CmdLine@2
             inputs:
               script: |
-                echo approved
-                
-                echo Hello world
+                curl --location --request POST 'https://api.sendgrid.com/v3/mail/send' \
+                --header 'Authorization: bearer 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' \
+                --header 'Content-Type: application/json' \
+                --data-raw '{
+                  "personalizations": [
+                    {
+                      "to": [
+                        {
+                          "email":"asantamariab@achs.cl",
+                          "name":"asantamariab"
+                        }
+                      ],
+                      "subject":"Paso a Produccion"
+                    }
+                  ],
+                  "from": {
+                    "email":"sel-devs@achs.cl",
+                    "name":"Agenda Sel"
+                  },
+                  "content": [
+                      {
+                        "type": "text/plain",
+                        "value": "Hello, World!"
+                      }
+                    ]
+                }'
           
   - stage: approveSPN
     dependsOn: ApproveSQA

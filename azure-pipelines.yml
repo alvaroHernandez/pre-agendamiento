@@ -40,7 +40,7 @@ stages:
                   "content": [
                       {
                         "type": "text/plain",
-                        "value": "Hello, World!"
+                        "value": "Hello, World! from pipeline"
                       }
                     ]
                 }'

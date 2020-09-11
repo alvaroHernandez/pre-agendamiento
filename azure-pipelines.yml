@@ -17,6 +17,12 @@ stages:
         pool:
           vmImage: $(vmImageName)
         steps:
+          - task: CmdLine@2
+            inputs:
+              script: |
+                echo approved
+                
+                echo Hello world
           - task: InvokeRESTAPI@1
             inputs:
               connectionType: 'connectedServiceName'
@@ -59,12 +65,6 @@ stages:
 }'
               urlSuffix: 'https://api.sendgrid.com/v3/mail/send'
               waitForCompletion: 'false'
-          - task: CmdLine@2
-            inputs:
-              script: |
-                echo approved
-                
-                echo Hello world
           
   - stage: approveSPN
     dependsOn: ApproveSQA

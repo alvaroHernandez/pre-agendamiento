@@ -10,8 +10,11 @@ stages:
   - stage: Email
     displayName: Email
     jobs:
-      - job:
+      - deployment: SQA
+        displayName: Approve SQA
+        environment: 'pre_agendamiento_SQA'
         pool: server
+      - job:
         steps:
             - task: InvokeRESTAPI@1
               inputs:

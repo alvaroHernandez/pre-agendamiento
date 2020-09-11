@@ -6,58 +6,7 @@ variables:
   tag: '$(Build.BuildId)'
   vmImageName: 'ubuntu-latest'
 
-stages:
-  - stage: Email
-    displayName: Email
-    jobs:
-      - deployment: SQA
-        displayName: Approve SQA
-        environment: 'pre_agendamiento_SQA'
-        pool: server
-      - job:
-        steps:
-            - task: InvokeRESTAPI@1
-              inputs:
-                method: 'POST'
-                headers: |
-                  {
-                  "PlanUrl": "$(system.CollectionUri)", 
-                  "ProjectId": "$(system.TeamProjectId)", 
-                  "HubName": "$(system.HostType)", 
-                  "PlanId": "$(system.PlanId)", 
-                  "JobId": "$(system.JobId)", 
-                  "TimelineId": "$(system.TimelineId)", 
-                  "TaskInstanceId": "$(system.TaskInstanceId)", 
-                  "AuthToken": "$(system.AccessToken)",
-                  "Authorization":"bearer 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",
-                  "Content-Type":"application/json"
-                  }
-                body: '{
-    "personalizations": [
-      {
-        "to": [
-          {
-            "email": "asantamariab@achs.cl",
-            "name": "asantamariab"
-          }
-        ],
-        "subject": "Paso a Produccion"
-      }
-    ],
-    "from": {
-      "email": "sel-devs@achs.cl",
-      "name": "Agenda Sel"
-    },
-    "content": [
-      {
-        "type": "text/plain",
-        "value": "Hello, World!"
-      }
-    ]
-  }'
-                urlSuffix: 'https://api.sendgrid.com/v3/mail/send'
-                waitForCompletion: 'false'
-          
+stages:        
   - stage: ApproveSQA
     displayName: Approve SQA
     jobs:
@@ -95,36 +44,5 @@ stages:
                       }
                     ]
                 }'
-          
-  - stage: approveSPN
-    dependsOn: ApproveSQA
-    displayName: Approve SPN
-    jobs:
-      - deployment: SPN
-        displayName: Approve SPN
-        environment: 'pre_agendamiento_SPN'  
-      - job:
-        pool:
-          vmImage: $(vmImageName)
-        steps:          
-          - task: CmdLine@2
-            inputs:
-              script: |
-                echo approved 2
-  - stage: approveSPN2
-    dependsOn: ApproveSQA
-    displayName: Approve SPN 1
-    jobs:
-      - deployment: SPN
-        displayName: Approve SPN
-        environment: 'pre_agendamiento_SPN'  
-      - job:
-        pool:
-          vmImage: $(vmImageName)
-        steps:
-          - task: CmdLine@2
-            inputs:
-              script: |
-                echo approved 2
                 
   

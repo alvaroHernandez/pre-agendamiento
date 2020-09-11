@@ -12,7 +12,6 @@ stages:
     jobs:
       - deployment: SQA
         displayName: Email
-        environment: 'pre_agendamiento_SQA'
       - job:
         pool: server
         steps:

@@ -7,6 +7,58 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
+  - stage: Email
+    displayName: Email
+    jobs:
+      - deployment: SQA
+        displayName: Email
+        environment: 'pre_agendamiento_SQA'
+      - job:
+        pool: server
+        steps:
+            - task: InvokeRESTAPI@1
+              inputs:
+                connectionType: 'connectedServiceName'
+                method: 'POST'
+                headers: |
+                  {
+                  "PlanUrl": "$(system.CollectionUri)", 
+                  "ProjectId": "$(system.TeamProjectId)", 
+                  "HubName": "$(system.HostType)", 
+                  "PlanId": "$(system.PlanId)", 
+                  "JobId": "$(system.JobId)", 
+                  "TimelineId": "$(system.TimelineId)", 
+                  "TaskInstanceId": "$(system.TaskInstanceId)", 
+                  "AuthToken": "$(system.AccessToken)",
+                  "Authorization":"bearer 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",
+                  "Content-Type":"application/json"
+                  }
+                body: '{
+    "personalizations": [
+      {
+        "to": [
+          {
+            "email": "asantamariab@achs.cl",
+            "name": "asantamariab"
+          }
+        ],
+        "subject": "Paso a Produccion"
+      }
+    ],
+    "from": {
+      "email": "sel-devs@achs.cl",
+      "name": "Agenda Sel"
+    },
+    "content": [
+      {
+        "type": "text/plain",
+        "value": "Hello, World!"
+      }
+    ]
+  }'
+                urlSuffix: 'https://api.sendgrid.com/v3/mail/send'
+                waitForCompletion: 'false'
+          
   - stage: ApproveSQA
     displayName: Approve SQA
     jobs:
@@ -14,7 +66,6 @@ stages:
         displayName: Approve SQA
         environment: 'pre_agendamiento_SQA'
       - job:
-        pool: server
         steps:
           - task: CmdLine@2
             inputs:
@@ -22,48 +73,6 @@ stages:
                 echo approved
                 
                 echo Hello world
-          - task: InvokeRESTAPI@1
-            inputs:
-              connectionType: 'connectedServiceName'
-              method: 'POST'
-              headers: |
-                {
-                "PlanUrl": "$(system.CollectionUri)", 
-                "ProjectId": "$(system.TeamProjectId)", 
-                "HubName": "$(system.HostType)", 
-                "PlanId": "$(system.PlanId)", 
-                "JobId": "$(system.JobId)", 
-                "TimelineId": "$(system.TimelineId)", 
-                "TaskInstanceId": "$(system.TaskInstanceId)", 
-                "AuthToken": "$(system.AccessToken)",
-                "Authorization":"bearer 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",
-                "Content-Type":"application/json"
-                }
-              body: '{
-  "personalizations": [
-    {
-      "to": [
-        {
-          "email": "asantamariab@achs.cl",
-          "name": "asantamariab"
-        }
-      ],
-      "subject": "Paso a Produccion"
-    }
-  ],
-  "from": {
-    "email": "sel-devs@achs.cl",
-    "name": "Agenda Sel"
-  },
-  "content": [
-    {
-      "type": "text/plain",
-      "value": "Hello, World!"
-    }
-  ]
-}'
-              urlSuffix: 'https://api.sendgrid.com/v3/mail/send'
-              waitForCompletion: 'false'
           
   - stage: approveSPN
     dependsOn: ApproveSQA
@@ -75,16 +84,7 @@ stages:
       - job:
         pool:
           vmImage: $(vmImageName)
-        steps:
-          - task: InvokeRESTAPI@1
-            inputs:
-              connectionType: 'connectedServiceNameARM'
-              azureServiceConnection: 'Pre Agendamiento (ba10e75d-9812-4287-851a-a380629158f0)'
-              method: 'POST'
-              body: '{body}'
-              urlSuffix: 'url'
-              waitForCompletion: 'false'
-          
+        steps:          
           - task: CmdLine@2
             inputs:
               script: |

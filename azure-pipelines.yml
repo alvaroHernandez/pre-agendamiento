@@ -10,8 +10,6 @@ stages:
   - stage: Email
     displayName: Email
     jobs:
-      - deployment: SQA
-        displayName: Email
       - job:
         pool: server
         steps:

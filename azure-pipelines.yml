@@ -14,8 +14,7 @@ stages:
         displayName: Approve SQA
         environment: 'pre_agendamiento_SQA'
       - job:
-        pool:
-          vmImage: $(vmImageName)
+        pool: server
         steps:
           - task: CmdLine@2
             inputs:
